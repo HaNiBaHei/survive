@@ -10,6 +10,10 @@ private:
 	// Variable //
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
+	std::vector<sf::VideoMode> videoMode;
+	sf::ContextSettings windowSettings;
+	bool fullscreen;
+
 
 	sf::Clock dtClock;
 	float dt;
@@ -19,6 +23,7 @@ private:
 	std::map<std::string, int> supportedKeys;
 
 	// Initializer //
+	void initVariables();
 	void initWindow();
 	void initKeys();
 	void initStates();
