@@ -21,8 +21,8 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->createMovementComponent(300.f, 15.f, 5.f);
 	this->createAnimationComponent(texture_sheet);
 
-	this->animationComponent->addAnimation("IDLE_RIGHT", 10.f, 0, 0, 3, 0, 640, 640);
-	this->animationComponent->addAnimation("RUN_RIGHT", 10.f, 0, 1, 5, 1, 640, 640);
+	this->animationComponent->addAnimation("IDLE_RIGHT", 10.f, 0, 0, 3, 0, 300, 300);
+	this->animationComponent->addAnimation("RUN_RIGHT", 10.f, 0, 1, 5, 1, 300, 300);
 }
 
 Player::~Player()
