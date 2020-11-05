@@ -93,7 +93,7 @@ void EditorState::update(const float& dt)
 	this->updateButtons();
 }
 
-void EditorState::renderButtons(sf::RenderTarget* target)
+void EditorState::renderButtons(sf::RenderTarget& target)
 {
 	for (auto& it : this->buttons)
 	{
@@ -107,7 +107,7 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window;
 
 
-	this->renderButtons(target);
+	this->renderButtons(*target);
 
 	// Remove later //
 	// See Button Position //
