@@ -7,7 +7,7 @@
 // Initializer //
 void Game::initVariables()
 {
-	this->window - NULL;
+	this->window = NULL;
 	this->fullscreen = false;
 	this->dt = 0.f;
 }
