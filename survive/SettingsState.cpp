@@ -1,16 +1,16 @@
-#include "MainMenuState.h"
+#include "SettingsState.h"
 
 // Initializer //
-void MainMenuState::initVariables()
+void SettingsState::initVariables()
 {
 }
 
-void MainMenuState::initBackground()
+void SettingsState::initBackground()
 {
 	this->background.setSize(
 		sf::Vector2f
 		(
-			static_cast<float>(this->window->getSize().x), 
+			static_cast<float>(this->window->getSize().x),
 			static_cast<float>(this->window->getSize().y)
 		)
 	);
@@ -18,11 +18,11 @@ void MainMenuState::initBackground()
 	{
 		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
-	
+
 	this->background.setTexture(&this->backgroundTexture);
 }
 
-void MainMenuState::initFonts()
+void SettingsState::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/times.ttf"))
 	{
@@ -30,7 +30,7 @@ void MainMenuState::initFonts()
 	}
 }
 
-void MainMenuState::initKeybinds()
+void SettingsState::initKeybinds()
 {
 	std::ifstream ifs("Config/mainmenustate_keybinds.ini");
 
@@ -47,23 +47,8 @@ void MainMenuState::initKeybinds()
 	ifs.close();
 }
 
-void MainMenuState::initButton()
+void SettingsState::initButton()
 {
-	this->buttons["GAME_STATE"] = new Button(960.f, 440.f, 150.f, 50.f,
-		&this->font, "New Game", 50, // font size
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 150, 250), sf::Color(20, 20, 20, 50), // text color
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)); // background color
-
-	this->buttons["SETTINGS_STATE"] = new Button(960.f, 540.f, 150.f, 50.f,
-		&this->font, "Settings", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 150, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
-
-	this->buttons["EDITOR_STATE"] = new Button(960.f, 640.f, 150.f, 50.f,
-		&this->font, "Editor", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 150, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
-
 	this->buttons["EXIT_STATE"] = new Button(960.f, 840.f, 150.f, 50.f,
 		&this->font, "Quit", 50,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 150, 250), sf::Color(20, 20, 20, 50),
@@ -71,9 +56,8 @@ void MainMenuState::initButton()
 }
 
 
-// Constructors //
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	:State(window, supportedKeys, states)
+SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+	: State(window, supportedKeys, states)
 {
 	this->initVariables();
 	this->initBackground();
@@ -82,7 +66,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	this->initButton();
 }
 
-MainMenuState::~MainMenuState()
+SettingsState::~SettingsState()
 {
 	auto it = this->buttons.begin();
 	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
@@ -91,40 +75,22 @@ MainMenuState::~MainMenuState()
 	}
 }
 
+// Accessors //
 
 // Functions //
-
-void MainMenuState::updateInput(const float& dt)
+void SettingsState::updateInput(const float& dt)
 {
 
 	// Update player Input //
-	
+
 }
 
-void MainMenuState::updateButtons()
+void SettingsState::updateButtons()
 {
 	for (auto& it : this->buttons)
 	{
 		// Update all the button in this state //
 		it.second->update(this->mousePosView);
-	}
-
-	// New game //
-	if (this->buttons["GAME_STATE"]->isPressed())
-	{
-		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
-	}
-
-	// Setting //
-	if (this->buttons["SETTINGS_STATE"]->isPressed())
-	{
-		this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
-	}
-
-	// Editors //
-	if (this->buttons["EDITOR_STATE"]->isPressed())
-	{
-		this->states->push(new EditorState(this->window, this->supportedKeys, this->states));
 	}
 
 	// Quit the game //
@@ -134,7 +100,7 @@ void MainMenuState::updateButtons()
 	}
 }
 
-void MainMenuState::update(const float& dt)
+void SettingsState::update(const float& dt)
 {
 	this->updateMousePositions();
 	this->updateInput(dt);
@@ -142,7 +108,7 @@ void MainMenuState::update(const float& dt)
 	this->updateButtons();
 }
 
-void MainMenuState::renderButtons(sf::RenderTarget& target)
+void SettingsState::renderButtons(sf::RenderTarget& target)
 {
 	for (auto& it : this->buttons)
 	{
@@ -150,7 +116,7 @@ void MainMenuState::renderButtons(sf::RenderTarget& target)
 	}
 }
 
-void MainMenuState::render(sf::RenderTarget* target)
+void SettingsState::render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
