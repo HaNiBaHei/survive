@@ -3,6 +3,8 @@
 // Initializer //
 void SettingsState::initVariables()
 {
+	this->modes = sf::VideoMode::getFullscreenModes();
+
 }
 
 void SettingsState::initBackground()
@@ -47,12 +49,39 @@ void SettingsState::initKeybinds()
 	ifs.close();
 }
 
-void SettingsState::initButton()
+void SettingsState::initGui()
 {
-	this->buttons["EXIT_STATE"] = new Button(960.f, 840.f, 150.f, 50.f,
-		&this->font, "Quit", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 150, 250), sf::Color(20, 20, 20, 50),
+	this->buttons["BACK"] = new gui::Button(960.f, 840.f, 150.f, 50.f,
+		&this->font, "Back", 50,
+		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+	this->buttons["APPLY"] = new gui::Button(960.f, 640.f, 150.f, 50.f,
+		&this->font, "Apply", 50,
+		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+	std::vector<std::string> modes_str;
+	for (auto& i : this->modes)
+	{
+		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+	}
+	this->dropdownList["RESOLUTION"] = new gui::DropDownList(960, 250, 200, 50, font, modes_str.data(), modes_str.size());
+}
+
+void SettingsState::initText()
+{
+	this->optionsText.setFont(this->font);
+
+	this->optionsText.setPosition(sf::Vector2f(700.f, 250.f));
+
+	this->optionsText.setCharacterSize(30);
+	this->optionsText.setFillColor(sf::Color(0, 0, 0, 255));
+
+
+	this->optionsText.setString(
+		"Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing \n\n"
+	);
 }
 
 
@@ -63,7 +92,8 @@ SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int
 	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
-	this->initButton();
+	this->initGui();
+	this->initText();
 }
 
 SettingsState::~SettingsState()
@@ -72,6 +102,12 @@ SettingsState::~SettingsState()
 	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
 	{
 		delete it->second;
+	}
+
+	auto it2 = this->dropdownList.begin();
+	for (it2 = this->dropdownList.begin(); it2 != this->dropdownList.end(); ++it2)
+	{
+		delete it2->second;
 	}
 }
 
@@ -85,19 +121,37 @@ void SettingsState::updateInput(const float& dt)
 
 }
 
-void SettingsState::updateButtons()
+void SettingsState::updateGui(const float& dt)
 {
+	// Buttons //
 	for (auto& it : this->buttons)
 	{
 		// Update all the button in this state //
 		it.second->update(this->mousePosView);
 	}
 
+	// Buttons Functionality //
 	// Quit the game //
-	if (this->buttons["EXIT_STATE"]->isPressed())
+	if (this->buttons["BACK"]->isPressed())
 	{
 		this->endState();
 	}
+
+	// Apply the selected settings //
+	if (this->buttons["APPLY"]->isPressed())
+	{
+		// For Test //
+		this->window->create(this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()], "test", sf::Style::Default);
+	}
+
+	// DropdownList // 
+	for (auto& it : this->dropdownList)
+	{
+		// Update all the button in this state //
+		it.second->update(this->mousePosView, dt);
+	}
+
+	// DropdownList Functionality // 
 }
 
 void SettingsState::update(const float& dt)
@@ -105,12 +159,19 @@ void SettingsState::update(const float& dt)
 	this->updateMousePositions();
 	this->updateInput(dt);
 
-	this->updateButtons();
+	this->updateGui(dt);
+
+
 }
 
-void SettingsState::renderButtons(sf::RenderTarget& target)
+void SettingsState::renderGui(sf::RenderTarget& target)
 {
 	for (auto& it : this->buttons)
+	{
+		it.second->render(target);
+	}
+
+	for (auto& it : this->dropdownList)
 	{
 		it.second->render(target);
 	}
@@ -123,11 +184,13 @@ void SettingsState::render(sf::RenderTarget* target)
 
 	target->draw(this->background);
 
-	this->renderButtons(*target);
+	this->renderGui(*target);
+
+	target->draw(this->optionsText);
 
 	// Remove later //
 	// See Button Position //
-	/*sf::Text mouseText;
+	sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
 	mouseText.setFont(this->font);
 	mouseText.setCharacterSize(12);
@@ -135,5 +198,5 @@ void SettingsState::render(sf::RenderTarget* target)
 	ss << this->mousePosView.x << " " << this->mousePosView.y;
 	mouseText.setString(ss.str());
 
-	target->draw(mouseText);*/
+	target->draw(mouseText);
 }
