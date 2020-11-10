@@ -7,13 +7,11 @@
 class Game
 {
 private:
+
 	// Variable //
+	GraphicsSettings gfxSettings;
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
-	std::vector<sf::VideoMode> videoMode;
-	sf::ContextSettings windowSettings;
-	bool fullscreen;
-
 
 	sf::Clock dtClock;
 	float dt;
@@ -24,6 +22,7 @@ private:
 
 	// Initializer //
 	void initVariables();
+	void initGraphicsSettings();
 	void initWindow();
 	void initKeys();
 	void initStates();

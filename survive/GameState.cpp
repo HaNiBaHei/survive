@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameState.h"
 
 // Initializer //
@@ -126,6 +127,8 @@ void GameState::render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
+
+	//this->map.render(*target);
 	
 		this->player->render(*target);
 		if (this->pause) // Pause menu render //
