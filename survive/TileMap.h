@@ -15,7 +15,7 @@ private:
 protected:
 
 public:
-	TileMap();
+	TileMap(float gridSize, unsigned width, unsigned height);
 	virtual ~TileMap();
 
 	// Accessors //
@@ -23,6 +23,9 @@ public:
 	// Functions //
 	void update();
 	void render(sf::RenderTarget& target);
+
+	void addTile();
+	void removeTile();
 };
 
 #endif

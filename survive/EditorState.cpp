@@ -37,21 +37,46 @@ void EditorState::initKeybinds()
 	ifs.close();
 }
 
+void EditorState::initPauseMenu()
+{
+	this->pmenu = new PauseMenu(*this->window, this->font);
+
+	this->pmenu->addButton("QUIT", 800.f, "QUIT");
+}
+
 void EditorState::initButton()
 {
-	
+
+}
+
+void EditorState::initGui()
+{
+	this->selectorRect.setSize(sf::Vector2f(this->stateData->gridSize, this->stateData->gridSize));
+
+	this->selectorRect.setFillColor(sf::Color::Transparent);
+	this->selectorRect.setOutlineThickness(1.f);
+	this->selectorRect.setOutlineColor(sf::Color::Green);
+
+}
+
+void EditorState::initTileMap()
+{
+	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10);
 }
 
 
 // Constructors //
-EditorState::EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	:State(window, supportedKeys, states)
+EditorState::EditorState(StateData* state_data)
+	:State(state_data)
 {
 	this->initVariables();
 	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
+	this->initPauseMenu();
 	this->initButton();
+	this->initGui();
+	this->initTileMap();
 
 
 
@@ -64,6 +89,10 @@ EditorState::~EditorState()
 	{
 		delete it->second;
 	}
+
+	delete this->pmenu;
+
+	delete this->tileMap;
 }
 
 
@@ -71,8 +100,13 @@ EditorState::~EditorState()
 
 void EditorState::updateInput(const float& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
-		this->endState();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
+	{
+		if (!this->pause)
+			this->pauseState();
+		else
+			this->unpauseState();
+	}
 }
 
 void EditorState::updateButtons()
@@ -86,12 +120,35 @@ void EditorState::updateButtons()
 	
 }
 
+void EditorState::updateGui()
+{
+	this->selectorRect.setPosition(this->mousePosView);
+}
+
+void EditorState::updatePauseMenuButtons()
+{
+	if (this->pmenu->isButtonPressed("QUIT"))
+		this->endState();
+}
+
 void EditorState::update(const float& dt)
 {
 	this->updateMousePositions();
+	this->updateKeytime(dt);
 	this->updateInput(dt);
 
-	this->updateButtons();
+	if (!this->pause) // Unpause //
+	{
+		this->updateButtons();
+		this->updateGui();
+
+	}
+	else // Pause //
+	{
+		this->pmenu->update(this->mousePosView);
+		this->updatePauseMenuButtons();
+	}
+
 }
 
 void EditorState::renderButtons(sf::RenderTarget& target)
@@ -102,6 +159,11 @@ void EditorState::renderButtons(sf::RenderTarget& target)
 	}
 }
 
+void EditorState::renderGui(sf::RenderTarget& target)
+{
+	target.draw(this->selectorRect);
+}
+
 void EditorState::render(sf::RenderTarget* target)
 {
 	if (!target)
@@ -109,10 +171,18 @@ void EditorState::render(sf::RenderTarget* target)
 
 
 	this->renderButtons(*target);
+	this->renderGui(*target);
+
+	this->tileMap->render(*target);
+
+	if (this->pause) // Pause menu render //
+	{
+		this->pmenu->render(*target);
+	}
 
 	// Remove later //
 	// See Button Position //
-	/*sf::Text mouseText;
+	sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
 	mouseText.setFont(this->font);
 	mouseText.setCharacterSize(12);
@@ -120,5 +190,5 @@ void EditorState::render(sf::RenderTarget* target)
 	ss << this->mousePosView.x << " " << this->mousePosView.y;
 	mouseText.setString(ss.str());
 
-	target->draw(mouseText);*/
+	target->draw(mouseText);
 }

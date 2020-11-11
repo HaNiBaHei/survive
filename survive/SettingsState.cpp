@@ -52,7 +52,7 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initGui()
 {
-	this->buttons["BACK"] = new gui::Button(960.f, 840.f, 150.f, 50.f,
+	this->buttons["BACK"] = new gui::Button(960.f, 740.f, 150.f, 50.f,
 		&this->font, "Back", 50,
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
@@ -86,8 +86,8 @@ void SettingsState::initText()
 }
 
 
-SettingsState::SettingsState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states), gfxSettings(gfxSettings)
+SettingsState::SettingsState(StateData* state_data)
+	: State(state_data)
 {
 	this->initVariables();
 	this->initBackground();
@@ -142,9 +142,9 @@ void SettingsState::updateGui(const float& dt)
 	if (this->buttons["APPLY"]->isPressed())
 	{
 		// For Test //
-		this->gfxSettings.resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
+		this->stateData->gfxSettings->resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
 
-		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
+		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
 	}
 
 	// DropdownList // 
