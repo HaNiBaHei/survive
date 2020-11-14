@@ -1,6 +1,28 @@
 #include "stdafx.h"
 #include "TileMap.h"
 
+void TileMap::clear()
+{
+	for (size_t x = 0; x < this->maxSize.x; x++)
+	{
+		for (size_t y = 0; y < this->maxSize.y; y++)
+		{
+			for (size_t z = 0; z < this->layers; z++)
+			{
+				delete this->map[x][y][z];
+				this->map[x][y][z] = NULL;
+
+			}
+			this->map[x][y].clear();
+		}
+		this->map[x].clear();
+	}
+	this->map.clear();
+
+	// Debug //
+	//std::cout << this->map.size() << "\n";
+}
+
 TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string texture_file)
 {
 	this->gridSizeF = gridSize;
@@ -31,16 +53,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 
 TileMap::~TileMap()
 {
-	for (size_t x = 0; x < this->maxSize.x; x++)
-	{
-		for (size_t y = 0; y < this->maxSize.y; y++)
-		{
-			for (size_t z = 0; z < this->layers; z++)
-			{
-				delete this->map[x][y][z];
-			}
-		}
-	}
+	this->clear();
 }
 
 // Accessors //
@@ -65,7 +78,7 @@ void TileMap::saveToFile(const std::string file_name)
 			texture file
 
 	All tiles:
-			gridPos x y 
+			gridPos x y layers
 			Texture rect x y  type
 			
 	*/
@@ -88,7 +101,7 @@ void TileMap::saveToFile(const std::string file_name)
 				for (size_t z = 0; z < this->layers; z++)
 				{
 					if(this->map[x][y][z])
-						out_file << this->map[x][y][z]->getAsString() << " ";
+						out_file << x << " " << y << " " << z << " " << this->map[x][y][z]->getAsString() << " ";
 				}
 			}
 		}
@@ -97,12 +110,74 @@ void TileMap::saveToFile(const std::string file_name)
 	{
 		std::cout << "ERROE::TILEMAP::COULD NOT SAVE TO FILE" << file_name << "\n";
 
-		out_file.close();
 	}
+	out_file.close();
 }
 
 void TileMap::loadFromeFile(const std::string file_name)
 {
+
+	std::ifstream in_file;
+
+	in_file.open(file_name);
+
+	if (in_file.is_open())
+	{
+		sf::Vector2u size;
+		unsigned gridSize = 0;
+		unsigned layers = 0;
+		std::string texture_file = " ";
+		unsigned x = 0;
+		unsigned y = 0;
+		unsigned z = 0;
+		unsigned trX = 0; // TextureRect x //
+		unsigned trY = 0; // TextureRect y //
+		bool collision = false;
+		short type = 0;
+
+		// Basic //
+		in_file >> size.x >> size.y >> gridSize >> layers >> texture_file;
+		
+
+		// Tile //
+		this->gridSizeF = static_cast<float>(gridSize);
+		this->gridSizeU = gridSize;
+		this->maxSize.x = size.x;
+		this->maxSize.y = size.y;
+		this->layers = layers;
+		this->textureFile = texture_file;
+		
+
+		this->clear();
+
+		this->map.resize(this->maxSize.x, std::vector < std::vector < Tile* > >());
+		for (size_t x = 0; x < this->maxSize.x; x++)
+		{
+			for (size_t y = 0; y < this->maxSize.y; y++)
+			{
+				this->map[x].resize(this->maxSize.y, std::vector<Tile*>());
+
+				for (size_t z = 0; z < this->layers; z++)
+				{
+					this->map[x][y].resize(this->layers, NULL);
+				}
+			}
+		}
+
+		if (!this->tileSheet.loadFromFile(texture_file))
+			std::cout << "ERROR LOADING TILE TEXTURESHEET::FILENAME:" << texture_file << "\n";
+
+		// Load all tiles //
+		while (in_file >> x >> y >> z >> trX  >> trY >> collision >> type)
+		{
+			this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, sf::IntRect(trX, trY, this->gridSizeU, this->gridSizeU) , collision, type);
+		}
+	}
+	else
+	{
+		std::cout << "ERROE::TILEMAP::COULD NOT LOAD FROM FILE" << file_name << "\n";
+	}
+	in_file.close();
 
 }
 
@@ -126,7 +201,7 @@ void TileMap::render(sf::RenderTarget& target)
 	}
 }
 
-void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect)
+void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, const bool collision, const short type)
 {
 	/* Take 2 indicies from the mouse pos in the grid and add tile to that pos if tilemap array allows*/
 
@@ -137,7 +212,7 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z, cons
 		if (this->map[x][y][z] == NULL)  
 		{
 			// Ok to add
-			this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileSheet, texture_rect);
+			this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, texture_rect, collision, type);
 			std::cout << "DEBUG: ADDED TILE" << "\n";
 
 		}

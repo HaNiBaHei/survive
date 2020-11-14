@@ -6,6 +6,8 @@
 class TileMap
 {
 private:
+	void clear();
+
 	float gridSizeF;
 	unsigned gridSizeU;
 	unsigned layers;
@@ -30,7 +32,7 @@ public:
 	void update();
 	void render(sf::RenderTarget& target);
 
-	void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect);
+	void addTile(const unsigned x, const unsigned y, const unsigned z, const sf::IntRect& texture_rect, const bool collision, const short type);
 	void removeTile(const unsigned x, const unsigned y, const unsigned z);
 
 	
