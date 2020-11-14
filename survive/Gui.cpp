@@ -24,7 +24,7 @@ gui::Button::Button(float x, float y, float width, float height,
 	this->text.setCharacterSize(character_size);
 	this->text.setPosition(
 		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
-		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f
+		this->shape.getPosition().y + 10.f
 	);
 
 	this->textIdleColor = text_idle_color;
@@ -257,7 +257,7 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 	this->gridSize = gridSize;
 	this->active = false;
 	this->hidden = false;
-	float offset = 60.f;
+	float offset = 100.f;
 
 	this->bounds.setSize(sf::Vector2f(width, height));
 	this->bounds.setPosition(x + offset, y);
