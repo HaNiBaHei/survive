@@ -93,6 +93,7 @@ void EditorState::initGui()
 		this->font, "TS"
 	
 	);
+
 }
 
 void EditorState::initTileMap()

@@ -32,6 +32,7 @@ private:
 
     gui::TextureSelector* textureSelector;
 
+
     sf::IntRect textureRect;
     bool collision;
     short type;

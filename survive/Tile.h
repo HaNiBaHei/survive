@@ -20,7 +20,10 @@ public:
 	virtual ~Tile();
 	
 	// Functions //
+	const bool& getCollision() const;
+	const sf::Vector2f& getPosition() const;
 	const std::string getAsString() const;
+
 
 	void update();
 	void render(sf::RenderTarget& target);
