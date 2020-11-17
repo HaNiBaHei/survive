@@ -71,9 +71,7 @@ void Entity::setPosition(const float x, const float y)
 void Entity::move(const float dir_x, const float dir_y, const float& dt)
 {
 	if (this->movementComponent)
-	{
 		this->movementComponent->move(dir_x, dir_y, dt); // Set velocity //
-	}
 }
 
 void Entity::update(const float& dt)
@@ -83,8 +81,5 @@ void Entity::update(const float& dt)
 
 void Entity::render(sf::RenderTarget& target)
 {
-		target.draw(this->sprite);
-
-		if (this->hitboxComponent)
-			this->hitboxComponent->render(target);
+		
 }
