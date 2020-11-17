@@ -22,6 +22,12 @@ private:
 	sf::Texture tileSheet;
 	sf::RectangleShape collisionBox;
 
+	// Culling //
+	unsigned fromX;
+	unsigned toX;
+	unsigned fromY;
+	unsigned toY;
+	unsigned layer;
 
 protected:
 
