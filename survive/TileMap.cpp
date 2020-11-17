@@ -285,26 +285,40 @@ void TileMap::updateCollision(Entity* entity)
 	else if (this->toY > this->maxSizeWorldGrid.y)
 		this->toY = this->maxSizeWorldGrid.y;
 
+	
 
 	for (size_t x = this->fromX; x < this->toX; x++)
 	{
 		for (size_t y = this->fromY; y < this->toY; y++)
 		{
+			sf::FloatRect playerBounds = entity->getGlobalBounds();
+			sf::FloatRect wallBounds = this->map[x][y][this->layer]->getGlobalBounds();
+			sf::FloatRect nextPositionBounds = entity->getNextPositionBounds();
+				
 			if (this->map[x][y][this->layer]->getCollision() && 
-				this->map[x][y][this->layer]->intersects(entity->getGlobalBounds())
+				this->map[x][y][this->layer]->intersects(nextPositionBounds)
 				)
 			{
-				std::cout << "Collision" << "\n";
 				// Bottom collision //
-				/*if (playerBound.top < wallBounds.top
+				if (playerBounds.top < wallBounds.top
 					&& playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
 					&& playerBounds.left < wallBounds.left + wallBounds.width
 					&& playerBounds.left + playerBounds.width > wallBounds.left
 					)
 				{
-					velocity.y = 0.f;
-					player.setPosition(playerBound.left, wallBounds.top - playerBounds.height);
-				}*/
+					entity->stopVelocityY();
+					entity->setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
+				}
+				// Top collision //
+				else if (playerBounds.top > wallBounds.top 
+					&& playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
+					&& playerBounds.left < wallBounds.left + wallBounds.width
+					&& playerBounds.left + playerBounds.width > wallBounds.left
+					)
+				{
+					entity->stopVelocityY();
+					entity->setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+				}
 			}
 		}
 	}
