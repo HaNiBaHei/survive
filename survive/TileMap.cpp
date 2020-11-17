@@ -259,37 +259,56 @@ void TileMap::updateCollision(Entity* entity)
 	}
 
 	// Tiles
-	this->fromX = entity->getGridPosition(this->gridSizeU).x - 2;
+	this->layer = 0;
+
+	this->fromX = entity->getGridPosition(this->gridSizeU).x - 5;
 	if (this->fromX < 0)
 		this->fromX = 0;
-	else if (this->fromX >= this->maxSizeWorldGrid.x)
-		this->fromX = this->maxSizeWorldGrid.x - 1;
+	else if (this->fromX > this->maxSizeWorldGrid.x)
+		this->fromX = this->maxSizeWorldGrid.x;
 
-	this->toX = entity->getGridPosition(this->gridSizeU).x + 1;
+	this->toX = entity->getGridPosition(this->gridSizeU).x + 8;
 	if (this->toX < 0)
 		this->toX = 0;
-	else if (this->toX >= this->maxSizeWorldGrid.x)
-		this->toX = this->maxSizeWorldGrid.x - 1;
+	else if (this->toX > this->maxSizeWorldGrid.x)
+		this->toX = this->maxSizeWorldGrid.x;
 
-	this->fromY = entity->getGridPosition(this->gridSizeU).y - 2;
+	this->fromY = entity->getGridPosition(this->gridSizeU).y - 5;
 	if (this->fromY < 0)
 		this->fromY = 0;
-	else if (this->fromY >= this->maxSizeWorldGrid.y)
-		this->fromY = this->maxSizeWorldGrid.y - 1;
+	else if (this->fromY > this->maxSizeWorldGrid.y)
+		this->fromY = this->maxSizeWorldGrid.y;
 
-	this->toY = entity->getGridPosition(this->gridSizeU).y + 1;
+	this->toY = entity->getGridPosition(this->gridSizeU).y + 8;
 	if (this->toY < 0)
 		this->toY = 0;
-	else if (this->toY >= this->maxSizeWorldGrid.y)
-		this->toY = this->maxSizeWorldGrid.y - 1;
+	else if (this->toY > this->maxSizeWorldGrid.y)
+		this->toY = this->maxSizeWorldGrid.y;
+
 
 	for (size_t x = this->fromX; x < this->toX; x++)
 	{
 		for (size_t y = this->fromY; y < this->toY; y++)
 		{
-
+			if (this->map[x][y][this->layer]->getCollision() && 
+				this->map[x][y][this->layer]->intersects(entity->getGlobalBounds())
+				)
+			{
+				std::cout << "Collision" << "\n";
+				// Bottom collision //
+				/*if (playerBound.top < wallBounds.top
+					&& playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
+					&& playerBounds.left < wallBounds.left + wallBounds.width
+					&& playerBounds.left + playerBounds.width > wallBounds.left
+					)
+				{
+					velocity.y = 0.f;
+					player.setPosition(playerBound.left, wallBounds.top - playerBounds.height);
+				}*/
+			}
 		}
 	}
+
 	
 }
 
@@ -301,24 +320,70 @@ void TileMap::update()
 
 void TileMap::render(sf::RenderTarget& target, Entity* entity)
 {
-	for ( auto &x : this->map)
+	if (entity)
 	{
-		for (auto &y : x)
+		this->layer = 0;
+
+		this->fromX = entity->getGridPosition(this->gridSizeU).x - 5;
+		if (this->fromX < 0)
+			this->fromX = 0;
+		else if (this->fromX > this->maxSizeWorldGrid.x)
+			this->fromX = this->maxSizeWorldGrid.x;
+
+		this->toX = entity->getGridPosition(this->gridSizeU).x + 8;
+		if (this->toX < 0)
+			this->toX = 0;
+		else if (this->toX > this->maxSizeWorldGrid.x)
+			this->toX = this->maxSizeWorldGrid.x;
+
+		this->fromY = entity->getGridPosition(this->gridSizeU).y - 5;
+		if (this->fromY < 0)
+			this->fromY = 0;
+		else if (this->fromY > this->maxSizeWorldGrid.y)
+			this->fromY = this->maxSizeWorldGrid.y;
+
+		this->toY = entity->getGridPosition(this->gridSizeU).y + 8;
+		if (this->toY < 0)
+			this->toY = 0;
+		else if (this->toY > this->maxSizeWorldGrid.y)
+			this->toY = this->maxSizeWorldGrid.y;
+
+		for (size_t x = this->fromX; x < this->toX; x++)
 		{
-			for (auto *z : y)
+			for (size_t y = this->fromY; y < this->toY; y++)
 			{
-				if (z != NULL)
+				this->map[x][y][this->layer]->render(target);
+				if (this->map[x][y][this->layer]->getCollision())
 				{
-					z->render(target);
-					if (z->getCollision())
-					{
-						this->collisionBox.setPosition(z->getPosition());
-						target.draw(this->collisionBox);
-					}
+					this->collisionBox.setPosition(this->map[x][y][this->layer]->getPosition());
+					target.draw(this->collisionBox);
 				}
 			}
 		}
 	}
+	else
+	{
+		for (auto& x : this->map)
+		{
+			for (auto& y : x)
+			{
+				for (auto* z : y)
+				{
+					if (z != NULL)
+					{
+						z->render(target);
+						if (z->getCollision())
+						{
+							this->collisionBox.setPosition(z->getPosition());
+							target.draw(this->collisionBox);
+						}
+					}
+				}
+			}
+		}
+
+	}
+	
 }
 
 
