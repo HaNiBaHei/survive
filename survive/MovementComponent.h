@@ -1,8 +1,6 @@
 #ifndef MOVEMENTCOMPONENT_H
 #define MOVEMENTCOMPONENT_H
 
-
-
 enum movement_state {IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN};
 
 class MovementComponent
@@ -32,6 +30,9 @@ public:
 
 	// Functions //
 	const bool getState(const short unsigned state) const;
+	void stopVelocity();
+	void stopVelocityX();
+	void stopVelocityY();
 
 	void move(const float x, const float y, const float& dt);
 	void update(const float& dt);
