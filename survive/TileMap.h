@@ -44,7 +44,7 @@ public:
 	void saveToFile(const std::string file_name);
 	void loadFromeFile(const std::string file_name);
 
-	void updateCollision(Entity* entity);
+	void updateCollision(Entity* entity, const float& dt);
 
 	void update();
 	void render(sf::RenderTarget& target, Entity* entity = NULL);

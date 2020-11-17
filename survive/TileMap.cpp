@@ -233,7 +233,7 @@ void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
 	}
 }
 
-void TileMap::updateCollision(Entity* entity)
+void TileMap::updateCollision(Entity* entity, const float& dt)
 {
 	// World Bounds //
 	if (entity->getPosition().x < 0.f)
@@ -293,7 +293,7 @@ void TileMap::updateCollision(Entity* entity)
 		{
 			sf::FloatRect playerBounds = entity->getGlobalBounds();
 			sf::FloatRect wallBounds = this->map[x][y][this->layer]->getGlobalBounds();
-			sf::FloatRect nextPositionBounds = entity->getNextPositionBounds();
+			sf::FloatRect nextPositionBounds = entity->getNextPositionBounds(dt);
 				
 			if (this->map[x][y][this->layer]->getCollision() && 
 				this->map[x][y][this->layer]->intersects(nextPositionBounds)
@@ -309,6 +309,7 @@ void TileMap::updateCollision(Entity* entity)
 					entity->stopVelocityY();
 					entity->setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
 				}
+
 				// Top collision //
 				else if (playerBounds.top > wallBounds.top 
 					&& playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
@@ -318,6 +319,28 @@ void TileMap::updateCollision(Entity* entity)
 				{
 					entity->stopVelocityY();
 					entity->setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+				}
+
+				// Right collison //
+				if (playerBounds.left < wallBounds.left
+					&& playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
+					&& playerBounds.top < wallBounds.top + wallBounds.height
+					&& playerBounds.top + playerBounds.height > wallBounds.top
+					)
+				{
+					entity->stopVelocityX();
+					entity->setPosition(wallBounds.left - wallBounds.width, playerBounds.top);
+				}
+
+				// Left collision //
+				if (playerBounds.left > wallBounds.left
+					&& playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
+					&& playerBounds.top < wallBounds.top + wallBounds.height
+					&& playerBounds.top + playerBounds.height > wallBounds.top
+					)
+				{
+					entity->stopVelocityX();
+					entity->setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
 				}
 			}
 		}
