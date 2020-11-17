@@ -25,15 +25,15 @@ void GameState::initView()
 {
 	this->view.setSize(
 		sf::Vector2f(
-			this->stateData->gfxSettings->resolution.width,
-			this->stateData->gfxSettings->resolution.height
+			static_cast<float>(this->stateData->gfxSettings->resolution.width),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height)
 		)
 	);
 
 	this->view.setCenter(
 		sf::Vector2f(
-			this->stateData->gfxSettings->resolution.width / 2.f,
-			this->stateData->gfxSettings->resolution.height / 2.f
+			static_cast<float>(this->stateData->gfxSettings->resolution.width) / 2.f,
+			static_cast<float>(this->stateData->gfxSettings->resolution.height) / 2.f
 		)
 	);
 }
@@ -172,9 +172,10 @@ void GameState::update(const float& dt)
 
 		this->updatePlayerInput(dt);
 
+		this->updateTileMap(dt);
+
 		this->player->update(dt);
 
-		this->updateTileMap(dt);
 	}
 	// Paused update //
 	else

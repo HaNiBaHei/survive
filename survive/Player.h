@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include "Entity.h"
 
+class Entity;
 
 class Player :
     public Entity
