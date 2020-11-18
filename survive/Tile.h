@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_H
 
-enum TileTypes {DEFAULT = 0, DAMAGING};
+enum TileTypes {DEFAULT = 0, DAMAGING, BEHIDE};
 
 class Tile
 {
@@ -19,6 +19,10 @@ public:
 		bool collision = false, short type = TileTypes::DEFAULT);
 	virtual ~Tile();
 	
+	// Accessors //
+	const short& getType() const;
+
+
 	// Functions //
 	const bool& getCollision() const;
 	const sf::Vector2f& getPosition() const;
