@@ -17,7 +17,7 @@ private:
 	int layers;
 	sf::Vector2i maxSizeWorldGrid;
 	sf::Vector2f maxSizeWorldF;
-	std::vector< std::vector< std::vector< Tile* > > > map; // x y z //
+	std::vector< std::vector< std::vector< std::vector < Tile* > > > > map; // x y z //
 	std::string textureFile;
 	sf::Texture tileSheet;
 	sf::RectangleShape collisionBox;

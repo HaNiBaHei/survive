@@ -22,14 +22,14 @@
     <Filter Include="Components">
       <UniqueIdentifier>{c2066cc9-08c4-4abe-b478-a99fc1b8c5c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tile">
-      <UniqueIdentifier>{2b4762a9-1634-4d40-acf2-20aec97882a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{6eb9c78c-ec21-4b41-b196-cf8ae1a76323}</UniqueIdentifier>
     </Filter>
     <Filter Include="Map">
       <UniqueIdentifier>{2beebbce-79a1-4385-8306-6e25350be2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map\Tile">
+      <UniqueIdentifier>{2b4762a9-1634-4d40-acf2-20aec97882a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +67,7 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>Tile</Filter>
+      <Filter>Map\Tile</Filter>
     </ClCompile>
     <ClCompile Include="SettingsState.cpp">
       <Filter>States</Filter>
@@ -120,7 +120,7 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Tile</Filter>
+      <Filter>Map\Tile</Filter>
     </ClInclude>
     <ClInclude Include="SettingsState.h">
       <Filter>States</Filter>
