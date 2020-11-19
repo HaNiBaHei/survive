@@ -12,6 +12,15 @@ private:
 
 	sf::Font font;
 
+	// Level //
+	std::string levelString;
+	sf::Text levelBarText;
+	sf::RectangleShape levelBarBack;
+
+	// Score //
+	std::string scoreString;
+	sf::Text scoreText;
+
 	// EXP Bar //
 	std::string expBarString;
 	sf::Text expBarText;
@@ -28,6 +37,8 @@ private:
 
 	// Functions //
 	void initFont();
+	void initLevelBar();
+	void initScore();
 	void initExpBar();
 	void initHpBar();
 
@@ -38,10 +49,14 @@ public:
 	// Accessors //
 
 	// Functions //
+	void updateLevelBar();
+	void updateScore();
 	void updateExpBar();
 	void updateHpBar();
 	void update(const float& dt);
 
+	void renderLevelBar(sf::RenderTarget& target);
+	void renderScore(sf::RenderTarget& target);
 	void renderExpBar(sf::RenderTarget& target);
 	void renderHpBar(sf::RenderTarget& target);
 	void render(sf::RenderTarget& target);

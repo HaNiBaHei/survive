@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "AttributeComponent.h"
 
-AttributeComponent::AttributeComponent(unsigned level)
+AttributeComponent::AttributeComponent(int level)
 {
+	this->score = 0;
 	this->level = level;
 	this->exp = 0;
 	this->expNext = 0;
@@ -39,7 +40,7 @@ std::string AttributeComponent::debugPrint() const
 	return ss.str();
 }
 
-void AttributeComponent::gainExp(const unsigned exp)
+void AttributeComponent::gainExp(const int exp)
 {
 	this->exp += exp;
 
@@ -48,6 +49,7 @@ void AttributeComponent::gainExp(const unsigned exp)
 
 void AttributeComponent::updateStats(const bool reset)
 {
+	
 	this->hpMax		= this->vitality * 3 + (this->strength / 3);
 	this->damageMin = this->strength * 2 + (this->strength / 4) + (this->agility / 3);
 	this->damageMax = this->strength * 2 + this->strength + (this->agility / 3);
@@ -67,8 +69,9 @@ void AttributeComponent::updateLevel()
 	{
 		this->level++;
 		this->exp -= this->expNext;
-		this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level + 1, 2)) - 8 * pow(this->level + 1, 2) + ((this->level + 1) * 20) - 12);
+		this->expNext = static_cast<int>((50 / 3) * (pow(this->level + 1, 2)) - 8 * pow(this->level + 1, 2) + ((this->level + 1) * 20) - 12);
 		++this->attributePoints;
+		this->score = (this->level - 1) * 200;
 	}
 }
 

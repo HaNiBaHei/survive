@@ -7,9 +7,9 @@ class AttributeComponent
 public:
 	// Level //
 	int level;
-	unsigned exp;
-	unsigned expNext;
-	unsigned attributePoints;
+	int exp;
+	int expNext;
+	int attributePoints;
 
 	// Attributes //
 	int strength;
@@ -26,15 +26,16 @@ public:
 	int accuracy;
 	int def;   // dont want //
 	int luck;  // dont want //
+	int score;
 
 	// Consttructors //
-	AttributeComponent(unsigned level);
+	AttributeComponent(int level);
 	virtual ~AttributeComponent();
 
 	// Functions //
 	std::string debugPrint() const;
 
-	void gainExp(const unsigned exp);
+	void gainExp(const int exp);
 
 	void updateStats(const bool reset);
 	void updateLevel();
