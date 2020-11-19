@@ -6,10 +6,34 @@ void PlayerGui::initFont()
 	this->font.loadFromFile("Fonts/times.ttf");
 }
 
+void PlayerGui::initExpBar()
+{
+	float width = 200.f;
+	float height = 30.f;
+	float x = 20.f;
+	float y = 80.f;
+
+	this->expBarMaxSizeWidth = width;
+
+
+	this->expBarBack.setSize(sf::Vector2f(width, height));
+	this->expBarBack.setFillColor(sf::Color(50, 50, 50, 200));
+	this->expBarBack.setPosition(x, y);
+
+	this->expBarInner.setSize(sf::Vector2f(width, height));
+	this->expBarInner.setFillColor(sf::Color(20, 20, 250, 200));
+	this->expBarInner.setPosition(this->expBarBack.getPosition());
+
+	this->expBarText.setFont(this->font);
+	this->expBarText.setCharacterSize(14);
+	this->expBarText.setPosition(this->expBarInner.getPosition().x + 10.f, this->expBarInner.getPosition().y + 5.f);
+	
+}
+
 void PlayerGui::initHpBar()
 {
-	float width = 500.f;
-	float height = 50.f;
+	float width = 300.f;
+	float height = 40.f;
 	float x = 20.f;
 	float y = 20.f;
 
@@ -25,6 +49,7 @@ void PlayerGui::initHpBar()
 	this->hpBarInner.setPosition(this->hpBarBack.getPosition());
 
 	this->hpBarText.setFont(this->font);
+	this->hpBarText.setCharacterSize(20);
 	this->hpBarText.setPosition(this->hpBarInner.getPosition().x + 10.f, this->hpBarInner.getPosition().y + 5.f);
 }
 
@@ -33,6 +58,7 @@ PlayerGui::PlayerGui(Player* player)
 	this->player = player;
 
 	this->initFont();
+	this->initExpBar();
 	this->initHpBar();
 }
 
@@ -44,7 +70,27 @@ PlayerGui::~PlayerGui()
 // Accessors //
 
 
+
 // Functions //
+void PlayerGui::updateExpBar()
+{
+	float percent =
+		static_cast<float>(this->player->getAttributeComponent()->exp) /
+		static_cast<float>(this->player->getAttributeComponent()->expNext);
+
+
+
+	this->expBarInner.setSize(
+		sf::Vector2f(
+			static_cast<float>(std::floor(this->expBarMaxSizeWidth * percent)),
+			this->expBarInner.getSize().y
+		)
+	);
+
+	this->expBarString = std::to_string(this->player->getAttributeComponent()->exp) + "/" + std::to_string(this->player->getAttributeComponent()->expNext);
+	this->expBarText.setString(this->expBarString);
+}
+
 void PlayerGui::updateHpBar()
 {
 	float percent = 
@@ -66,7 +112,15 @@ void PlayerGui::updateHpBar()
 
 void PlayerGui::update(const float& dt)
 {
+	this->updateExpBar();
 	this->updateHpBar();
+}
+
+void PlayerGui::renderExpBar(sf::RenderTarget& target)
+{
+	target.draw(this->expBarBack);
+	target.draw(this->expBarInner);
+	target.draw(this->expBarText);
 }
 
 void PlayerGui::renderHpBar(sf::RenderTarget& target)
@@ -78,5 +132,7 @@ void PlayerGui::renderHpBar(sf::RenderTarget& target)
 
 void PlayerGui::render(sf::RenderTarget& target)
 {
+	this->renderExpBar(target);
 	this->renderHpBar(target);
+	
 }

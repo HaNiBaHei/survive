@@ -13,7 +13,11 @@ private:
 	sf::Font font;
 
 	// EXP Bar //
-
+	std::string expBarString;
+	sf::Text expBarText;
+	float expBarMaxSizeWidth;
+	sf::RectangleShape expBarBack;   //
+	sf::RectangleShape expBarInner; // Exp remain //
 
 	// HP Bar //
 	std::string hpBarString;
@@ -24,6 +28,7 @@ private:
 
 	// Functions //
 	void initFont();
+	void initExpBar();
 	void initHpBar();
 
 public:
@@ -33,9 +38,11 @@ public:
 	// Accessors //
 
 	// Functions //
+	void updateExpBar();
 	void updateHpBar();
 	void update(const float& dt);
 
+	void renderExpBar(sf::RenderTarget& target);
 	void renderHpBar(sf::RenderTarget& target);
 	void render(sf::RenderTarget& target);
 
