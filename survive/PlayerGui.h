@@ -11,6 +11,13 @@ private:
 	Player* player;
 
 	sf::Font font;
+
+	// EXP Bar //
+
+
+	// HP Bar //
+	std::string hpBarString;
+	sf::Text hpBarText;
 	float hpBarMaxSizeWidth;
 	sf::RectangleShape hpBarBack;   //
 	sf::RectangleShape hpBarInner; // Hp remain //
