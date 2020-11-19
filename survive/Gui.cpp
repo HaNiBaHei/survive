@@ -1,6 +1,49 @@
 #include "stdafx.h"
 #include "Gui.h"
 
+const float gui::p2pX(const float perc, const sf::VideoMode& vm)
+{
+	/*
+	* Converts a percentage values to pixels to relative to the current resolution in x-axis
+	*
+	* @parm				float perc						The percentage values
+	* @parm				sf::VideoMode& vm				The current videomode of the window (resolution)
+	*
+	* @return			float							The calculated pixel values
+	*
+	*/
+
+	return std::floor(static_cast<float>(vm.width) * (perc / 100.f));
+}
+
+const float gui::p2pY(const float perc, const sf::VideoMode& vm)
+{
+	/*
+	* Converts a percentage values to pixels to relative to the current resolution in y-axis
+	*
+	* @parm				float perc						The percentage values
+	* @parm				sf::VideoMode& vm				The current videomode of the window (resolution)
+	*
+	* @return			float							The calculated pixel values
+	*
+	*/
+
+	return std::floor(static_cast<float>(vm.height) * (perc / 100.f));
+}
+
+const unsigned gui::clacCharSize(const sf::VideoMode& vm)
+{
+	/*
+	* Calculates the character size for text using the current resolution and a constant
+	*
+	* @parm				sf::VideoMode& vm				The current videomode of the window (resolution)
+	* 
+	* @return			unsigned						The calculated character size values
+	*
+	*/
+	return static_cast<unsigned>(vm.width + vm.height) / 80;
+}
+
 gui::Button::Button(float x, float y, float width, float height,
 	sf::Font* font, std::string text, unsigned character_size,
 	sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,

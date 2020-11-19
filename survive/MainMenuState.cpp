@@ -50,32 +50,34 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initButton()
 {
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
 	//std::cout << this->p2pY(40.74f) << "\n";
 	this->buttons["GAME_STATE"] = new gui::Button(
-		this->p2pX(50.f), this->p2pY(40.74f),
-		this->p2pX(13.f), this->p2pX(3.5f),
-		&this->font, "New Game", this->clacCharSize(), // font size
+		gui::p2pX(50.f, vm), gui::p2pY(40.74f, vm),
+		gui::p2pX(13.f, vm), gui:: p2pX(3.5f, vm),
+		&this->font, "New Game", gui::clacCharSize(vm), // font size
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50), // text color
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200)); // background color
 
 	this->buttons["SETTINGS_STATE"] = new gui::Button(
-		this->p2pX(50.f), this->p2pY(50.f),
-		this->p2pX(13.f), this->p2pX(3.5f),
-		&this->font, "Settings", this->clacCharSize(),
+		gui::p2pX(50.f, vm), gui::p2pY(50.f, vm),
+		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
+		&this->font, "Settings", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 
 	this->buttons["EDITOR_STATE"] = new gui::Button(
-		this->p2pX(50.f), this->p2pY(59.25f),
-		this->p2pX(13.f), this->p2pX(3.5f),
-		&this->font, "Editor", this->clacCharSize(),
+		gui::p2pX(50.f, vm), gui::p2pY(59.25f, vm),
+		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
+		&this->font, "Editor", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 
 	this->buttons["EXIT_STATE"] = new gui::Button(
-		this->p2pX(50.f), this->p2pY(77.77f),
-		this->p2pX(13.f), this->p2pX(3.5f),
-		&this->font, "Quit", this->clacCharSize(),
+		gui::p2pX(50.f, vm), gui::p2pY(77.77f, vm),
+		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
+		&this->font, "Quit", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 }

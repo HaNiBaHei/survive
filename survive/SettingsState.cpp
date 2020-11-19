@@ -52,17 +52,19 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initGui()
 {
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
 	this->buttons["BACK"] = new gui::Button(
-		this->p2pX(50.f), this->p2pY(68.51f),
-		this->p2pX(7.81f), this->p2pY(2.6f),
-		&this->font, "Back", this->clacCharSize(),
+		gui::p2pX(50.f, vm), gui::p2pY(68.51f, vm),
+		gui::p2pX(7.81f, vm), gui::p2pY(2.6f, vm),
+		&this->font, "Back", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
 	this->buttons["APPLY"] = new gui::Button(
-		this->p2pX(50.f), this->p2pY(59.25f),
-		this->p2pX(7.81f), this->p2pY(2.6f),
-		&this->font, "Apply", this->clacCharSize(),
+		gui::p2pX(50.f, vm), gui::p2pY(59.25f, vm),
+		gui::p2pX(7.81f, vm), gui::p2pY(2.6f, vm),
+		&this->font, "Apply", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
@@ -72,18 +74,20 @@ void SettingsState::initGui()
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
 	this->dropdownList["RESOLUTION"] = new gui::DropDownList(
-		this->p2pX(50.f), this->p2pY(23.14f), 
-		this->p2pX(10.4f), this->p2pY(4.62f), 
+		gui::p2pX(50.f, vm), gui::p2pY(23.14f, vm),
+		gui::p2pX(10.4f, vm), gui::p2pY(4.62f, vm),
 		font, modes_str.data(), modes_str.size());
 }
 
 void SettingsState::initText()
 {
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
 	this->optionsText.setFont(this->font);
 
-	this->optionsText.setPosition(sf::Vector2f(this->p2pX(36.45f), this->p2pY(23.14f)));
+	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(36.45f, vm), gui::p2pY(23.14f, vm)));
 
-	this->optionsText.setCharacterSize(this->clacCharSize());
+	this->optionsText.setCharacterSize(gui::clacCharSize(vm));
 	this->optionsText.setFillColor(sf::Color(0, 0, 0, 255));
 
 
