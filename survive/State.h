@@ -57,6 +57,8 @@ public:
 	const bool getKeytime();
 
 	// Functions //
+	const float p2pX(const float perc);         // Percent to pixel X //
+	const float p2pY(const float perc);         // Percent to pixel Y //
 	
 	void endState();
 	void pauseState();
