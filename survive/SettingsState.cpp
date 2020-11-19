@@ -56,14 +56,14 @@ void SettingsState::initGui()
 
 	this->buttons["BACK"] = new gui::Button(
 		gui::p2pX(50.f, vm), gui::p2pY(68.51f, vm),
-		gui::p2pX(7.81f, vm), gui::p2pY(2.6f, vm),
+		gui::p2pX(7.81f, vm), gui::p2pY(3.f, vm),
 		&this->font, "Back", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
 	this->buttons["APPLY"] = new gui::Button(
 		gui::p2pX(50.f, vm), gui::p2pY(59.25f, vm),
-		gui::p2pX(7.81f, vm), gui::p2pY(2.6f, vm),
+		gui::p2pX(7.81f, vm), gui::p2pY(3.f, vm),
 		&this->font, "Apply", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));

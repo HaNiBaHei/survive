@@ -69,11 +69,12 @@ void EditorState::initKeybinds()
 
 void EditorState::initPauseMenu()
 {
-	this->pmenu = new PauseMenu(*this->window, this->font);
+	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
 
-	this->pmenu->addButton("QUIT", 800.f, "QUIT");
-	this->pmenu->addButton("SAVE", 500.f, "SAVE");
-	this->pmenu->addButton("LOAD", 400.f, "LOAD");
+	this->pmenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::clacCharSize(vm), "QUIT");
+	this->pmenu->addButton("SAVE", gui::p2pY(46.3f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::clacCharSize(vm), "SAVE");
+	this->pmenu->addButton("LOAD", gui::p2pY(37.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::clacCharSize(vm), "LOAD");
 }
 
 void EditorState::initButton()
