@@ -37,7 +37,7 @@ const bool State::getKeytime()
 
 // Functions //
 
-const float State::p2pX(const float perc)
+const float State::p2pX(const float perc) const
 {
 	/*
 	* Converts a percentage values to pixels to relative to the current resolution in x-axis
@@ -51,7 +51,7 @@ const float State::p2pX(const float perc)
 	return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.width) * (perc / 100.f));
 }
 
-const float State::p2pY(const float perc)
+const float State::p2pY(const float perc) const
 {
 	/*
 	* Converts a percentage values to pixels to relative to the current resolution in y-axis
@@ -63,6 +63,17 @@ const float State::p2pY(const float perc)
 	*/
 
 	return std::floor(static_cast<float>(this->stateData->gfxSettings->resolution.height) * (perc / 100.f));
+}
+
+const unsigned State::clacCharSize() const
+{
+	/*
+	* Calculates the character size for text using the current resolution and a constant
+	*
+	* @return			unsigned					The calculated character size values
+	*
+	*/
+	return static_cast<unsigned>(this->stateData->gfxSettings->resolution.width + this->stateData->gfxSettings->resolution.height) / 80;
 }
 
 void State::endState()

@@ -52,13 +52,17 @@ void SettingsState::initKeybinds()
 
 void SettingsState::initGui()
 {
-	this->buttons["BACK"] = new gui::Button(960.f, 740.f, 150.f, 50.f,
-		&this->font, "Back", 50,
+	this->buttons["BACK"] = new gui::Button(
+		this->p2pX(50.f), this->p2pY(68.51f),
+		this->p2pX(7.81f), this->p2pY(2.6f),
+		&this->font, "Back", this->clacCharSize(),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["APPLY"] = new gui::Button(960.f, 640.f, 150.f, 50.f,
-		&this->font, "Apply", 50,
+	this->buttons["APPLY"] = new gui::Button(
+		this->p2pX(50.f), this->p2pY(59.25f),
+		this->p2pX(7.81f), this->p2pY(2.6f),
+		&this->font, "Apply", this->clacCharSize(),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
@@ -67,16 +71,19 @@ void SettingsState::initGui()
 	{
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
-	this->dropdownList["RESOLUTION"] = new gui::DropDownList(960, 250, 200, 50, font, modes_str.data(), modes_str.size());
+	this->dropdownList["RESOLUTION"] = new gui::DropDownList(
+		this->p2pX(50.f), this->p2pY(23.14f), 
+		this->p2pX(10.4f), this->p2pY(4.62f), 
+		font, modes_str.data(), modes_str.size());
 }
 
 void SettingsState::initText()
 {
 	this->optionsText.setFont(this->font);
 
-	this->optionsText.setPosition(sf::Vector2f(700.f, 250.f));
+	this->optionsText.setPosition(sf::Vector2f(this->p2pX(36.45f), this->p2pY(23.14f)));
 
-	this->optionsText.setCharacterSize(30);
+	this->optionsText.setCharacterSize(this->clacCharSize());
 	this->optionsText.setFillColor(sf::Color(0, 0, 0, 255));
 
 
