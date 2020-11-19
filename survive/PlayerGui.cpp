@@ -13,6 +13,9 @@ void PlayerGui::initHpBar()
 	float x = 20.f;
 	float y = 20.f;
 
+	this->hpBarMaxSizeWidth = width;
+
+
 
 	this->hpBarBack.setSize(sf::Vector2f(width, height));
 	this->hpBarBack.setFillColor(sf::Color(50, 50, 50, 200));
@@ -42,12 +45,23 @@ PlayerGui::~PlayerGui()
 // Functions //
 void PlayerGui::updateHpBar()
 {
+	float percent = 
+		static_cast<float>(this->player->getAttributeComponent()->hp) /
+		static_cast<float>(this->player->getAttributeComponent()->hpMax);
 
+
+
+	this->hpBarInner.setSize(
+		sf::Vector2f(
+			static_cast<float>(std::floor(this->hpBarMaxSizeWidth * percent)), 
+			this->hpBarInner.getSize().y
+		)
+	);
 }
 
 void PlayerGui::update(const float& dt)
 {
-
+	this->updateHpBar();
 }
 
 void PlayerGui::renderHpBar(sf::RenderTarget& target)

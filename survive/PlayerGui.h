@@ -11,6 +11,7 @@ private:
 	Player* player;
 
 	sf::Font font;
+	float hpBarMaxSizeWidth;
 	sf::RectangleShape hpBarBack;   //
 	sf::RectangleShape hpBarInner; // Hp remain //
 
