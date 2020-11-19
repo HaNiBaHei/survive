@@ -84,6 +84,11 @@ void GameState::initPlayers()
 	this->player = new Player(0, 0, this->textures["PLAYER_SHEET"]);
 }
 
+void GameState::initPlayerGui()
+{
+	this->playerGui = new PlayerGui(this->player);
+}
+
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 30, 30, "Resources/images/Tile/tilesheet3.png");
@@ -102,6 +107,7 @@ GameState::GameState(StateData* state_data)
 	this->initPauseMenu();
 
 	this->initPlayers();
+	this->initPlayerGui();
 	this->initTileMap();
 }
 
@@ -109,6 +115,7 @@ GameState::~GameState()
 {
 	delete this->pmenu;
 	delete this->player;
+	delete this->playerGui;
 	delete this->tileMap;
 }
 
@@ -147,6 +154,11 @@ void GameState::updatePlayerInput(const float& dt)
 	
 }
 
+void GameState::updatePlayerGui(const float& dt)
+{
+	this->playerGui->update(dt);
+}
+
 void GameState::updatePauseMenuButtons()
 {
 	if (this->pmenu->isButtonPressed("QUIT"))
@@ -176,6 +188,8 @@ void GameState::update(const float& dt)
 
 		this->player->update(dt);
 
+		this->playerGui->update(dt);
+
 	}
 	// Paused update //
 	else
@@ -197,11 +211,15 @@ void GameState::render(sf::RenderTarget* target)
 	
 	this->player->render(this->renderTexture);
 
+	// Render GUI //
 	this->tileMap->renderDeferred(this->renderTexture);
+
+	this->renderTexture.setView(this->renderTexture.getDefaultView());
+	this->playerGui->render(this->renderTexture);
 
 	if (this->pause) // Pause menu render //
 		{
-		this->renderTexture.setView(this->renderTexture.getDefaultView());
+		//this->renderTexture.setView(this->renderTexture.getDefaultView());
 			this->pmenu->render(this->renderTexture);
 		}
 

@@ -67,7 +67,7 @@ void AttributeComponent::updateLevel()
 	{
 		this->level++;
 		this->exp -= this->expNext;
-		this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level, 2)) - 8 * pow(this->level, 2) + (this->level * 20) - 12);
+		this->expNext = static_cast<unsigned>((50 / 3) * (pow(this->level + 1, 2)) - 8 * pow(this->level + 1, 2) + ((this->level + 1) * 20) - 12);
 		++this->attributePoints;
 	}
 }
