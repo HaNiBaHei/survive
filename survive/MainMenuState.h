@@ -6,6 +6,12 @@
 #include "SettingsState.h"
 #include "Gui.h"
 
+class GameState;
+class EditorState;
+class SettingsState;
+class Gui;
+
+
 class MainMenuState :
     public State
 {
@@ -14,6 +20,7 @@ private:
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
+    std::vector<sf::VideoMode> modes;
 
     std::map<std::string, gui::Button*> buttons;
 
@@ -22,7 +29,8 @@ private:
     void initBackground();
     void initFonts();
     void initKeybinds();
-    void initButton();
+    void initGui();
+    void resetGui();
 
 public:
     MainMenuState(StateData* state_data);

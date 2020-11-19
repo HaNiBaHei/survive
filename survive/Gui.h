@@ -8,7 +8,7 @@ namespace gui
 {
 	const float p2pX(const float perc, const sf::VideoMode& vm);         // Percent to pixel X //
 	const float p2pY(const float perc, const sf::VideoMode& vm);         // Percent to pixel Y //
-	const unsigned clacCharSize(const sf::VideoMode& vm);
+	const unsigned clacCharSize(const sf::VideoMode& vm, const unsigned modifier = 60);
 
 
 	class Button

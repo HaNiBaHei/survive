@@ -5,25 +5,9 @@
 void SettingsState::initVariables()
 {
 	this->modes = sf::VideoMode::getFullscreenModes();
-
 }
 
-void SettingsState::initBackground()
-{
-	this->background.setSize(
-		sf::Vector2f
-		(
-			static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y)
-		)
-	);
-	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/bg1.png"))
-	{
-		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
 
-	this->background.setTexture(&this->backgroundTexture);
-}
 
 void SettingsState::initFonts()
 {
@@ -54,6 +38,22 @@ void SettingsState::initGui()
 {
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
+	// Background //
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height)
+		)
+	);
+	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/bg1.png"))
+	{
+		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
+
+	this->background.setTexture(&this->backgroundTexture);
+
+	// Buttons //
 	this->buttons["BACK"] = new gui::Button(
 		gui::p2pX(50.f, vm), gui::p2pY(68.51f, vm),
 		gui::p2pX(7.81f, vm), gui::p2pY(3.f, vm),
@@ -68,26 +68,25 @@ void SettingsState::initGui()
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
+	// Modes //
 	std::vector<std::string> modes_str;
 	for (auto& i : this->modes)
 	{
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
+
+	// Dropdownlist //
 	this->dropdownList["RESOLUTION"] = new gui::DropDownList(
 		gui::p2pX(50.f, vm), gui::p2pY(23.14f, vm),
 		gui::p2pX(10.4f, vm), gui::p2pY(4.62f, vm),
 		font, modes_str.data(), modes_str.size());
-}
 
-void SettingsState::initText()
-{
-	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
-
+	// Init Text //
 	this->optionsText.setFont(this->font);
 
 	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(36.45f, vm), gui::p2pY(23.14f, vm)));
 
-	this->optionsText.setCharacterSize(gui::clacCharSize(vm));
+	this->optionsText.setCharacterSize(gui::clacCharSize(vm, 80));
 	this->optionsText.setFillColor(sf::Color(0, 0, 0, 255));
 
 
@@ -96,16 +95,41 @@ void SettingsState::initText()
 	);
 }
 
+void SettingsState::resetGui()
+{
+	/*
+	* Clear the gui elements and re-initialises the gui
+	* 
+	* @reture void
+	*/
+
+	auto it = this->buttons.begin();
+	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
+	this->buttons.clear();
+
+	auto it2 = this->dropdownList.begin();
+	for (it2 = this->dropdownList.begin(); it2 != this->dropdownList.end(); ++it2)
+	{
+		delete it2->second;
+	}
+	this->dropdownList.clear();
+
+	this->initGui();
+}
+
+
+
 
 SettingsState::SettingsState(StateData* state_data)
 	: State(state_data)
 {
 	this->initVariables();
-	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();
-	this->initText();
 }
 
 SettingsState::~SettingsState()
@@ -156,6 +180,8 @@ void SettingsState::updateGui(const float& dt)
 		this->stateData->gfxSettings->resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElementId()];
 
 		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+
+		this->resetGui();
 	}
 
 	// DropdownList // 

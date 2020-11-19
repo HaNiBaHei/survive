@@ -31,17 +31,18 @@ const float gui::p2pY(const float perc, const sf::VideoMode& vm)
 	return std::floor(static_cast<float>(vm.height) * (perc / 100.f));
 }
 
-const unsigned gui::clacCharSize(const sf::VideoMode& vm)
+const unsigned gui::clacCharSize(const sf::VideoMode& vm, const unsigned modifier)
 {
 	/*
 	* Calculates the character size for text using the current resolution and a constant
 	*
 	* @parm				sf::VideoMode& vm				The current videomode of the window (resolution)
+	* @parm				unsigned modifier				Used to custom the character size
 	* 
 	* @return			unsigned						The calculated character size values
 	*
 	*/
-	return static_cast<unsigned>(vm.width + vm.height) / 80;
+	return static_cast<unsigned>(vm.width + vm.height) / modifier;
 }
 
 gui::Button::Button(float x, float y, float width, float height,
