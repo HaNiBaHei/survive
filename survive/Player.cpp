@@ -19,14 +19,17 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 
 	this->setPosition(x, y);
 
-	this->createHitboxComponent(this->sprite, 100.f, 40.f, 150.f, 225.f);
-	this->createMovementComponent(400.f, 2000.f, 700.f); // Velocity , Accelerate , Drag //
+	this->createHitboxComponent(this->sprite, 10.f, 5.f, 44.f, 59.f);
+	this->createMovementComponent(200.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(0);
 
-	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 3, 0, 300, 300);
-	this->animationComponent->addAnimation("RUN", 7.f, 0, 1, 5, 1, 300, 300);
-	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 300, 300);
+	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 8, 0, 64, 64);
+	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 1, 3, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 4, 1, 7, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 8, 1, 11, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
+	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
 }
 
 Player::~Player()
@@ -89,7 +92,7 @@ void Player::updateAttack()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		this->attacking = true;
+		//this->attacking = true;
 	}
 }
 
@@ -129,29 +132,19 @@ void Player::updateAnimation(const float& dt)
 	}
 	else if (this->movementComponent->getState(MOVING_RIGHT))
 	{
-		if (this->sprite.getScale().x < 0.f)
-		{
-			this->sprite.setOrigin(0.f, 0.f);
-			this->sprite.setScale(1.f, 1.f);
-		}
-		this->animationComponent->play("RUN", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+		this->animationComponent->play("WALK_RIGHT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
 	}
 	else if (this->movementComponent->getState(MOVING_LEFT))
 	{
-		if (this->sprite.getScale().x > 0.f)
-		{
-			this->sprite.setOrigin(340.f, 0.f);
-			this->sprite.setScale(-1.f, 1.f);
-		}
-		this->animationComponent->play("RUN", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+		this->animationComponent->play("WALK_LEFT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
 	}
 	else if (this->movementComponent->getState(MOVING_UP))
 	{
-		this->animationComponent->play("RUN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+		this->animationComponent->play("WALK_UP", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
 	else if (this->movementComponent->getState(MOVING_DOWN))
 	{
-		this->animationComponent->play("RUN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
 }
 
@@ -173,10 +166,10 @@ void Player::update(const float& dt)
 	this->hitboxComponent->update();
 }
 
-void Player::render(sf::RenderTarget& target)
+void Player::render(sf::RenderTarget& target, const bool show_hitbox)
 {
 	target.draw(this->sprite);
 
-	if (this->hitboxComponent)
+	if (show_hitbox)
 		this->hitboxComponent->render(target);
 }

@@ -22,6 +22,7 @@ private:
     sf::Font font;
     std::vector<sf::VideoMode> modes;
 
+    sf::RectangleShape btnBackground;
     std::map<std::string, gui::Button*> buttons;
 
     // Functions //
