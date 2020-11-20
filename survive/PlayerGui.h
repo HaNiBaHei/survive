@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Player.h"
+#include "Gui.h"
 
+class Gui;
 class Player;
 class sf::RectangleShape;
 
@@ -10,6 +12,7 @@ class PlayerGui
 private:
 	Player* player;
 
+	sf::VideoMode& vm;
 	sf::Font font;
 
 	// Level //
@@ -43,7 +46,7 @@ private:
 	void initHpBar();
 
 public:
-	PlayerGui(Player* player);
+	PlayerGui(Player* player, sf::VideoMode& vm);
 	virtual ~PlayerGui();
 
 	// Accessors //
