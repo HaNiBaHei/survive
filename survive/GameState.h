@@ -5,6 +5,8 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGui.h"
+#include "Sword.h"
+#include "Bow.h"
 
 
 class PauseMenu;

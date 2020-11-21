@@ -118,6 +118,7 @@ GameState::GameState(StateData* state_data)
 	this->initPlayers();
 	this->initPlayerGui();
 	this->initTileMap();
+
 }
 
 GameState::~GameState()
