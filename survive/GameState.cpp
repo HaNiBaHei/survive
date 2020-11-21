@@ -228,12 +228,18 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
+	this->tileMap->render(
+		this->renderTexture,
+		this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)),
+		&this->core_shader,
+		this->player->getCenter(),
+		false
+	);
 	
 	this->player->render(this->renderTexture, &this->core_shader, false);
 
 	// Render GUI //
-	this->tileMap->renderDeferred(this->renderTexture);
+	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
 	this->renderTexture.setView(this->renderTexture.getDefaultView());
 	this->playerGui->render(this->renderTexture);
