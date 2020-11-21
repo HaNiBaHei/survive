@@ -30,6 +30,11 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 8, 1, 11, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
+
+	if (!this->weapon_texture.loadFromFile("Resources/images/Weapon/sword 5.png"))
+		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE" << "\n";
+	this->weapon_sprite.setTexture(this->weapon_texture);
+	this->weapon_sprite.setScale(0.5f, 0.5f);
 }
 
 Player::~Player()
@@ -164,6 +169,8 @@ void Player::update(const float& dt)
 	this->updateAnimation(dt);
 
 	this->hitboxComponent->update();
+
+	this->weapon_sprite.setPosition(this->getCenter());
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox)
@@ -174,9 +181,17 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool sho
 		shader->setUniform("lightPos", this->getCenter());
 
 		target.draw(this->sprite, shader);
+
+		shader->setUniform("hasTexture", true);
+		shader->setUniform("lightPos", this->getCenter());
+
+		target.draw(this->weapon_sprite, shader);
 	}
 	else
+	{
 		target.draw(this->sprite);
+		target.draw(this->weapon_sprite);
+	}
 
 	if (show_hitbox)
 		this->hitboxComponent->render(target);
