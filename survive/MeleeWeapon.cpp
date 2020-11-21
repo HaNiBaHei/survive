@@ -3,6 +3,7 @@
 
 MeleeWeapon::MeleeWeapon()
 {
+
 }
 
 MeleeWeapon::~MeleeWeapon()

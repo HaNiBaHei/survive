@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include "Entity.h"
+#include "Sword.h"
 
 class Entity;
 
@@ -10,8 +12,8 @@ class Player :
 private:
     // Variables //
     bool attacking;
-    sf::Texture weapon_texture;
-    sf::Sprite weapon_sprite;
+    Sword sword;
+    
 
     // Initializer //
     void initvariables();
