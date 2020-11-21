@@ -59,7 +59,7 @@ private:
 						if (this->level < this->levelCap)
 						{
 							this->level++;
-							this->expNext = std::pow(this->level, 2) * 10 + this->level * 2 + this->level;
+							this->expNext = static_cast<int>(std::pow(this->level, 2)) * 10 + this->level * 2 + this->level;
 						}
 					}
 				}
@@ -73,7 +73,7 @@ private:
 						if (this->level > 0)
 						{
 							this->level--;
-							this->expNext = std::pow(this->level, 2) * 10 + this->level * 2 + this->level;
+							this->expNext = static_cast<int>(std::pow(this->level, 2)) * 10 + this->level * 2 + this->level;
 						}
 					}
 				}
@@ -86,9 +86,12 @@ private:
 
 	};
 
+	std::map<std::string, Skill> skills;
 public:
 	SkillComponent();
 	virtual ~SkillComponent();
+
+	const int getSkill(std::string key) const;
 };
 
 #endif 
