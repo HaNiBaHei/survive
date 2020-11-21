@@ -1,20 +1,27 @@
 #ifndef SKILLCOMPONENT_H
 #define SKILLCOMPONENT_H
 
+enum Skills {MELEE = 0, RANGE, DEATHEYE, IRONBODY};
+
+
+
+
 class SkillComponent
 {
 private:	
 	class Skill
 	{
 	private:
+		int type;
 		int level;
 		int levelCap;
 		int exp;
 		int expNext;
 
 	public:
-		Skill()
+		Skill(int type)
 		{
+			this->type = type;
 			this->level = 1;
 			this->levelCap = 99;
 			this->exp = 0;
@@ -23,6 +30,7 @@ private:
 		~Skill() {}
 
 		// Accessors //
+		inline const int& getType() const { return this->type; }
 		inline const int& getLevel() const { return this->level; }
 		inline const int& getExp() const { return this->exp; }
 		inline const int& getExpNext() const { return this->expNext; }
@@ -86,12 +94,13 @@ private:
 
 	};
 
-	std::map<std::string, Skill> skills;
+	std::vector<Skill> skills;
 public:
 	SkillComponent();
 	virtual ~SkillComponent();
 
-	const int getSkill(std::string key) const;
+	const int getSkill(const int index) const;
+	const void gainExp(const int skill, const int exp);
 };
 
 #endif 

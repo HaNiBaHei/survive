@@ -126,6 +126,12 @@ void Entity::move(const float dir_x, const float dir_y, const float& dt)
 {
 	if (this->movementComponent)
 		this->movementComponent->move(dir_x, dir_y, dt); // Set velocity //
+	
+	if (this->skillcomponent)
+	{
+		this->skillcomponent->gainExp(Skills::MELEE, 1);
+		//std::cout << this->skillcomponent->getSkill(Skills::MELEE) << "\n";
+	}
 }
 
 void Entity::stopVelocity()
