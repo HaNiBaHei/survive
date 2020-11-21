@@ -225,7 +225,7 @@ void GameState::update(const float& dt)
 
 		this->updateTileMap(dt);
 
-		this->player->update(dt);
+		this->player->update(dt, this->mousePosView);
 
 		this->playerGui->update(dt);
 

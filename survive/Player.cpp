@@ -31,10 +31,15 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
 
+	// Weapon //
 	if (!this->weapon_texture.loadFromFile("Resources/images/Weapon/sword 5.png"))
 		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE" << "\n";
 	this->weapon_sprite.setTexture(this->weapon_texture);
 	this->weapon_sprite.setScale(0.5f, 0.5f);
+	this->weapon_sprite.setOrigin(
+		this->weapon_sprite.getGlobalBounds().width / 2.f, 
+		this->weapon_sprite.getGlobalBounds().height 
+	);
 }
 
 Player::~Player()
@@ -53,39 +58,27 @@ AttributeComponent* Player::getAttributeComponent()
 
 void Player::loseHP(const int hp)
 {
-	this->attributeComponent->hp -= hp;
-
-	if (this->attributeComponent->hp < 0)
-		this->attributeComponent->hp = 0;
+	this->attributeComponent->loseHP(hp);
 }
 
 void Player::gainHP(const int hp)
 {
-	this->attributeComponent->hp += hp;
-
-	if (this->attributeComponent->hp >= this->attributeComponent->hpMax)
-		this->attributeComponent->hp = this->attributeComponent->hpMax;
+	this->attributeComponent->gainHP(hp);
 }
 
 void Player::loseScore(const int score)
 {
-	this->attributeComponent->score -= score;
-
-	if (this->attributeComponent->score < 0)
-		this->attributeComponent->score = 0;
+	this->attributeComponent->loseScore(score);
 }
 
 void Player::gainScore(const int score)
 {
-	this->attributeComponent->score += score;
+	this->attributeComponent->gainScore(score);
 }
 
 void Player::loseEXP(const int exp)
 {
-	this->attributeComponent->exp -= exp;
-
-	if (this->attributeComponent->exp < 0)
-		this->attributeComponent->exp = 0;
+	this->attributeComponent->loseEXP(exp);
 }
 
 void Player::gainEXP(const int exp)
@@ -105,32 +98,9 @@ void Player::updateAnimation(const float& dt)
 {
 	if (this->attacking)
 	{
-		// Set origin depending on direction //
-		if (this->sprite.getScale().x > 0.f)		// Facing right //
-		{
-			this->sprite.setOrigin(-35.f, 0.f);
-		}
-		else                                        // Facing left //
-		{
-			this->sprite.setOrigin(340.f -35.f, 0.f);
-		}
-		// Animate and check for animation end //
-		this->animationComponent->play("ATTACK", dt, true);
 
-		if (this->animationComponent->isDone("ATTACK"))
-		{
-			this->attacking = false;
-			// Set origin depending on direction //
-			if (this->sprite.getScale().x > 0.f)		// Facing right //
-			{
-				this->sprite.setOrigin(0.f, 0.f);
-			}
-			else                                        // Facing left //
-			{
-				this->sprite.setOrigin(340.f, 0.f);
-			}
-		}
 	}
+
 	if (this->movementComponent->getState(IDLE))
 	{
 		this->animationComponent->play("IDLE", dt);
@@ -153,7 +123,7 @@ void Player::updateAnimation(const float& dt)
 	}
 }
 
-void Player::update(const float& dt)
+void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 {
 	// DEBUG EXP //
 	/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
@@ -170,7 +140,16 @@ void Player::update(const float& dt)
 
 	this->hitboxComponent->update();
 
+	// Update Weapon //
 	this->weapon_sprite.setPosition(this->getCenter());
+
+	float dX = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
+	float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
+
+	const float PI = 3.14159265;
+	float deg = atan2(dY, dX) * 180 / PI;
+
+	this->weapon_sprite.setRotation(deg + 135.f); // Need to fix sword picture //
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const bool show_hitbox)
