@@ -34,6 +34,15 @@
     <Filter Include="Config">
       <UniqueIdentifier>{8351620b-c67a-4f79-9940-8ab33259e694}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{a449edc1-40e3-4c58-adca-0ad860d37c4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\MeleeWeapon">
+      <UniqueIdentifier>{1207fc59-5924-4ed9-af7d-89e28bb81016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item\RangeWeapon">
+      <UniqueIdentifier>{502197da-f9aa-4cb9-ad17-52a6423ca48f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,6 +105,9 @@
     <ClCompile Include="PlayerGui.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -154,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="PlayerGui.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
