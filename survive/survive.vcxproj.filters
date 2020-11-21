@@ -31,6 +31,9 @@
     <Filter Include="Map\Tile">
       <UniqueIdentifier>{2b4762a9-1634-4d40-acf2-20aec97882a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{8351620b-c67a-4f79-9940-8ab33259e694}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -162,6 +165,21 @@
     </None>
     <None Include="fragment_shader.frag">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\graphics.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="Config\mainmenustate_keybinds.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="Config\supported_keys.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="Config\editorstate_keybinds.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="Config\gamestate_keybinds.ini">
+      <Filter>Config</Filter>
     </None>
   </ItemGroup>
 </Project>

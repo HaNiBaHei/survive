@@ -72,6 +72,19 @@ TileMap::~TileMap()
 	this->clear();
 }
 
+const bool TileMap::tileEmpty(const int x, const int y, const int z) const
+{
+	if (x >= 0 && x < this->maxSizeWorldGrid.x &&
+		y >= 0 && y < this->maxSizeWorldGrid.y &&
+		z >= 0 && z < this->layers)
+	{
+		return this->map[x][y][z].empty();
+	}
+
+	std::cout << "ERROR::TILEMAP::TILEEMPTY::TRYING TO ACCESS OUT OF BOUNDS TILE" << "\n";
+	return false;
+}
+
 // Accessors //
 const sf::Texture* TileMap::getTileSheet() const
 {
@@ -92,6 +105,16 @@ const int TileMap::getLayerSize(const int x, const int y, const int layer) const
 	}
 
 	return -1;
+}
+
+const sf::Vector2i& TileMap::getMaxSizeGrid() const
+{
+	return this->maxSizeWorldGrid;
+}
+
+const sf::Vector2f& TileMap::getMaxSizeF() const
+{
+	return this->maxSizeWorldF;
 }
 
 
