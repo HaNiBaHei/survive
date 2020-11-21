@@ -19,7 +19,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 
 	this->setPosition(x, y);
 
-	this->createHitboxComponent(this->sprite, 10.f, 5.f, 44.f, 59.f);
+	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
 	this->createMovementComponent(200.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(0);

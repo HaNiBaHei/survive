@@ -6,6 +6,7 @@ void Entity::initVariables()
 	this->hitboxComponent = NULL;
 	this->movementComponent = NULL;
 	this->animationComponent = NULL;
+	this->attributeComponent = NULL;
 }
 
 Entity::Entity()
