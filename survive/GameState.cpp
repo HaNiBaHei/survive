@@ -119,6 +119,7 @@ GameState::GameState(StateData* state_data)
 	this->initPlayerGui();
 	this->initTileMap();
 
+	this->testEnemy = new Enemy(300.f, 300.f, this->textures["PLAYER_SHEET"]);
 }
 
 GameState::~GameState()
@@ -127,6 +128,8 @@ GameState::~GameState()
 	delete this->player;
 	delete this->playerGui;
 	delete this->tileMap;
+
+	delete this->testEnemy;
 }
 
 
@@ -192,14 +195,14 @@ void GameState::updatePlayerInput(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
 	{
 		this->player->move(0.f, -1.f, dt);
-		if (this->getKeytime())
-			this->player->gainEXP(10);
+		/*if (this->getKeytime())
+			this->player->gainEXP(10);*/
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 	{
 		this->player->move(0.f, 1.f, dt);
-		if (this->getKeytime())
-			this->player->loseEXP(10);
+		/*if (this->getKeytime())
+			this->player->loseEXP(10);*/
 	}
 
 	
@@ -220,6 +223,7 @@ void GameState::updateTileMap(const float& dt)
 {
 	this->tileMap->update();
 	this->tileMap->updateCollision(this->player, dt);
+	this->tileMap->updateCollision(this->testEnemy, dt);
 }
 
 void GameState::update(const float& dt)
@@ -241,6 +245,8 @@ void GameState::update(const float& dt)
 
 		this->playerGui->update(dt);
 
+		this->testEnemy->update(dt, this->mousePosView);
+		this->testEnemy->move(1.f, 0.f, dt);
 	}
 	// Paused update //
 	else
@@ -269,6 +275,7 @@ void GameState::render(sf::RenderTarget* target)
 	
 	this->player->render(this->renderTexture, &this->core_shader, false);
 
+	this->testEnemy->render(this->renderTexture, &this->core_shader, false);
 	// Render GUI //
 	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 

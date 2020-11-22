@@ -16,7 +16,7 @@ SkillComponent::~SkillComponent()
 
 const int SkillComponent::getSkill(const int skill) const
 {
-	if (skill < 0 || skill >= this->skills.size())
+	if (skills.empty() || skill < 0 || skill >= this->skills.size())
 		throw("ERROR::SKILLCOMPONENT::GETSKILL::SKILL DOSE NOT EXIST" + skill);
 	else
 		return this->skills[skill].getLevel();
@@ -24,7 +24,7 @@ const int SkillComponent::getSkill(const int skill) const
 
 const void SkillComponent::gainExp(const int skill, const int exp)
 {
-	if (skill < 0 || skill >= this->skills.size())
+	if (skills.empty() || skill < 0 || skill >= this->skills.size())
 		throw("ERROR::SKILLCOMPONENT::GAINEXP::SKILL DOSE NOT EXIST" + skill);
 	else
 		this->skills[skill].gainExp(exp);
