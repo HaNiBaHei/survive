@@ -18,6 +18,7 @@ private:
     // Initializer //
     void initvariables();
     void initComponents();
+    void initAnimations();
 
 public:
     Player(float x, float y, sf::Texture& texture);

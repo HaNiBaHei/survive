@@ -12,12 +12,20 @@ void Player::initComponents()
 	
 }
 
+void Player::initAnimations()
+{
+	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 8, 0, 64, 64);
+	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 1, 3, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 4, 1, 7, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 8, 1, 11, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
+	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
+}
+
 // Constructors //
 Player::Player(float x, float y, sf::Texture& texture_sheet)
 {
 	this->initvariables();
-
-	this->setPosition(x, y);
 
 	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
 	this->createMovementComponent(200.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
@@ -25,14 +33,8 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->createAttributeComponent(0);
 	this->createSkillComponent();
 
-	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 8, 0, 64, 64);
-	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 1, 3, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 4, 1, 7, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 8, 1, 11, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
-	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
-
-	
+	this->setPosition(x, y);
+	this->initAnimations();
 }
 
 Player::~Player()

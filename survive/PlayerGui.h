@@ -25,18 +25,10 @@ private:
 	sf::Text scoreText;
 
 	// EXP Bar //
-	std::string expBarString;
-	sf::Text expBarText;
-	float expBarMaxSizeWidth;
-	sf::RectangleShape expBarBack;   //
-	sf::RectangleShape expBarInner; // Exp remain //
+	gui::ProgressBar* expBar; // Exp remain //
 
 	// HP Bar //
-	std::string hpBarString;
-	sf::Text hpBarText;
-	float hpBarMaxSizeWidth;
-	sf::RectangleShape hpBarBack;   //
-	sf::RectangleShape hpBarInner; // Hp remain //
+	gui::ProgressBar* hpBar; // Hp remain //
 
 	// Functions //
 	void initFont();

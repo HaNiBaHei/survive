@@ -37,54 +37,21 @@ void PlayerGui::initScore()
 
 void PlayerGui::initExpBar()
 {
-	float width = gui::p2pX(15.62f, this->vm);
-	float height = gui::p2pY(2.77f, this->vm);
-	float x = gui::p2pX(1.f, this->vm);
-	float y = gui::p2pY(10.18f, this->vm);
-
-	this->expBarMaxSizeWidth = width;
-
-
-	this->expBarBack.setSize(sf::Vector2f(width, height));
-	this->expBarBack.setFillColor(sf::Color(50, 50, 50, 200));
-	this->expBarBack.setPosition(x, y);
-
-	this->expBarInner.setSize(sf::Vector2f(width, height));
-	this->expBarInner.setFillColor(sf::Color(20, 20, 250, 200));
-	this->expBarInner.setPosition(this->expBarBack.getPosition());
-
-	this->expBarText.setFont(this->font);
-	this->expBarText.setCharacterSize(gui::clacCharSize(this->vm, 120));
-	this->expBarText.setPosition(
-		this->expBarInner.getPosition().x + gui::p2pX(0.53f, this->vm),
-		this->expBarInner.getPosition().y + gui::p2pY(0.5f, this->vm)
+	this->expBar = new gui::ProgressBar(
+		1.f, 10.18f, 15.62f, 2.77f,
+		this->player->getAttributeComponent()->expNext,
+		sf::Color::Yellow, 180,
+		this->vm, &this->font
 	);
-	
 }
 
 void PlayerGui::initHpBar()
 {
-	float width = gui::p2pX(15.62f, this->vm);
-	float height = gui::p2pY(3.7f, this->vm);
-	float x = gui::p2pX(1.f, this->vm);
-	float y = gui::p2pY(5.5f, this->vm);
-
-	this->hpBarMaxSizeWidth = width;
-
-
-	this->hpBarBack.setSize(sf::Vector2f(width, height));
-	this->hpBarBack.setFillColor(sf::Color(50, 50, 50, 200));
-	this->hpBarBack.setPosition(x, y);
-
-	this->hpBarInner.setSize(sf::Vector2f(width, height));
-	this->hpBarInner.setFillColor(sf::Color(250, 20, 20, 200));
-	this->hpBarInner.setPosition(this->hpBarBack.getPosition());
-
-	this->hpBarText.setFont(this->font);
-	this->hpBarText.setCharacterSize(gui::clacCharSize(this->vm, 110));
-	this->hpBarText.setPosition(
-		this->hpBarInner.getPosition().x + gui::p2pX(0.53f, this->vm),
-		this->hpBarInner.getPosition().y + gui::p2pY(0.5f, this->vm)
+	this->hpBar = new gui::ProgressBar(
+		1.f, 5.5f, 10.4f, 2.8f, 
+		this->player->getAttributeComponent()->hpMax, 
+		sf::Color::Red, 120,
+		this->vm, &this->font
 	);
 }
 
@@ -102,7 +69,8 @@ PlayerGui::PlayerGui(Player* player, sf::VideoMode& vm)
 
 PlayerGui::~PlayerGui()
 {
-
+	delete this->hpBar;
+	delete this->expBar;
 }
 // Accessors //
 
@@ -122,40 +90,12 @@ void PlayerGui::updateScore()
 
 void PlayerGui::updateExpBar()
 {
-	float percent =
-		static_cast<float>(this->player->getAttributeComponent()->exp) /
-		static_cast<float>(this->player->getAttributeComponent()->expNext);
-
-
-
-	this->expBarInner.setSize(
-		sf::Vector2f(
-			static_cast<float>(std::floor(this->expBarMaxSizeWidth * percent)),
-			this->expBarInner.getSize().y
-		)
-	);
-
-	this->expBarString = std::to_string(this->player->getAttributeComponent()->exp) + "/" + std::to_string(this->player->getAttributeComponent()->expNext);
-	this->expBarText.setString(this->expBarString);
+	this->expBar->update(this->player->getAttributeComponent()->exp);
 }
 
 void PlayerGui::updateHpBar()
 {
-	float percent = 
-		static_cast<float>(this->player->getAttributeComponent()->hp) /
-		static_cast<float>(this->player->getAttributeComponent()->hpMax);
-
-
-
-	this->hpBarInner.setSize(
-		sf::Vector2f(
-			static_cast<float>(std::floor(this->hpBarMaxSizeWidth * percent)), 
-			this->hpBarInner.getSize().y
-		)
-	);
-
-	this->hpBarString = std::to_string(this->player->getAttributeComponent()->hp) + "/" + std::to_string(this->player->getAttributeComponent()->hpMax);
-	this->hpBarText.setString(this->hpBarString);
+	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
 void PlayerGui::update(const float& dt)
@@ -179,16 +119,12 @@ void PlayerGui::renderScore(sf::RenderTarget& target)
 
 void PlayerGui::renderExpBar(sf::RenderTarget& target)
 {
-	target.draw(this->expBarBack);
-	target.draw(this->expBarInner);
-	target.draw(this->expBarText);
+	this->expBar->render(target);
 }
 
 void PlayerGui::renderHpBar(sf::RenderTarget& target)
 {
-	target.draw(this->hpBarBack);
-	target.draw(this->hpBarInner);
-	target.draw(this->hpBarText);
+	this->hpBar->render(target);
 }
 
 void PlayerGui::render(sf::RenderTarget& target)
