@@ -37,7 +37,6 @@ private:
     PlayerGui* playerGui;
     sf::Texture texture;
 
-    Enemy* testEnemy;
 
     TileMap* tileMap;
 
