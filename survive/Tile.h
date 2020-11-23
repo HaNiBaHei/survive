@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_H
 
-enum TileTypes {DEFAULT = 0, DAMAGING, BEHIDE};
+enum TileTypes {DEFAULT = 0, DAMAGING, BEHIDE, ENEMYSPAWNER};
 
 class Tile
 {
@@ -31,8 +31,8 @@ public:
 	const std::string getAsString() const;
 
 
-	void update();
-	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f playerPosition = sf::Vector2f());
+	virtual void update();
+	virtual void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f player_position = sf::Vector2f());
 	
 };
 
