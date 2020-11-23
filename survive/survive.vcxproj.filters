@@ -43,6 +43,9 @@
     <Filter Include="Item\RangeWeapon">
       <UniqueIdentifier>{502197da-f9aa-4cb9-ad17-52a6423ca48f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States\Editor Modes">
+      <UniqueIdentifier>{f9166cbb-efa8-4d39-991c-62c2afecff8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -129,6 +132,12 @@
     <ClCompile Include="EnemySpawner.cpp">
       <Filter>Map\Tile</Filter>
     </ClCompile>
+    <ClCompile Include="EditorMode.cpp">
+      <Filter>States\Editor Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultEditorMode.cpp">
+      <Filter>States\Editor Modes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -211,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="EnemySpawner.h">
       <Filter>Map\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMode.h">
+      <Filter>States\Editor Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEditorMode.h">
+      <Filter>States\Editor Modes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
