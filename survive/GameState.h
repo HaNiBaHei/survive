@@ -40,6 +40,8 @@ private:
 
     TileMap* tileMap;
 
+    std::vector<Enemy*> activeEnemies;
+
     // Functions //
     void initDeferredRender();
     void initView();

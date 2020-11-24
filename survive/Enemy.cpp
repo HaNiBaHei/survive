@@ -7,22 +7,22 @@ void Enemy::initvariables()
 
 void Enemy::initAnimations()
 {
-	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 8, 0, 64, 64);
-	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 1, 3, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 4, 1, 7, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 8, 1, 11, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
-	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
+	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 0, 3, 16, 16);
+	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 0, 0, 3, 16, 16);
+	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 2, 0, 2, 3, 16, 16);
+	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 3, 0, 3, 3, 16, 16);
+	this->animationComponent->addAnimation("WALK_UP", 7.f, 1, 0, 1, 3, 16, 16);
+	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 0, 3, 16, 16);
 }
 
 // Constructors //
-Enemy::Enemy(EnemySpawner& enemy_spawner, float x, float y, sf::Texture& texture_sheet)
-	: enemySpawner(enemy_spawner)
+Enemy::Enemy(float x, float y, sf::Texture& texture_sheet)
+	
 {
 	this->initvariables();
 
-	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
-	this->createMovementComponent(200.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
+	this->createHitboxComponent(this->sprite, 12.f, 10.f, 20.f, 20.f);
+	this->createMovementComponent(50.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 
 	this->setPosition(x, y);

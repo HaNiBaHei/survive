@@ -70,6 +70,11 @@ void GameState::initTexture()
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
 	}
+
+	if (!this->textures["FIRE_BALL"].loadFromFile("Resources/images/Sprite/Enemy/Fire.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
+	}
 }
 
 void GameState::initPauseMenu()
@@ -119,7 +124,12 @@ GameState::GameState(StateData* state_data)
 	this->initPlayerGui();
 	this->initTileMap();
 
-
+	// test //
+	this->activeEnemies.push_back(new Enemy(300.f, 200.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Enemy(700.f, 500.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Enemy(400.f, 200.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Enemy(600.f, 500.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Enemy(300.f, 800.f, this->textures["FIRE_BALL"]));
 }
 
 GameState::~GameState()
@@ -129,6 +139,11 @@ GameState::~GameState()
 	delete this->playerGui;
 	delete this->tileMap;
 
+	// test //
+	for (size_t i = 0; i < this->activeEnemies.size(); i++)
+	{
+		delete this->activeEnemies[i];
+	}
 }
 
 
@@ -221,6 +236,12 @@ void GameState::updatePauseMenuButtons()
 void GameState::updateTileMap(const float& dt)
 {
 	this->tileMap->update(this->player, dt);
+
+	// test //
+	for (auto* i : this->activeEnemies)
+	{
+		this->tileMap->update(i, dt);
+	}
 }
 
 void GameState::update(const float& dt)
@@ -241,6 +262,12 @@ void GameState::update(const float& dt)
 		this->player->update(dt, this->mousePosView);
 
 		this->playerGui->update(dt);
+
+		// test //
+		for (auto* i : this->activeEnemies)
+		{
+			i->update(dt, this->mousePosView);
+		}
 
 	}
 	// Paused update //
@@ -268,8 +295,15 @@ void GameState::render(sf::RenderTarget* target)
 		false
 	);
 	
+	// test //
+	for (auto* i : this->activeEnemies)
+	{
+		i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
+	}
+
 	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),false);
 
+	
 	// Render GUI //
 	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
