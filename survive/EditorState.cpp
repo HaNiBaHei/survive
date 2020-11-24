@@ -187,6 +187,11 @@ void EditorState::updatePauseMenuButtons()
 		this->tileMap->loadFromeFile("test.slmp");
 }
 
+void EditorState::updateModes(const float& dt)
+{
+	this->modes[EditorModes::DEFAULT_MODE]->update(dt);
+}
+
 void EditorState::update(const float& dt)
 {
 	this->updateMousePositions(&this->view);
@@ -198,7 +203,7 @@ void EditorState::update(const float& dt)
 		this->updateButtons();
 		this->updateGui(dt);
 		this->updateEditorInput(dt);
-		this->modes[EditorModes::DEFAULT_MODE]->update(dt);
+		this->updateModes(dt);
 
 	}
 	else // Pause //
@@ -218,7 +223,11 @@ void EditorState::renderButtons(sf::RenderTarget& target)
 
 void EditorState::renderGui(sf::RenderTarget& target)
 {
-	this->modes[EditorModes::DEFAULT_MODE]->render(&target);
+}
+
+void EditorState::rederModes(sf::RenderTarget& target)
+{
+	this->modes[EditorModes::DEFAULT_MODE]->render(target);
 }
 
 void EditorState::render(sf::RenderTarget* target)
@@ -234,6 +243,8 @@ void EditorState::render(sf::RenderTarget* target)
 	this->renderButtons(*target);
 
 	this->renderGui(*target);
+
+	this->rederModes(*target);
 
 
 	if (this->pause) // Pause menu render //
