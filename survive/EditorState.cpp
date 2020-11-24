@@ -7,6 +7,19 @@ void EditorState::initVariables()
 	this->cameraSpeed = 500.f;
 }
 
+void EditorState::initEditorStateData()
+{
+	this->ediorStateData.view = &this->view;
+	this->ediorStateData.font = &this->font;
+	this->ediorStateData.keytime = &this->keytime;
+	this->ediorStateData.keytimeMax = &this->keytimeMax;
+	this->ediorStateData.keybinds = &this->keybinds;
+	this->ediorStateData.mousePosGrid = &this->mousePosGrid;
+	this->ediorStateData.mousePosScreen = &this->mousePosScreen;
+	this->ediorStateData.mousePosView = &this->mousePosView;
+	this->ediorStateData.mousePosWindow = &this->mousePosWindow;
+}
+
 void EditorState::initView()
 {
 	this->view.setSize(
@@ -74,7 +87,7 @@ void EditorState::initTileMap()
 
 void EditorState::initModes()
 {
-
+	this->modes.push_back(new DefaultEditorMode(this->stateData, this->tileMap, &this->ediorStateData));
 }
 
 
@@ -83,6 +96,7 @@ EditorState::EditorState(StateData* state_data)
 	:State(state_data)
 {
 	this->initVariables();
+	this->initEditorStateData();
 	this->initView();
 	this->initFonts();
 	this->initKeybinds();
@@ -184,6 +198,7 @@ void EditorState::update(const float& dt)
 		this->updateButtons();
 		this->updateGui(dt);
 		this->updateEditorInput(dt);
+		this->modes[EditorModes::DEFAULT_MODE]->update(dt);
 
 	}
 	else // Pause //
@@ -203,7 +218,7 @@ void EditorState::renderButtons(sf::RenderTarget& target)
 
 void EditorState::renderGui(sf::RenderTarget& target)
 {
-
+	this->modes[EditorModes::DEFAULT_MODE]->render(&target);
 }
 
 void EditorState::render(sf::RenderTarget* target)

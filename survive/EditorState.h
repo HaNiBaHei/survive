@@ -6,6 +6,7 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "EditorMode.h"
+#include "DefaultEditorMode.h"
 
 class State;
 class StateData;
@@ -14,14 +15,17 @@ class PauseMenu;
 class TileMap;
 class Tile;
 class EditorMode;
+class EditorStateData;
+class DefaultEditorMode;
 
 enum EditorModes { DEFAULT_MODE = 0, ENEMY };
-
 
 class EditorState :
     public State
 {
 private:
+    EditorStateData ediorStateData;
+
     // Variable //
     sf::View view;
     float cameraSpeed;
@@ -39,6 +43,7 @@ private:
 
     // Functions //
     void initVariables();
+    void initEditorStateData();
     void initView();
     void initFonts();
     void initKeybinds();
