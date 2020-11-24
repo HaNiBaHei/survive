@@ -156,7 +156,7 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
 	}
 }
 
-void TileMap::removeTile(const int x, const int y, const int z)
+void TileMap::removeTile(const int x, const int y, const int z, const int type)
 {
 	/* Take 2 indicies from the mouse pos in the grid and remove tile to that pos if tilemap array allows*/
 
@@ -166,10 +166,23 @@ void TileMap::removeTile(const int x, const int y, const int z)
 	{
 		if (!this->map[x][y][z].empty())
 		{
-			// Remove
-			delete this->map[x][y][z][this->map[x][y][z].size() - 1];
-			this->map[x][y][z].pop_back();
-			std::cout << "DEBUG: REMOVED TILE" << "\n";
+			// Ok to Remove
+			if (type >= 0)
+			{
+				if (this->map[x][y][z].back()->getType() == type)
+				{
+					delete this->map[x][y][z][this->map[x][y][z].size() - 1];
+					this->map[x][y][z].pop_back();
+					//std::cout << "DEBUG: REMOVED TILE" << "\n";
+				}
+			}
+			else
+			{
+				delete this->map[x][y][z][this->map[x][y][z].size() - 1];
+				this->map[x][y][z].pop_back();
+				//std::cout << "DEBUG: REMOVED TILE" << "\n";
+			}
+			
 
 		}
 
@@ -306,6 +319,12 @@ void TileMap::loadFromeFile(const std::string file_name)
 
 	in_file.close();
 
+}
+
+const bool TileMap::checkType(const int x, const int y, const int z, const int type) const
+{
+
+	return this->map[x][y][this->layer].back()->getType() == type;
 }
 
 void TileMap::update(Entity* entity, const float& dt)
