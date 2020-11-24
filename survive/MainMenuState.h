@@ -22,11 +22,14 @@ private:
     sf::Font font;
     std::vector<sf::VideoMode> modes;
 
+    sf::Music bgMusic;
+
     sf::RectangleShape btnBackground;
     std::map<std::string, gui::Button*> buttons;
 
     // Functions //
     void initVariables();
+    void initMusic();
     void initFonts();
     void initKeybinds();
     void initGui();
@@ -38,6 +41,7 @@ public:
 
     // Function //
 
+    void updateMusic();
     void updateInput(const float& dt);
     void updateButtons();
     void update(const float& dt);

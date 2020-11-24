@@ -6,6 +6,16 @@ void MainMenuState::initVariables()
 {
 }
 
+void MainMenuState::initMusic()
+{
+	if (!this->bgMusic.openFromFile("Resources/Sounds/MainmenuTrack.wav"))
+	{
+		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
+	}
+
+	
+}
+
 
 
 void MainMenuState::initFonts()
@@ -115,10 +125,16 @@ MainMenuState::MainMenuState(StateData* state_data)
 	:State(state_data)
 {
 	this->initVariables();
+	this->initMusic();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();
 	this->resetGui();
+
+	this->bgMusic.setVolume(50);
+	this->bgMusic.setLoop(true);
+	this->bgMusic.play();
+	
 }
 
 MainMenuState::~MainMenuState()
@@ -133,6 +149,11 @@ MainMenuState::~MainMenuState()
 
 // Functions //
 
+void MainMenuState::updateMusic()
+{
+	
+}
+
 void MainMenuState::updateInput(const float& dt)
 {
 
@@ -146,29 +167,38 @@ void MainMenuState::updateButtons()
 	{
 		// Update all the button in this state //
 		it.second->update(this->mousePosWindow);
+
 	}
 
 	// New game //
 	if (this->buttons["GAME_STATE"]->isPressed())
 	{
+		this->bgMusic.stop();
+
 		this->states->push(new GameState(this->stateData));
 	}
 
 	// Setting //
 	if (this->buttons["SETTINGS_STATE"]->isPressed())
 	{
+		this->bgMusic.stop();
+
 		this->states->push(new SettingsState(this->stateData));
 	}
 
 	// Editors //
 	if (this->buttons["EDITOR_STATE"]->isPressed())
 	{
+		this->bgMusic.stop();
+
 		this->states->push(new EditorState(this->stateData));
 	}
 
 	// Quit the game //
 	if (this->buttons["EXIT_STATE"]->isPressed())
 	{
+		this->bgMusic.stop();
+
 		this->endState();
 	}
 }
@@ -180,6 +210,7 @@ void MainMenuState::update(const float& dt)
 
 
 	this->updateButtons();
+	this->updateMusic();
 }
 
 void MainMenuState::renderButtons(sf::RenderTarget& target)
@@ -194,6 +225,7 @@ void MainMenuState::render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
+
 
 	target->draw(this->background);
 

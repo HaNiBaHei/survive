@@ -6,7 +6,7 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "EditorMode.h"
-#include "DefaultEditorMode.h"
+#include "EditorModes.h"
 
 class State;
 class StateData;
@@ -17,8 +17,9 @@ class Tile;
 class EditorMode;
 class EditorStateData;
 class DefaultEditorMode;
+class EnemyEditorMode;
 
-enum EditorModes { DEFAULT_MODE = 0, ENEMY };
+enum EditorModes { DEFAULT_EDITOR_MODE = 0, ENEMY_EDITOR_MODE };
 
 class EditorState :
     public State
@@ -37,9 +38,8 @@ private:
 
     TileMap* tileMap;
 
-   
-
     std::vector<EditorMode*> modes;
+    unsigned activeMode;
 
     // Functions //
     void initVariables();

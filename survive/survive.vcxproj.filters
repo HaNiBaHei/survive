@@ -233,6 +233,9 @@
     <ClInclude Include="EnemyEditorMode.h">
       <Filter>States\Editor Modes</Filter>
     </ClInclude>
+    <ClInclude Include="EditorModes.h">
+      <Filter>States\Editor Modes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.slmp">

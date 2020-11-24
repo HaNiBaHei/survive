@@ -141,8 +141,6 @@ void DefaultEditorMode::updateGui(const float& dt)
 		"\n" << "Tiles " << this->tileMap->getLayerSize(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, this->layer) <<
 		"\n" << "Tile Lock: " << this->tileAddLock;
 
-
-
 	this->cursorText.setString(ss.str());
 }
 
