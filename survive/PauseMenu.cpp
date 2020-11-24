@@ -16,12 +16,12 @@ PauseMenu::PauseMenu(sf::VideoMode& vm, sf::Font& font)
 	// InitContainer //
 	this->container.setSize(
 		sf::Vector2f(
-			static_cast<float>(vm.width) / 4.f,
-			static_cast<float>(vm.height) - gui::p2pY(9.3f, vm)
+			static_cast<float>(vm.width) / 3.f,
+			static_cast<float>(vm.height) - gui::p2pY(30.3f, vm)
 		)
 	);
 	this->container.setFillColor(sf::Color(20, 20, 20, 200));
-	this->container.setPosition(static_cast<float>(vm.width) / 2.f - this->container.getSize().x / 2.f, 30.f);
+	this->container.setPosition(static_cast<float>(vm.width) / 2.f - this->container.getSize().x / 2.f, gui::p2pY(18.5f, vm));
 
 	// InitText //
 	this->menuText.setFont(font);

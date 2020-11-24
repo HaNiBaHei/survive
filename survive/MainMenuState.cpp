@@ -44,7 +44,7 @@ void MainMenuState::initGui()
 			static_cast<float>(vm.height)
 		)
 	);
-	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/bg1.png"))
+	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/background4.png"))
 	{
 		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -60,32 +60,32 @@ void MainMenuState::initGui()
 	);
 
 	this->btnBackground.setPosition(gui::p2pX(11.5f, vm), 0.f);
-	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 220));
+	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 0));
 
 	// Buttons //
 	this->buttons["GAME_STATE"] = new gui::Button(
-		gui::p2pX(50.f, vm), gui::p2pY(40.7f, vm),
+		gui::p2pX(48.5f, vm), gui::p2pY(40.f, vm),
 		gui::p2pX(13.f, vm), gui:: p2pX(3.5f, vm),
 		&this->font, "New Game", gui::clacCharSize(vm, 80), // font size
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50), // text color
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200)); // background color
 
 	this->buttons["SETTINGS_STATE"] = new gui::Button(
-		gui::p2pX(50.f, vm), gui::p2pY(50.f, vm),
+		gui::p2pX(48.5f, vm), gui::p2pY(50.f, vm),
 		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
 		&this->font, "Settings", gui::clacCharSize(vm, 80),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 
 	this->buttons["EDITOR_STATE"] = new gui::Button(
-		gui::p2pX(50.f, vm), gui::p2pY(59.2f, vm),
+		gui::p2pX(48.5f, vm), gui::p2pY(60.f, vm),
 		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
 		&this->font, "Editor", gui::clacCharSize(vm, 80),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 
 	this->buttons["EXIT_STATE"] = new gui::Button(
-		gui::p2pX(50.f, vm), gui::p2pY(77.7f, vm),
+		gui::p2pX(48.5f, vm), gui::p2pY(70.f, vm),
 		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
 		&this->font, "Quit", gui::clacCharSize(vm, 80),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),

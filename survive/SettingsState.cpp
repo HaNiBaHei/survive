@@ -46,7 +46,7 @@ void SettingsState::initGui()
 			static_cast<float>(vm.height)
 		)
 	);
-	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/bg1.png"))
+	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/background4.png"))
 	{
 		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
