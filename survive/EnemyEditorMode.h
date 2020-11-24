@@ -20,6 +20,12 @@ private:
     sf::Text cursorText;
     sf::RectangleShape sidebar;
     sf::RectangleShape selectorRect;
+    sf::IntRect textureRect;
+
+    int type;
+    int amount;
+    int timeToSpawn;
+    float maxDistance;
 
     // Initializers //
     void initVariables();

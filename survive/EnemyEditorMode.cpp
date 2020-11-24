@@ -3,7 +3,10 @@
 // Initializers //
 void EnemyEditorMode::initVariables()
 {
-
+	type = 0;
+	amount = 1;
+	timeToSpawn = 60;
+	maxDistance = 500.f;
 }
 
 void EnemyEditorMode::initGui()
@@ -42,6 +45,24 @@ EnemyEditorMode::~EnemyEditorMode()
 // Functions //
 void EnemyEditorMode::updateInput(const float& dt)
 {
+	// Add a tile to the tilemap//s
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->getKeytime())
+	{
+		if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow)))
+		{
+			this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, false, TileTypes::ENEMYSPAWNER);
+
+		}
+	}
+
+	// Remove a tile from the tilemap//
+	else if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeytime())
+	{
+		if (!this->sidebar.getGlobalBounds().contains(sf::Vector2f(*this->editorStateData->mousePosWindow)))
+		{
+			this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0);
+		}
+	}
 
 }
 
@@ -53,10 +74,10 @@ void EnemyEditorMode::updateGui(const float& dt)
 
 	std::stringstream ss;
 	ss << 
-		"\n" << "Collision: " << 
-		"\n" << "Type: " << 
-		"\n" << "Tiles " <<  
-		"\n" << "Tile Lock: " ;
+		"\n" << "Eneym type: " << this->type <<		
+		"\n" << "Eneym amount: " << this->amount <<
+		"\n" << "Time to spawn: " << this->timeToSpawn <<
+		"\n" << "Max distance: " << this->maxDistance;
 
 	this->cursorText.setString(ss.str());
 }
@@ -73,6 +94,8 @@ void EnemyEditorMode::renderGui(sf::RenderTarget& target)
 	target.draw(this->selectorRect);
 	target.draw(this->cursorText);
 
+	target.setView(target.getDefaultView());
+	target.draw(this->sidebar);
 
 }
 
