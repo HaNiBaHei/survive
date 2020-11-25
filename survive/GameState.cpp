@@ -131,12 +131,7 @@ GameState::GameState(StateData* state_data)
 	this->initPlayerGui();
 	this->initTileMap();
 
-	// test //
-	this->activeEnemies.push_back(new Fire(300.f, 200.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Fire(700.f, 500.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Fire(400.f, 200.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Fire(600.f, 500.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Fire(300.f, 800.f, this->textures["FIRE_BALL"]));
+	
 }
 
 GameState::~GameState()
@@ -242,13 +237,26 @@ void GameState::updatePauseMenuButtons()
 
 void GameState::updateTileMap(const float& dt)
 {
-	this->tileMap->update(this->player, dt);
+	this->tileMap->updateWorldBoundsCollision(this->player, dt);
+	this->tileMap->updateTileCollision(this->player, dt);
+	this->tileMap->updateTiles(this->player, dt);
 
 	// test //
 	for (auto* i : this->activeEnemies)
 	{
-		this->tileMap->update(i, dt);
+		this->tileMap->updateWorldBoundsCollision(i, dt);
+		this->tileMap->updateTileCollision(i, dt);
 	}
+}
+
+void GameState::updatePlayer(const float& dt)
+{
+
+}
+
+void GameState::updateEnemies(const float& dt)
+{
+	//this->activeEnemies.push_back(new Fire(300.f, 200.f, this->textures["FIRE_BALL"]));
 }
 
 void GameState::update(const float& dt)
