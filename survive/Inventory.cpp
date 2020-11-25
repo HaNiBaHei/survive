@@ -72,12 +72,28 @@ const bool Inventory::emtpy() const
 
 const bool Inventory::add(Item* item)
 {
+	if (this->nrOfItem < this->capacity)
+	{
+		this->itemArray[this->nrOfItem++] = item->clone();
+
+		return true;
+	}
 
 	return false;
 }
 
 const bool Inventory::remove(const unsigned index)
 {
+	if (this->nrOfItem > 0)
+	{
+		if (index < 0 || index >= this->capacity)
+			return false;
+
+		delete this->itemArray[index];
+		this->itemArray[index] = nullptr;
+
+		return true;
+	}
 
 	return false;
 }

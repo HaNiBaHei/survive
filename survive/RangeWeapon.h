@@ -14,6 +14,9 @@ private:
 public:
     RangeWeapon();
     virtual ~RangeWeapon();
+
+    // Functions //
+    virtual RangeWeapon* clone() = 0;
 };
 
 #endif
