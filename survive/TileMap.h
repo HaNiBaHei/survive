@@ -1,9 +1,9 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
 
-#include "Entity.h"
 #include "EnemySpawnerTile.h"
 #include "RegularTile.h"
+#include "EnemiesInclude.h"
 
 class Tile;
 class Entity;
@@ -57,7 +57,8 @@ public:
 
 	void updateWorldBoundsCollision(Entity* entity, const float& dt);
 	void updateTileCollision(Entity* entity, const float& dt);
-	void updateTiles(Entity* entity, const float& dt);
+	void updateTiles(Entity* entity, const float& dt, std::vector<Enemy*>& activeEnemies, 
+		std::map<std::string, sf::Texture>& textures);
 	void update(Entity* entity, const float& dt);
 
 	void render(

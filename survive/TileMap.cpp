@@ -489,7 +489,8 @@ void TileMap::updateTileCollision(Entity* entity, const float& dt)
 	}
 }
 
-void TileMap::updateTiles(Entity* entity, const float& dt)
+void TileMap::updateTiles(Entity* entity, const float& dt, 
+	std::vector<Enemy*>& activeEnemies, std::map<std::string, sf::Texture>& textures)
 {
 	// Tiles
 	this->layer = 0;
@@ -532,8 +533,11 @@ void TileMap::updateTiles(Entity* entity, const float& dt)
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es)
 					{
-						if(!es->getSpawned())
+						if (!es->getSpawned())
+						{
+							activeEnemies.push_back(new Fire(x * this->gridSizeF, y * this->gridSizeF, textures["FIRE_BALL"]));
 							es->setSpawned(true);
+						}
 					}
 				}
 			}
