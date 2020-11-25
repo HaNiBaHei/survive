@@ -129,9 +129,6 @@
     <ClCompile Include="SkillComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="EnemySpawner.cpp">
-      <Filter>Map\Tile</Filter>
-    </ClCompile>
     <ClCompile Include="EditorMode.cpp">
       <Filter>States\Editor Modes</Filter>
     </ClCompile>
@@ -148,6 +145,9 @@
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="RegularTile.cpp">
+      <Filter>Map\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawnerTile.cpp">
       <Filter>Map\Tile</Filter>
     </ClCompile>
   </ItemGroup>
@@ -227,9 +227,6 @@
     <ClInclude Include="SkillComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="EnemySpawner.h">
-      <Filter>Map\Tile</Filter>
-    </ClInclude>
     <ClInclude Include="EditorMode.h">
       <Filter>States\Editor Modes</Filter>
     </ClInclude>
@@ -252,6 +249,9 @@
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="RegularTile.h">
+      <Filter>Map\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawnerTile.h">
       <Filter>Map\Tile</Filter>
     </ClInclude>
   </ItemGroup>
