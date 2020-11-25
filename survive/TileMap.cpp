@@ -301,30 +301,32 @@ void TileMap::loadFromeFile(const std::string file_name)
 			std::cout << "ERROR LOADING TILE TEXTURESHEET::FILENAME:" << texture_file << "\n";
 
 		// Load all tiles //
-		while (in_file >> type)
+		while (in_file >> x >> y >> z >> type)
 		{
 			if (type == TileTypes::ENEMYSPAWNER)
 			{
 				// amount, time, max dis //
 				int enemy_type, enemy_am, enemy_tts, enemy_md;
 
-				in_file >> x >> y >> z >> trX >> trY 
+				in_file >> trX >> trY 
 					>> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
 
-				new EnemySpawner(
-					x, y,
-					this->gridSizeF,
-					this->tileSheet,
-					sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
-					enemy_type,
-					enemy_am,
-					enemy_tts,
-					enemy_md
+				this->map[x][y][z].push_back(
+					new EnemySpawner(
+						x, y,
+						this->gridSizeF,
+						this->tileSheet,
+						sf::IntRect(trX, trY, this->gridSizeI, this->gridSizeI),
+						enemy_type,
+						enemy_am,
+						enemy_tts,
+						enemy_md
+					)
 				);
 			}
 			else
 			{
-				in_file >> x >> y >> z >> trX >> trY >> collision;
+				in_file >> trX >> trY >> collision;
 
 				this->map[x][y][z].push_back(
 					new Tile(

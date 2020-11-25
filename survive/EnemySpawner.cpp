@@ -23,7 +23,19 @@ const std::string EnemySpawner::getAsString() const
 {
 	std::stringstream ss;
 
-	ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top;
+	/*
+	* x y z
+	* type
+	* rect x, rext y
+	* enemy_type
+	* enemy_amount
+	* enemy_time to spawn
+	* enemy max distance
+	* 
+	*/
+
+	ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top
+		<< this->enemyType << " " << this->enemyAmount << " " << this->enemyTimeToSpawn << " " << this->enemyMaxDistance;
 
 	return ss.str();
 }
