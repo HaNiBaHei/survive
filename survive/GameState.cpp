@@ -132,11 +132,11 @@ GameState::GameState(StateData* state_data)
 	this->initTileMap();
 
 	// test //
-	this->activeEnemies.push_back(new Enemy(300.f, 200.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Enemy(700.f, 500.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Enemy(400.f, 200.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Enemy(600.f, 500.f, this->textures["FIRE_BALL"]));
-	this->activeEnemies.push_back(new Enemy(300.f, 800.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Fire(300.f, 200.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Fire(700.f, 500.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Fire(400.f, 200.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Fire(600.f, 500.f, this->textures["FIRE_BALL"]));
+	this->activeEnemies.push_back(new Fire(300.f, 800.f, this->textures["FIRE_BALL"]));
 }
 
 GameState::~GameState()

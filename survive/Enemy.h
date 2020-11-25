@@ -17,17 +17,18 @@ private:
 
 
 	// Initializer //
-	void initvariables();
-	void initAnimations();
+	virtual void initvariables() = 0;
+	virtual void initAnimations() = 0;
 
 public:
-    Enemy(float x, float y, sf::Texture& texture_sheet);
+    Enemy();
 	virtual ~Enemy();
 	
 	// Functions //
-	void updateAnimation(const float& dt);
-	void update(const float& dt, sf::Vector2f& mouse_pos_view);
-	void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false);
+	virtual void updateAnimation(const float& dt) = 0;
+
+	virtual void update(const float& dt, sf::Vector2f& mouse_pos_view) = 0;
+	virtual void render(sf::RenderTarget& target, sf::Shader* shader = NULL, const sf::Vector2f light_position = sf::Vector2f(), const bool show_hitbox = false) = 0;
 	
 };
 
