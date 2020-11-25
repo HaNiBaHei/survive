@@ -34,7 +34,7 @@ const std::string EnemySpawner::getAsString() const
 	* 
 	*/
 
-	ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top
+	ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " "
 		<< this->enemyType << " " << this->enemyAmount << " " << this->enemyTimeToSpawn << " " << this->enemyMaxDistance;
 
 	return ss.str();

@@ -148,8 +148,14 @@ void TileMap::addTile(const int x, const int y, const int z, const sf::IntRect& 
 	{
 
 			// Ok to add
-			this->map[x][y][z].push_back(new Tile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
-			std::cout << "DEBUG: ADDED TILE" << "\n";
+		if(type == TileTypes::DEFAULT)
+			this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
+		else if(type == TileTypes::ENEMYSPAWNER)
+			this->map[x][y][z].push_back(new EnemySpawner(x, y, this->gridSizeF, this->tileSheet, texture_rect, 0, 0, 0, 0));
+
+		
+		
+		std::cout << "DEBUG: ADDED TILE" << "\n";
 
 		
 
@@ -306,10 +312,12 @@ void TileMap::loadFromeFile(const std::string file_name)
 			if (type == TileTypes::ENEMYSPAWNER)
 			{
 				// amount, time, max dis //
-				int enemy_type, enemy_am, enemy_tts, enemy_md;
+				int enemy_type = 0;
+				int enemy_am = 0;
+				int	enemy_tts = 0;
+				int	enemy_md = 0;
 
-				in_file >> trX >> trY 
-					>> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
+				in_file >> trX >> trY >> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
 
 				this->map[x][y][z].push_back(
 					new EnemySpawner(
@@ -329,7 +337,7 @@ void TileMap::loadFromeFile(const std::string file_name)
 				in_file >> trX >> trY >> collision;
 
 				this->map[x][y][z].push_back(
-					new Tile(
+					new RegularTile(
 						type,
 						x, y,
 						this->gridSizeF,

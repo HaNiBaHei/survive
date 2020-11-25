@@ -147,6 +147,9 @@
     <ClCompile Include="Fire.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="RegularTile.cpp">
+      <Filter>Map\Tile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="EnemiesInclude.h">
       <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="RegularTile.h">
+      <Filter>Map\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
