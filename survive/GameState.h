@@ -8,16 +8,6 @@
 #include "Sword.h"
 #include "Bow.h"
 
-class PauseMenu;
-class Player;
-class PlayerGui;
-class TileMap;
-class Enemy;
-class sf::View;
-class sf::Font;
-class sf::RenderTexture;
-
-
 class GameState :
     public State
 {
@@ -36,10 +26,10 @@ private:
     PlayerGui* playerGui;
     sf::Texture texture;
 
+    std::vector<Enemy*> activeEnemies;
+    EnemySystem* enemySystem;
 
     TileMap* tileMap;
-
-    std::vector<Enemy*> activeEnemies;
 
     // Functions //
     void initDeferredRender();
@@ -51,6 +41,7 @@ private:
     void initShaders();
     void initPlayers();
     void initPlayerGui();
+    void initEnemySystem();
     void initTileMap();
 
 public:

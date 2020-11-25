@@ -110,6 +110,11 @@ void GameState::initPlayerGui()
 	this->playerGui = new PlayerGui(this->player, this->stateData->gfxSettings->resolution);
 }
 
+void GameState::initEnemySystem()
+{
+	this->enemySystem = new EnemySystem(this->activeEnemies, this->textures);
+}
+
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap("test.slmp");
@@ -129,6 +134,7 @@ GameState::GameState(StateData* state_data)
 
 	this->initPlayers();
 	this->initPlayerGui();
+	this->initEnemySystem();
 	this->initTileMap();
 
 	
@@ -139,6 +145,7 @@ GameState::~GameState()
 	delete this->pmenu;
 	delete this->player;
 	delete this->playerGui;
+	delete this->enemySystem;
 	delete this->tileMap;
 
 	// test //
@@ -239,7 +246,7 @@ void GameState::updateTileMap(const float& dt)
 {
 	this->tileMap->updateWorldBoundsCollision(this->player, dt);
 	this->tileMap->updateTileCollision(this->player, dt);
-	this->tileMap->updateTiles(this->player, dt, this->activeEnemies, this->textures);
+	this->tileMap->updateTiles(this->player, dt, *this->enemySystem);
 
 	// test //
 	for (auto* i : this->activeEnemies)
