@@ -12,7 +12,7 @@ class Player :
 private:
     // Variables //
     bool attacking;
-    Sword sword;
+    Sword* sword;
     
 
     // Initializer //

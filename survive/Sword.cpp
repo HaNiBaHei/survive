@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Sword.h"
 
-Sword::Sword()
+Sword::Sword(unsigned value)
+	:MeleeWeapon(value)
 {
 	// Weapon //
 	if (!this->weapon_texture.loadFromFile("Resources/images/Weapon/sword 5.png"))

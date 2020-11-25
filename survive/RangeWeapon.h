@@ -12,7 +12,7 @@ private:
 
 
 public:
-    RangeWeapon();
+    RangeWeapon(unsigned value);
     virtual ~RangeWeapon();
 
     // Functions //

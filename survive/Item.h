@@ -1,15 +1,20 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-
+enum ItemTypes {IT_DEFAULT = 0, IT_RANGEWEAPON, IT_MELEEWEAPON};
 
 class Item
 {
 private:
+	void initVariables();
 
+protected:
+	// Variables //
+	short unsigned type;
+	unsigned value;
 
 public:
-	Item();
+	Item(unsigned value);
 	virtual ~Item();
 
 	// Functions //

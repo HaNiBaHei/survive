@@ -5,6 +5,7 @@
 void Player::initvariables()
 {
 	this->attacking = false;
+	this->sword = new Sword(20);
 }
 
 void Player::initComponents()
@@ -39,7 +40,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 
 Player::~Player()
 {
-
+	delete this->sword;
 }
 
 // Accessors //
@@ -135,7 +136,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 
 	this->hitboxComponent->update();
 
-	this->sword.update(mouse_pos_view, this->getCenter());
+	this->sword->update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
@@ -150,12 +151,12 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vect
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", light_position);
 
-		this->sword.render(target, shader);
+		this->sword->render(target, shader);
 	}
 	else
 	{
 		target.draw(this->sprite);
-		this->sword.render(target);
+		this->sword->render(target);
 	}
 
 	if (show_hitbox)
