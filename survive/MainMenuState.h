@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "EditorState.h"
 #include "SettingsState.h"
+#include "ScoreState.h"
 #include "Gui.h"
 
 class GameState;

@@ -156,6 +156,9 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Item</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

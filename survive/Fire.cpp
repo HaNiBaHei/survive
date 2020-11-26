@@ -8,7 +8,7 @@ void Fire::initvariables()
 
 void Fire::initAnimations()
 {
-	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 0, 3, 16, 16);
+	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 0, 0, 16, 16);
 	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 0, 0, 3, 16, 16);
 	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 2, 0, 2, 3, 16, 16);
 	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 3, 0, 3, 3, 16, 16);
@@ -21,7 +21,7 @@ Fire::Fire(float x, float y, sf::Texture& texture_sheet)
 {
 	this->initvariables();
 
-	this->createHitboxComponent(this->sprite, 12.f, 10.f, 20.f, 20.f);
+	this->createHitboxComponent(this->sprite, 0.f, 0.f, 16.f, 16.f);
 	this->createMovementComponent(50.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 
