@@ -263,20 +263,20 @@ void GameState::updatePlayer(const float& dt)
 
 void GameState::updateEnemies(const float& dt)
 {
-	//this->activeEnemies.push_back(new Fire(300.f, 200.f, this->textures["FIRE_BALL"]));
+	for (auto* i : this->activeEnemies)
+	{
+		i->update(dt, this->mousePosView);
+		this->updateCombat(i, dt);
+	}
 }
 
-void GameState::updateCombat(const float& dt)
+void GameState::updateCombat(Enemy* enemy, const float& dt)
 {
-	for (auto i : this->activeEnemies)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f)
 		{
-			if (i->getGlobalBounds().contains(this->mousePosView)&&
-				std::abs(this->player->getPosition().x - i->getPosition().x) < this->player->getWeapon()->getRange())
-			{
 				std::cout << "Hit!" << rand()%29 << "\n";
-			}
 		}
 	}
 }
@@ -301,12 +301,7 @@ void GameState::update(const float& dt)
 		this->playerGui->update(dt);
 
 		// Update All Enemies //
-		for (auto* i : this->activeEnemies)
-		{
-			i->update(dt, this->mousePosView);
-		}
-
-		this->updateCombat(dt);
+		this->updateEnemies(dt);
 
 	}
 	// Paused update //

@@ -21,6 +21,10 @@ Enemy::~Enemy()
 {
 
 }
-// Functions //
 
+// Functions //
+void Enemy::takeDamage(const int damage)
+{
+	this->attributeComponent->loseHP(damage);
+}
 
