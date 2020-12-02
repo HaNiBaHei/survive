@@ -1,24 +1,19 @@
 #ifndef MELEEWEAPON_H
 #define MELEEWEAPON_H
 
-#include "Item.h"
+#include "Weapon.h"
 
-class Item;
 
 class MeleeWeapon :
-    public Item
+    public Weapon
 {
 private:
 
 protected:
-    sf::Texture weapon_texture;
-    sf::Sprite weapon_sprite;
-
-    int damageMin;
-    int damageMax;
+    
 
 public:
-    MeleeWeapon(unsigned value);
+    MeleeWeapon(unsigned value, std::string texture_file);
     virtual ~MeleeWeapon();
 
     // Functions //

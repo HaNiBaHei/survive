@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Bow.h"
 
-Bow::Bow(unsigned value)
-    :RangeWeapon(value)
+Bow::Bow(unsigned value, std::string texture_file)
+    :RangeWeapon(value, texture_file)
 {
 }
 

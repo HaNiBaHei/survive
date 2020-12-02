@@ -27,6 +27,9 @@ void ScoreState::initKeybinds()
 void ScoreState::initGui()
 {
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
+	
+
 	// Background //
 	this->background.setSize(
 		sf::Vector2f
@@ -42,9 +45,20 @@ void ScoreState::initGui()
 
 	this->background.setTexture(&this->backgroundTexture);
 
+	// Buttons background //
+	this->btnBackground.setSize(
+		sf::Vector2f(
+			static_cast<float>(vm.width / 3),
+			static_cast<float>(vm.height / 2)
+		)
+	);
+
+	this->btnBackground.setPosition(gui::p2pX(37.f, vm), gui::p2pY(19.5f, vm));
+	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 200));
+
 	// Buttons //
 	this->buttons["BACK"] = new gui::Button(
-		gui::p2pX(50.f, vm), gui::p2pY(68.51f, vm),
+		gui::p2pX(50.f, vm), gui::p2pY(70.1f, vm),
 		gui::p2pX(7.81f, vm), gui::p2pY(3.f, vm),
 		&this->font, "Back", gui::clacCharSize(vm),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
@@ -53,7 +67,7 @@ void ScoreState::initGui()
 	// Init Text //
 	this->optionsText.setFont(this->font);
 
-	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(43.5f, vm), gui::p2pY(10.f, vm)));
+	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(44.f, vm), gui::p2pY(10.f, vm)));
 
 	this->optionsText.setCharacterSize(gui::clacCharSize(vm, 45));
 	this->optionsText.setFillColor(sf::Color(0, 0, 0, 255));
@@ -138,6 +152,8 @@ void ScoreState::render(sf::RenderTarget* target)
 		target = this->window;
 
 	target->draw(this->background);
+
+	target->draw(this->btnBackground);
 
 	this->renderGui(*target);
 
