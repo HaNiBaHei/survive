@@ -248,12 +248,6 @@ void GameState::updateTileMap(const float& dt)
 	this->tileMap->updateTileCollision(this->player, dt);
 	this->tileMap->updateTiles(this->player, dt, *this->enemySystem);
 
-	// test //
-	for (auto* i : this->activeEnemies)
-	{
-		this->tileMap->updateWorldBoundsCollision(i, dt);
-		this->tileMap->updateTileCollision(i, dt);
-	}
 }
 
 void GameState::updatePlayer(const float& dt)
@@ -261,22 +255,30 @@ void GameState::updatePlayer(const float& dt)
 
 }
 
-void GameState::updateEnemies(const float& dt)
+void GameState::updateCombatAndEnemies(const float& dt)
 {
-	for (auto* i : this->activeEnemies)
+	unsigned index = 0;
+	for (auto* enemy : this->activeEnemies)
 	{
-		i->update(dt, this->mousePosView);
-		this->updateCombat(i, dt);
+		enemy->update(dt, this->mousePosView);
+
+		this->tileMap->updateWorldBoundsCollision(enemy, dt);
+		this->tileMap->updateTileCollision(enemy, dt);
+
+		this->updateCombat(enemy, index, dt);
+
+		++index;
 	}
 }
 
-void GameState::updateCombat(Enemy* enemy, const float& dt)
+void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < 30.f)
 		{
-				std::cout << "Hit!" << rand()%29 << "\n";
+			enemy->loseHp(1);
+			std::cout << enemy->getAttributeComp()->hp << "\n";
 		}
 	}
 }
@@ -301,7 +303,7 @@ void GameState::update(const float& dt)
 		this->playerGui->update(dt);
 
 		// Update All Enemies //
-		this->updateEnemies(dt);
+		this->updateCombatAndEnemies(dt);
 
 	}
 	// Paused update //
@@ -330,9 +332,9 @@ void GameState::render(sf::RenderTarget* target)
 	);
 	
 	// test //
-	for (auto* i : this->activeEnemies)
+	for (auto* enemy : this->activeEnemies)
 	{
-		i->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
+		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
 	}
 
 	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),false);

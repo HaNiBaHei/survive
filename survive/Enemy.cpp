@@ -23,8 +23,22 @@ Enemy::~Enemy()
 }
 
 // Functions //
-void Enemy::takeDamage(const int damage)
+void Enemy::loseHp(const int hp)
 {
-	this->attributeComponent->loseHP(damage);
+	if (this->attributeComponent)
+	{
+		this->attributeComponent->loseHP(hp);
+	}
+}
+
+const AttributeComponent* Enemy::getAttributeComp() const
+{
+	if (this->attributeComponent)
+		return this->attributeComponent;
+	else
+	{
+		std::cout << "ERROR::ENEMY::ATTRIBUTECOMPONENT IS NOT INITIALIZED" << "\n";
+		return nullptr;
+	}
 }
 

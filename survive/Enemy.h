@@ -25,7 +25,8 @@ public:
 	virtual ~Enemy();
 	
 	// Functions //
-	void takeDamage(const int damage);
+	virtual void loseHp(const int hp);
+	virtual const AttributeComponent* getAttributeComp() const;
 
 	virtual void updateAnimation(const float& dt) = 0;
 

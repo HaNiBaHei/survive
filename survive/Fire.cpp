@@ -35,6 +35,7 @@ Fire::~Fire()
 
 }
 
+
 // Functions //
 void Fire::updateAnimation(const float& dt)
 {
