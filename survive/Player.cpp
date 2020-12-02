@@ -5,7 +5,7 @@
 void Player::initvariables()
 {
 	this->attacking = false;
-	this->sword = new Sword(20);
+	this->sword = new Sword(20, "Resources/images/Weapon/sword 1.png");
 }
 
 void Player::initComponents()
@@ -48,6 +48,11 @@ Player::~Player()
 AttributeComponent* Player::getAttributeComponent()
 {
 	return this->attributeComponent;
+}
+
+const Weapon* Player::getWeapon() const
+{
+	return this->sword;
 }
 
 // Functions //

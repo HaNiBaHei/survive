@@ -3,12 +3,14 @@
 
 void Weapon::initVariables()
 {
-
+	this->range = 10;
 }
 
 Weapon::Weapon(unsigned value, std::string texture_file)
 	:Item(value)
 {
+	this->initVariables();
+
 	if (!this->weapon_texture.loadFromFile(texture_file))
 		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
 
@@ -19,4 +21,10 @@ Weapon::Weapon(unsigned value, std::string texture_file)
 Weapon::~Weapon()
 {
 
+}
+
+// Accessors //
+const unsigned& Weapon::getRange() const
+{
+	return this->range;
 }

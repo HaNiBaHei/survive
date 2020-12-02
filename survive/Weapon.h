@@ -23,7 +23,10 @@ public:
     Weapon(unsigned value, std::string texture_file);
     virtual ~Weapon();
 
+    // Accessors //
+    const unsigned& getRange() const;
 
+    // Modifiers //
 
     // Functions //
     virtual Item* clone() = 0;
