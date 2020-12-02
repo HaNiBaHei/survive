@@ -3,6 +3,7 @@
 // Initializer //
 void Enemy::initvariables()
 {
+	this->gainExp = 10;
 }
 
 void Enemy::initAnimations()
@@ -14,12 +15,18 @@ void Enemy::initAnimations()
 Enemy::Enemy()
 	
 {
-	
+	this->initvariables();
+	this->initAnimations();
 }
 
 Enemy::~Enemy()
 {
 
+}
+
+const unsigned& Enemy::getGainExp() const
+{
+	return this->gainExp;
 }
 
 // Functions //
@@ -29,6 +36,16 @@ void Enemy::loseHp(const int hp)
 	{
 		this->attributeComponent->loseHP(hp);
 	}
+}
+
+const bool Enemy::isDead() const
+{
+	if (this->attributeComponent)
+	{
+		return this->attributeComponent->isDead();
+	}
+
+	return false;
 }
 
 const AttributeComponent* Enemy::getAttributeComp() const

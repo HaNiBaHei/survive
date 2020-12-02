@@ -44,6 +44,8 @@ public:
 	void loseScore(const int score);
 	void gainScore(const int score);
 
+	const bool isDead() const;
+
 	void updateStats(const bool reset);
 	void updateLevel();
 

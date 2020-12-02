@@ -84,6 +84,11 @@ void AttributeComponent::gainScore(const int score)
 	this->score += score;
 }
 
+const bool AttributeComponent::isDead() const
+{
+	return this->hp <= 0;
+}
+
 void AttributeComponent::updateStats(const bool reset)
 {
 	

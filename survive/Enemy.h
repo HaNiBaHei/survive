@@ -14,6 +14,7 @@ class Enemy :
 private:
 	// Variables //
 	//EnemySpawner& enemySpawner;
+	unsigned gainExp;
 
 
 	// Initializer //
@@ -24,8 +25,13 @@ public:
     Enemy();
 	virtual ~Enemy();
 	
+	// Accessors //
+	const unsigned& getGainExp() const;
+
 	// Functions //
 	virtual void loseHp(const int hp);
+	virtual const bool isDead() const;
+
 	virtual const AttributeComponent* getAttributeComp() const;
 
 	virtual void updateAnimation(const float& dt) = 0;
