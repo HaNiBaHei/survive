@@ -168,6 +168,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Item\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="TextTagSystem.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -283,6 +286,9 @@
     </ClInclude>
     <ClInclude Include="Weapon.h">
       <Filter>Item\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="TextTagSystem.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,20 +6,17 @@ void Weapon::initVariables()
 	this->range = 10;
 	this->damageMin = 1;
 	this->damageMax = 2;
+
+	//Timer
+	this->attackTimer.restart();
+	this->attackTimerMax = 300;
 }
 
-void Weapon::initCooldown()
-{
-	this->cooldown = 0.f;
-	this->cooldownMax = 1.f;
-	this->cooldownIteration = 1.f;
-}
 
 Weapon::Weapon(unsigned value, std::string texture_file)
 	:Item(value)
 {
 	this->initVariables();
-	this->initCooldown();
 
 	if (!this->weapon_texture.loadFromFile(texture_file))
 		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
@@ -47,4 +44,14 @@ const unsigned& Weapon::getDamageMax() const
 const unsigned& Weapon::getRange() const
 {
 	return this->range;
+}
+
+const bool Weapon::getAttackTimer()
+{
+	if (this->attackTimer.getElapsedTime().asMilliseconds() >= this->attackTimerMax)
+	{
+		this->attackTimer.restart();
+		return true;
+	}
+	return false;
 }
