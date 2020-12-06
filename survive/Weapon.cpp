@@ -3,7 +3,7 @@
 
 void Weapon::initVariables()
 {
-	this->range = 10;
+	this->range = 20;
 	this->damageMin = 1;
 	this->damageMax = 2;
 

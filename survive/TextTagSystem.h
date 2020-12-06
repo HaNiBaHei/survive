@@ -54,7 +54,7 @@ private:
 		}
 
 		// Accessors //
-		inline const bool canBeRemove() const { return this->lifetime <= 0.f; }
+		inline const bool isExpired() const { return this->lifetime <= 0.f; }
 
 
 		// Functions //
@@ -91,8 +91,9 @@ public:
 	virtual ~TextTagSystem();
 
 	// Functions //
-	void addTextTagString(const unsigned text_tag, const float pos_x, const float pos_y, const std::string str);
-	void removeTextTag();
+	void addTextTag(const unsigned text_tag, const float pos_x, const float pos_y, const std::string str);
+	void addTextTag(const unsigned text_tag, const float pos_x, const float pos_y, const int i);
+	void addTextTag(const unsigned text_tag, const float pos_x, const float pos_y, const float f);
 
 	void update(const float& dt);
 	void render(sf::RenderTarget& target);
