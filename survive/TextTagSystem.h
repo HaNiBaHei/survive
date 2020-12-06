@@ -1,6 +1,8 @@
 #ifndef TEXTTAGSYSTEM_H
 #define TEXTTAGSYSTEM_H
 
+enum TAGTYPES { DEFAULT_TAG, NEGATIVE_TAG, POSITIVE_TAG, EXPRIENCE_TAG, ENVIRONMENTAL_TAG
+};
 
 class TextTagSystem
 {
@@ -48,7 +50,11 @@ private:
 		{
 			if (this->lifetime > 0.f)
 			{
+				// Update lifetime //
 				this->lifetime -= 100.f * dt;
+
+				// Move the tag //
+				this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
 
 
 			}
@@ -60,14 +66,20 @@ private:
 	};
 
 	sf::Font font;
+	std::map<unsigned, TextTag*> tagTemplates;
 	std::vector<TextTag*> tags;
 
+	// Private Functions //
+	void initVariables();
+	void initTagTemplates();
+	void initFont(std::string font_file);
+
 public:
-	TextTagSystem();
+	TextTagSystem(std::string font_file);
 	virtual ~TextTagSystem();
 
 	// Functions //
-	void addTextTag(TextTag* text_tag);
+	void addTextTag(unsigned text_tag);
 	void removeTextTag();
 
 	void update(const float& dt);
