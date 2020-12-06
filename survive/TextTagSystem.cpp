@@ -14,7 +14,7 @@ void TextTagSystem::initFont(std::string font_file)
 
 void TextTagSystem::initTagTemplates()
 {
-	this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 0.f, 0.f, 0.f, -1.f, sf::Color::White, 12, 1000.f, 200.f);
+	this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "Yeah Boy!", 200.f, 200.f, 0.f, -1.f, sf::Color::Red, 20, 500.f, 100.f);
 }
 
 // Constructors //
@@ -27,13 +27,24 @@ TextTagSystem::TextTagSystem(std::string font_file)
 
 TextTagSystem::~TextTagSystem()
 {
+	// Clean up tags //
+	for (auto* tag : this->tags)
+	{
+		delete tag;
+	}
+
+	// Clean up templates //
+	for (auto& tag : this->tagTemplates)
+	{
+		delete tag.second;
+	}
 
 }
 // Functions //
 
 void TextTagSystem::addTextTag(unsigned text_tag)
 {
-
+	this->tags.push_back(new TextTag(*this->tagTemplates[DEFAULT_TAG]));
 }
 void TextTagSystem::removeTextTag()
 {
@@ -46,7 +57,7 @@ void TextTagSystem::update(const float& dt)
 		tag->update(dt);
 	}
 }
-void TextTagSystem::render(sf::RenderTarget* target)
+void TextTagSystem::render(sf::RenderTarget& target)
 {
 	for (auto& tag : this->tags)
 	{

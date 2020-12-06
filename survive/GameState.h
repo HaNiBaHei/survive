@@ -32,6 +32,9 @@ private:
 
     TileMap* tileMap;
 
+    // System //
+    TextTagSystem* tts;
+
     // Functions //
     void initDeferredRender();
     void initView();
@@ -44,6 +47,7 @@ private:
     void initPlayerGui();
     void initEnemySystem();
     void initTileMap();
+    void initSystems();
 
 public:
     GameState(StateData* state_data);

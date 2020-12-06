@@ -120,6 +120,11 @@ void GameState::initTileMap()
 	this->tileMap = new TileMap("test.slmp");
 }
 
+void GameState::initSystems()
+{
+	this->tts = new TextTagSystem("Fonts/AGENCYR.TTF");
+}
+
 // Constructors //
 GameState::GameState(StateData* state_data)
 	:State(state_data)
@@ -136,7 +141,7 @@ GameState::GameState(StateData* state_data)
 	this->initPlayerGui();
 	this->initEnemySystem();
 	this->initTileMap();
-
+	this->initSystems();
 	
 }
 
@@ -147,6 +152,7 @@ GameState::~GameState()
 	delete this->playerGui;
 	delete this->enemySystem;
 	delete this->tileMap;
+	delete this->tts;
 
 	// test //
 	for (size_t i = 0; i < this->activeEnemies.size(); i++)
@@ -218,14 +224,12 @@ void GameState::updatePlayerInput(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
 	{
 		this->player->move(0.f, -1.f, dt);
-		/*if (this->getKeytime())
-			this->player->gainEXP(10);*/
+		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 	{
 		this->player->move(0.f, 1.f, dt);
-		/*if (this->getKeytime())
-			this->player->loseEXP(10);*/
+		this->tts->addTextTag(DEFAULT_TAG);
 	}
 
 	
@@ -316,6 +320,8 @@ void GameState::update(const float& dt)
 		// Update All Enemies //
 		this->updateCombatAndEnemies(dt);
 
+		// Update Systems //
+		this->tts->update(dt);
 	}
 	// Paused update //
 	else
@@ -350,10 +356,11 @@ void GameState::render(sf::RenderTarget* target)
 
 	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),false);
 
-	
-	// Render GUI //
 	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
+	this->tts->render(this->renderTexture);
+
+	// Render GUI //
 	this->renderTexture.setView(this->renderTexture.getDefaultView());
 	this->playerGui->render(this->renderTexture);
 
