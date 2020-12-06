@@ -42,21 +42,30 @@ TextTagSystem::~TextTagSystem()
 }
 // Functions //
 
-void TextTagSystem::addTextTag(unsigned text_tag)
+void TextTagSystem::addTextTagString(const unsigned text_tag, const float pos_x, const float pos_y, const std::string str)
 {
-	this->tags.push_back(new TextTag(*this->tagTemplates[DEFAULT_TAG]));
+	this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, str));
 }
+
 void TextTagSystem::removeTextTag()
 {
 
 }
+
 void TextTagSystem::update(const float& dt)
 {
-	for (auto& tag : this->tags)
+	for (auto* tag : this->tags)
 	{
 		tag->update(dt);
+
+		if (tag->canBeRemove())
+		{
+			//delete tag;
+
+		}
 	}
 }
+
 void TextTagSystem::render(sf::RenderTarget& target)
 {
 	for (auto& tag : this->tags)

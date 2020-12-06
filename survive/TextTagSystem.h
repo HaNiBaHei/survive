@@ -36,6 +36,18 @@ private:
 			this->speed = speed;
 		}
 
+		TextTag(TextTag* tag, float pos_x, float pos_y, std::string str)
+		{
+			this->text = tag->text;
+			this->text.setString(str);
+			this->text.setPosition(pos_x, pos_y);
+
+			this->dirX = tag->dirX;
+			this->dirY = tag->dirY;
+			this->lifetime = tag->lifetime;
+			this->speed = tag->speed;
+		}
+
 		~TextTag()
 		{
 
@@ -55,9 +67,9 @@ private:
 
 				// Move the tag //
 				this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
-
-
 			}
+
+
 		}
 		void render(sf::RenderTarget& target)
 		{
@@ -79,7 +91,7 @@ public:
 	virtual ~TextTagSystem();
 
 	// Functions //
-	void addTextTag(unsigned text_tag);
+	void addTextTagString(const unsigned text_tag, const float pos_x, const float pos_y, const std::string str);
 	void removeTextTag();
 
 	void update(const float& dt);
