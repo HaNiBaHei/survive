@@ -30,6 +30,11 @@ const unsigned& Enemy::getGainExp() const
 }
 
 // Functions //
+void Enemy::generateAttributes(const unsigned level)
+{
+	this->gainExp = level * 5 + (rand() % 10 + 1);
+}
+
 void Enemy::loseHp(const int hp)
 {
 	if (this->attributeComponent)
