@@ -14,7 +14,9 @@ void TextTagSystem::initFont(std::string font_file)
 
 void TextTagSystem::initTagTemplates()
 {
-	this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "Yeah Boy!", 200.f, 200.f, 0.f, -1.f, sf::Color::Red, 20, 100.f, 100.f);
+	this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 200.f, 200.f, 0.f, -1.f, sf::Color::White, 30, 100.f, 200.f);
+	this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 200.f, 200.f, 0.f, 1.f, sf::Color::Red, 30, 100.f, 200.f);
+	this->tagTemplates[EXPRIENCE_TAG] = new TextTag(this->font, "", 200.f, 200.f, 0.f, -1.f, sf::Color::Yellow, 40, 100.f, 200.f);
 }
 
 // Constructors //
@@ -42,23 +44,23 @@ TextTagSystem::~TextTagSystem()
 }
 // Functions //
 
-void TextTagSystem::addTextTag(const unsigned text_tag, const float pos_x, const float pos_y, const std::string str)
+void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str)
 {
-	this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, str));
+	this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, str));
 }
 
-void TextTagSystem::addTextTag(const unsigned text_tag, const float pos_x, const float pos_y, const int i)
+void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i)
 {
 	std::stringstream ss;
 	ss << i;
-	this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, ss.str()));
+	this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
-void TextTagSystem::addTextTag(const unsigned text_tag, const float pos_x, const float pos_y, const float f)
+void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f)
 {
 	std::stringstream ss;
 	ss << f;
-	this->tags.push_back(new TextTag(this->tagTemplates[DEFAULT_TAG], pos_x, pos_y, ss.str()));
+	this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 void TextTagSystem::update(const float& dt)

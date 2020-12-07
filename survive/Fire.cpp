@@ -16,10 +16,18 @@ void Fire::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 0, 3, 16, 16);
 }
 
+void Fire::initGui()
+{
+	this->hpBar.setFillColor(sf::Color::Red);
+	this->hpBar.setSize(sf::Vector2f(50.f, 10.f));
+	this->hpBar.setPosition(this->sprite.getPosition());
+}
+
 Fire::Fire(float x, float y, sf::Texture& texture_sheet)
 	: Enemy()
 {
 	this->initvariables();
+	this->initGui();
 
 	this->createHitboxComponent(this->sprite, 0.f, 0.f, 16.f, 16.f);
 	this->createMovementComponent(50.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
@@ -66,6 +74,10 @@ void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view)
 {
 	this->movementComponent->update(dt);
 
+	// Update GUI Remove later //
+	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
+	this->hpBar.setPosition(this->sprite.getPosition());
+
 	//this->updateAttack();
 
 	this->updateAnimation(dt);
@@ -86,6 +98,8 @@ void Fire::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector
 	{
 		target.draw(this->sprite);
 	}
+
+	target.draw(this->hpBar);
 
 	if (show_hitbox)
 		this->hitboxComponent->render(target);

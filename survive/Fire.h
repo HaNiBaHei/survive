@@ -9,10 +9,11 @@ class Fire :
     public Enemy
 {
 private:
-
-
     void initvariables();
     void initAnimations();
+    void initGui();
+
+    sf::RectangleShape hpBar;
 
 public:
     Fire(float x, float y, sf::Texture& texture_sheet);

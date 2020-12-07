@@ -274,7 +274,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->tts->addTextTag(DEFAULT_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()));
+			this->tts->addTextTag(EXPRIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()));
 
 			this->activeEnemies.erase(this->activeEnemies.begin() + index);
 			--index;
@@ -290,11 +290,11 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 	{
 		if (this->player->getWeapon()->getAttackTimer()
 			&&enemy->getGlobalBounds().contains(this->mousePosView) 
-			&& enemy->getDistance(*this->player) < 30.f)
+			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
 		{
-			int dmg = static_cast<int>(this->player->getWeapon()->getDamageMin());
+			int dmg = static_cast<int>(this->player->getWeapon()->getDamageMax());
 			enemy->loseHp(dmg);
-			this->tts->addTextTag(DEFAULT_TAG, this->player->getCenter().x, this->player->getCenter().y, dmg);
+			this->tts->addTextTag(NEGATIVE_TAG, enemy->getCenter().x, enemy->getCenter().y, dmg);
 
 		}
 	}
@@ -353,7 +353,7 @@ void GameState::render(sf::RenderTarget* target)
 	// test //
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
+		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
 	}
 
 	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),false);
