@@ -25,6 +25,22 @@ Weapon::Weapon(unsigned value, std::string texture_file)
 	this->weapon_sprite.setScale(0.5f, 0.5f);
 }
 
+Weapon::Weapon(unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file)
+	:Item(value)
+{
+	this->initVariables();
+
+	this->damageMin = damageMin;
+	this->damageMax = damageMax;
+	this->range = range;
+
+	if (!this->weapon_texture.loadFromFile(texture_file))
+		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
+
+	this->weapon_sprite.setTexture(this->weapon_texture);
+	this->weapon_sprite.setScale(0.5f, 0.5f);
+}
+
 Weapon::~Weapon()
 {
 
@@ -38,6 +54,11 @@ const unsigned& Weapon::getDamageMin() const
 const unsigned& Weapon::getDamageMax() const
 {
 	return this->damageMax;
+}
+
+const unsigned Weapon::getDamage() const
+{
+	return rand() % (this->damageMax - this->damageMin + 1) + (this->damageMin);
 }
 
 // Accessors //

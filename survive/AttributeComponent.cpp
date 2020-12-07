@@ -6,7 +6,7 @@ AttributeComponent::AttributeComponent(int level)
 	this->score = 0;
 	this->level = level;
 	this->exp = 0;
-	this->expNext = 0;
+	this->expNext = static_cast<int>((50 / 3) * (pow(this->level + 1, 2)) - 8 * pow(this->level + 1, 2) + ((this->level + 1) * 20) - 12);
 	this->attributePoints = 2;
 
 	this->vitality = 1;
@@ -92,12 +92,12 @@ const bool AttributeComponent::isDead() const
 void AttributeComponent::updateStats(const bool reset)
 {
 	
-	this->hpMax		= this->vitality * 3 + (this->strength / 3);
-	this->damageMin = this->strength * 2 + (this->strength / 4) + (this->agility / 3);
-	this->damageMax = this->strength * 2 + this->strength + (this->agility / 3);
-	this->accuracy	= this->dexterity * 2 + (this->agility * 2);
-	this->def		= this->dexterity * 2 + (this->agility / 3);
-	this->luck		= this->intelligence * 2 + (this->intelligence / 5);
+	this->hpMax = this->vitality * 5 + this->vitality + this->strength / 2 + this->intelligence / 5;
+	this->damageMin = this->strength * 2 + this->strength / 4 + this->intelligence / 5;
+	this->damageMax = this->strength * 2 + this->strength / 2 + this->intelligence / 5;
+	this->accuracy = this->dexterity * 5 + this->dexterity / 2 + this->intelligence / 5;
+	this->def = this->agility * 2 + this->agility / 4 + this->intelligence / 5;
+	this->luck = this->intelligence * 2 + this->intelligence / 5;
 
 	if (reset)
 	{
@@ -109,11 +109,11 @@ void AttributeComponent::updateLevel()
 {
 	while (this->exp >= this->expNext)
 	{
-		this->level++;
+		++this->level;
 		this->exp -= this->expNext;
 		this->expNext = static_cast<int>((50 / 3) * (pow(this->level + 1, 2)) - 8 * pow(this->level + 1, 2) + ((this->level + 1) * 20) - 12);
 		++this->attributePoints;
-		this->score = (this->level - 1) * 200;
+		this->score = this->score + (this->level - 1) * 200;
 	}
 }
 
