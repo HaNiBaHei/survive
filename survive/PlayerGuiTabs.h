@@ -3,10 +3,12 @@
 
 #include "CharacterTab.h"
 
+enum PLAYER_TABS {CHARACTER_TAB = 0, INVENTORY_TAB};
+
 class PlayerGuiTabs
 {
 private:
-	CharacterTab characterTab;
+	std::vector<Tab*> tabs;
 
 	// Core //
 	sf::VideoMode& vm;
@@ -22,6 +24,7 @@ private:
 	
 
 	// Private Functions //
+	void initTabs();
 	void initKeyTime();
 
 public:
@@ -31,7 +34,7 @@ public:
 	const bool getKeyTime();
 	const bool tabsOpen();
 
-	void toggleCharacterTab();
+	void toggleTab(const int tab_index);
 
 	void update();
 	void render(sf::RenderTarget& target);

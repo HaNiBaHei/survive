@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "PlayerGuiTabs.h"
 
+void PlayerGuiTabs::initTabs()
+{
+	this->tabs.push_back(new CharacterTab(vm, font, player));
+}
+
 void PlayerGuiTabs::initKeyTime()
 {
 	this->keyTimeMax = 0.2f;
@@ -8,8 +13,9 @@ void PlayerGuiTabs::initKeyTime()
 }
 
 PlayerGuiTabs::PlayerGuiTabs(sf::VideoMode& vm, sf::Font& font, Player& player)
-	: vm(vm), font(font), player(player), characterTab(vm, font, player)
+	: vm(vm), font(font), player(player)
 {
+	this->initTabs();
 	this->initKeyTime();
 }
 
@@ -30,24 +36,38 @@ const bool PlayerGuiTabs::getKeyTime()
 
 const bool PlayerGuiTabs::tabsOpen()
 {
-	return this->characterTab.getOpen();
+	// Loop tabs and check if any are open //
+	bool open = false;
+	for (size_t i = 0; i < this->tabs.size() && !open; i++)
+	{
+		if (this->tabs[i]->getOpen())
+			open = true;
+	}
+	return open;
 }
 
-void PlayerGuiTabs::toggleCharacterTab()
+void PlayerGuiTabs::toggleTab(const int tab_index)
 {
-	if (this->characterTab.getHidden() && this->getKeyTime())
-		this->characterTab.show();
-	else
-		this->characterTab.hide();
+	if(tab_index >= 0 || tab_index < this->tabs.size())
+	this->tabs[tab_index]->toggle();
 }
 
 void PlayerGuiTabs::update()
 {
-	this->characterTab.update();
+	for (size_t i = 0; i < this->tabs.size(); i++)
+	{
+		if(this->tabs[i]->getOpen())
+		   this->tabs[i]->update();
+	}
 }
 
 void PlayerGuiTabs::render(sf::RenderTarget& target)
 {
-	this->characterTab.render(target);
+	for (size_t i = 0; i < this->tabs.size(); i++)
+	{
+		if (this->tabs[i]->getOpen())
+			this->tabs[i]->render(target);
+	}
+	
 }
 
