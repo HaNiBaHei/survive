@@ -110,6 +110,8 @@ void AttributeComponent::updateLevel()
 	while (this->exp >= this->expNext)
 	{
 		++this->level;
+		this->hpMax += 3;
+		this->hp = hpMax;
 		this->exp -= this->expNext;
 		this->expNext = static_cast<int>((50 / 3) * (pow(this->level + 1, 2)) - 8 * pow(this->level + 1, 2) + ((this->level + 1) * 20) - 12);
 		++this->attributePoints;

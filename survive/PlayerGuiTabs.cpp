@@ -33,15 +33,17 @@ const bool PlayerGuiTabs::tabsOpen()
 	return this->characterTab.getOpen();
 }
 
+void PlayerGuiTabs::toggleCharacterTab()
+{
+	if (this->characterTab.getHidden() && this->getKeyTime())
+		this->characterTab.show();
+	else
+		this->characterTab.hide();
+}
+
 void PlayerGuiTabs::update()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && this->getKeyTime())
-	{
-		if(this->characterTab.getHidden())
-			this->characterTab.show();
-		else
-			this->characterTab.hide();
-	}
+	
 }
 
 void PlayerGuiTabs::render(sf::RenderTarget& target)

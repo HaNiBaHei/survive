@@ -90,6 +90,11 @@ const bool PlayerGui::getTabsOpen() const
 	return this->playerTabs->tabsOpen();
 }
 
+void PlayerGui::toggleCharacterTab()
+{
+	this->playerTabs->toggleCharacterTab();
+}
+
 // Functions //
 void PlayerGui::updateLevelBar()
 {
