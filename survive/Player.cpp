@@ -32,7 +32,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
 	this->createMovementComponent(300.f, 2500.f, 1100.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
-	this->createAttributeComponent(0);
+	this->createAttributeComponent(1);
 	this->createSkillComponent();
 
 	this->setPosition(x, y);
@@ -54,6 +54,20 @@ AttributeComponent* Player::getAttributeComponent()
 Weapon* Player::getWeapon() const
 {
 	return this->sword;
+}
+
+const std::string Player::toStringCharacterTab() const
+{
+	std::stringstream ss;
+	AttributeComponent* ac = this->attributeComponent;
+
+	ss << "Level: " << ac->level << "\n"
+		<< "Exp: " << ac->exp << "\n"
+		<< "Next level: " << ac->expNext << "\n"
+		<< "DamageMin: " << ac->damageMin << "\n"
+		<< "DamageMax: " << ac->damageMax << "\n";
+
+	return ss.str();
 }
 
 // Functions //

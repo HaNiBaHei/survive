@@ -43,7 +43,7 @@ void PlayerGuiTabs::toggleCharacterTab()
 
 void PlayerGuiTabs::update()
 {
-	
+	this->characterTab.update();
 }
 
 void PlayerGuiTabs::render(sf::RenderTarget& target)
