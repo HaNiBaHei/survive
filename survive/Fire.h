@@ -11,6 +11,7 @@ class Fire :
 private:
     void initvariables();
     void initAnimations();
+    void initAI();
     void initGui();
 
     sf::RectangleShape hpBar;

@@ -17,6 +17,11 @@ void Fire::initAnimations()
 	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 0, 3, 16, 16);
 }
 
+void Fire::initAI()
+{
+
+}
+
 void Fire::initGui()
 {
 	this->hpBar.setFillColor(sf::Color::Red);

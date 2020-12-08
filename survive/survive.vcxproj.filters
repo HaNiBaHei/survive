@@ -61,6 +61,12 @@
     <Filter Include="GUI\GuiTabs">
       <UniqueIdentifier>{27122f79-26c3-43be-9b85-51219673ed58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{5f0b9563-f436-4c1a-a4a2-0e574a13720e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\Options">
+      <UniqueIdentifier>{38af6aac-1d9f-4a34-a084-0033679bf65e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -185,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="Tab.cpp">
       <Filter>GUI\GuiTabs</Filter>
+    </ClCompile>
+    <ClCompile Include="AIOption.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AIFollow.cpp">
+      <Filter>AI\Options</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="Tab.h">
       <Filter>GUI\GuiTabs</Filter>
+    </ClInclude>
+    <ClInclude Include="AIOption.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIFollow.h">
+      <Filter>AI\Options</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
