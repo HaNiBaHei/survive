@@ -14,10 +14,16 @@ PlayerGuiTabs::~PlayerGuiTabs()
 
 void PlayerGuiTabs::update()
 {
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+	{
+		if(this->characterTab.getHidden())
+			this->characterTab.show();
+		else
+			this->characterTab.hide();
+	}
 }
 
-void PlayerGuiTabs::render(sf::RenderTarget* target)
+void PlayerGuiTabs::render(sf::RenderTarget& target)
 {
 	this->characterTab.render(target);
 }

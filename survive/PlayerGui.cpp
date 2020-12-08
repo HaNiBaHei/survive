@@ -109,12 +109,18 @@ void PlayerGui::updateHpBar()
 	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
+void PlayerGui::updatePlayerTabs()
+{
+	this->playerTabs->update();
+}
+
 void PlayerGui::update(const float& dt)
 {
 	this->updateLevelBar();
 	this->updateScore();
 	this->updateExpBar();
 	this->updateHpBar();
+	this->updatePlayerTabs();
 }
 
 void PlayerGui::renderLevelBar(sf::RenderTarget& target)
@@ -137,6 +143,10 @@ void PlayerGui::renderHpBar(sf::RenderTarget& target)
 {
 	this->hpBar->render(target);
 }
+void PlayerGui::renderPlayerTabs(sf::RenderTarget& target)
+{
+	this->playerTabs->render(target);
+}
 // Tabs //
 
 void PlayerGui::render(sf::RenderTarget& target)
@@ -145,5 +155,6 @@ void PlayerGui::render(sf::RenderTarget& target)
 	this->renderScore(target);
 	this->renderExpBar(target);
 	this->renderHpBar(target);
+	this->renderPlayerTabs(target);
 	
 }

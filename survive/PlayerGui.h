@@ -51,6 +51,7 @@ public:
 	void updateScore();
 	void updateExpBar();
 	void updateHpBar();
+	void updatePlayerTabs();
 
 
 	void update(const float& dt);
@@ -59,6 +60,8 @@ public:
 	void renderScore(sf::RenderTarget& target);
 	void renderExpBar(sf::RenderTarget& target);
 	void renderHpBar(sf::RenderTarget& target);
+	void renderPlayerTabs(sf::RenderTarget& target);
+
 	void render(sf::RenderTarget& target);
 
 	
