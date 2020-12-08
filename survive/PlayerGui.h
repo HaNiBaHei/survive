@@ -45,6 +45,7 @@ public:
 	virtual ~PlayerGui();
 
 	// Accessors //
+	const bool getTabsOpen() const;
 
 	// Functions //
 	void updateLevelBar();

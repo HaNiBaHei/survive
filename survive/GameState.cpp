@@ -166,11 +166,13 @@ GameState::~GameState()
 
 void GameState::updateView(const float& dt)
 {
-	this->view.setCenter(
-		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
-		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
-	);
-
+	if (!this->playerGui->getTabsOpen())
+	{
+		this->view.setCenter(
+			std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
+			std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
+		);
+	}
 	//std::cout << this->tileMap->getMaxSizeF().x << " " << this->view.getSize().x << "\n";
 
 	if (this->tileMap->getMaxSizeF().x >= this->view.getSize().x)

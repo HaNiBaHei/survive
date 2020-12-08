@@ -83,10 +83,14 @@ PlayerGui::~PlayerGui()
 	delete this->expBar;
 	delete this->playerTabs;
 }
+
 // Accessors //
+const bool PlayerGui::getTabsOpen() const
+{
+	return this->playerTabs->tabsOpen();
+}
 
 // Functions //
-
 void PlayerGui::updateLevelBar()
 {
 	this->levelString = std::to_string(this->player->getAttributeComponent()->level);

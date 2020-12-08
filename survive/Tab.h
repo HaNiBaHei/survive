@@ -19,6 +19,7 @@ public:
 
 	// Accessors //
 	const bool& getHidden() const;
+	const bool& getOpen() const;
 
 	// Functions //
 	void hide();
