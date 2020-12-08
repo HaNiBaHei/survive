@@ -180,6 +180,7 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerGui.cpp" />
+    <ClCompile Include="PlayerGuiTabs.cpp" />
     <ClCompile Include="RangeWeapon.cpp" />
     <ClCompile Include="RegularTile.cpp" />
     <ClCompile Include="ScoreState.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerGui.h" />
+    <ClInclude Include="PlayerGuiTabs.h" />
     <ClInclude Include="RangeWeapon.h" />
     <ClInclude Include="RegularTile.h" />
     <ClInclude Include="ScoreState.h" />

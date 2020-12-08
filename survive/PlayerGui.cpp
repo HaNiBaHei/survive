@@ -55,25 +55,12 @@ void PlayerGui::initHpBar()
 	);
 }
 
-void PlayerGui::initTabMenu()
+void PlayerGui::initPlayerTabs(sf::VideoMode& vm, sf::Font& font, Player& player)
 {
-
-
+	this->playerTabs = new PlayerGuiTabs(vm, font, player);
 }
 
-void PlayerGui::initCharacterTab()
-{
-	// Background //
-	this->CharacterTabBack.setFillColor(sf::Color(50, 50, 50, 180));
-	this->CharacterTabBack.setSize(sf::Vector2f(gui::p2pX(30.f, this->vm), static_cast<float>(this->vm.height)));
 
-	// Text //
-	this->CharacterInfoText.setFont(this->font);
-	this->CharacterInfoText.setCharacterSize(gui::clacCharSize(this->vm, 120));
-	this->CharacterInfoText.setFillColor(sf::Color::White);
-	this->CharacterInfoText.setPosition(this->CharacterTabBack.getPosition().x + 20.f, this->CharacterTabBack.getPosition().y + 20.f);
-
-}
 
 
 
@@ -87,16 +74,14 @@ PlayerGui::PlayerGui(Player* player, sf::VideoMode& vm)
 	this->initScore();
 	this->initExpBar();
 	this->initHpBar();
-
-	// Tab //
-	this->initCharacterTab();
-	this->initTabMenu();
+	this->initPlayerTabs(vm, font, *player);
 }
 
 PlayerGui::~PlayerGui()
 {
 	delete this->hpBar;
 	delete this->expBar;
+	delete this->playerTabs;
 }
 // Accessors //
 
@@ -124,18 +109,12 @@ void PlayerGui::updateHpBar()
 	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
-void PlayerGui::updateCharacterTab()
-{
-	this->CharacterInfoText.setString("Testo!");
-}
-
 void PlayerGui::update(const float& dt)
 {
 	this->updateLevelBar();
 	this->updateScore();
 	this->updateExpBar();
 	this->updateHpBar();
-	this->updateCharacterTab();
 }
 
 void PlayerGui::renderLevelBar(sf::RenderTarget& target)
@@ -154,12 +133,6 @@ void PlayerGui::renderExpBar(sf::RenderTarget& target)
 	this->expBar->render(target);
 }
 
-void PlayerGui::renderCharacterTab(sf::RenderTarget& target)
-{
-	target.draw(this->CharacterTabBack);
-	target.draw(this->CharacterInfoText);
-}
-
 void PlayerGui::renderHpBar(sf::RenderTarget& target)
 {
 	this->hpBar->render(target);
@@ -173,6 +146,4 @@ void PlayerGui::render(sf::RenderTarget& target)
 	this->renderExpBar(target);
 	this->renderHpBar(target);
 	
-	// Tabs //
-	//this->renderCharacterTab(target);
 }

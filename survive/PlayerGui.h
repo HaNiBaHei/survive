@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Player.h"
-#include "Gui.h"
+#include "PlayerGuiTabs.h"
 
 class Gui;
 class Player;
@@ -30,11 +29,8 @@ private:
 	// HP Bar //
 	gui::ProgressBar* hpBar; // Hp remain //
 
-	// Tab //
-
-	// Character Tab //
-	sf::RectangleShape CharacterTabBack;
-	sf::Text CharacterInfoText;
+	// Player Gui Tabs //
+	PlayerGuiTabs* playerTabs;
 
 	// Functions //
 	void initFont();
@@ -42,6 +38,7 @@ private:
 	void initScore();
 	void initExpBar();
 	void initHpBar();
+	void initPlayerTabs(sf::VideoMode &vm, sf::Font &font, Player &player);
 
 public:
 	PlayerGui(Player* player, sf::VideoMode& vm);
@@ -54,18 +51,13 @@ public:
 	void updateScore();
 	void updateExpBar();
 	void updateHpBar();
-	void updateCharacterTab();
 
-	// Tab //
-	void initTabMenu();
-	void initCharacterTab();
 
 	void update(const float& dt);
 
 	void renderLevelBar(sf::RenderTarget& target);
 	void renderScore(sf::RenderTarget& target);
 	void renderExpBar(sf::RenderTarget& target);
-	void renderCharacterTab(sf::RenderTarget& target);
 	void renderHpBar(sf::RenderTarget& target);
 	void render(sf::RenderTarget& target);
 
