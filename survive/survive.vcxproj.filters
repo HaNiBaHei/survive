@@ -58,6 +58,9 @@
     <Filter Include="Systems">
       <UniqueIdentifier>{cf5b0a6a-56ad-4806-84f3-805c3dd73da5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\GuiTabs">
+      <UniqueIdentifier>{27122f79-26c3-43be-9b85-51219673ed58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -175,7 +178,13 @@
       <Filter>Systems</Filter>
     </ClCompile>
     <ClCompile Include="PlayerGuiTabs.cpp">
-      <Filter>GUI</Filter>
+      <Filter>GUI\GuiTabs</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterTab.cpp">
+      <Filter>GUI\GuiTabs</Filter>
+    </ClCompile>
+    <ClCompile Include="Tab.cpp">
+      <Filter>GUI\GuiTabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,7 +306,13 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="PlayerGuiTabs.h">
-      <Filter>GUI</Filter>
+      <Filter>GUI\GuiTabs</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterTab.h">
+      <Filter>GUI\GuiTabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Tab.h">
+      <Filter>GUI\GuiTabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
