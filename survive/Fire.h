@@ -16,7 +16,7 @@ private:
     sf::RectangleShape hpBar;
 
 public:
-    Fire(float x, float y, sf::Texture& texture_sheet);
+    Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
     virtual ~Fire();
 
     // Functions //

@@ -24,8 +24,8 @@ void Fire::initGui()
 	this->hpBar.setPosition(this->sprite.getPosition());
 }
 
-Fire::Fire(float x, float y, sf::Texture& texture_sheet)
-	: Enemy()
+Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile)
+	: Enemy(enemy_spawner_tile)
 {
 	this->initvariables();
 	this->initGui();

@@ -13,17 +13,26 @@ EnemySystem::~EnemySystem()
 
 }
 // Functions //
-void EnemySystem::createEnemy(const short type, const float xPos, const float yPos)
+void EnemySystem::createEnemy(const short type, const float xPos, const float yPos, EnemySpawnerTile& enemy_spawner_tile)
 {
 	switch (type)
 	{
 	case EnemyTyeps::FIRE:
-		this->activeEnemies.push_back(new Fire(xPos, yPos, this->textures["FIRE_BALL"]));
+		this->activeEnemies.push_back(new Fire(xPos, yPos, this->textures["FIRE_BALL"], enemy_spawner_tile));
+		enemy_spawner_tile.increaseEnemyCounter();
 		break;
 	default:
 		std::cout << "ERROR::ENEMYSYSTEM::CREATEENEMY::TYPE DOSE NOT EXIST" << "\n";
 		break;
 	}
+}
+
+void EnemySystem::removeEnemy(const int index)
+{
+	this->activeEnemies[index]->getEnemySpawnerTile().decreaseEnemyCounter();
+
+	delete this->activeEnemies[index];
+	this->activeEnemies.erase(this->activeEnemies.begin() + index);
 }
 
 void EnemySystem::update(const float& dt)

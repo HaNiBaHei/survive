@@ -12,8 +12,8 @@ void Enemy::initAnimations()
 }
 
 // Constructors //
-Enemy::Enemy()
-	
+Enemy::Enemy(EnemySpawnerTile& enemy_spawner_tile)
+	:enemySpawnerTile(enemy_spawner_tile)
 {
 	this->initvariables();
 	this->initAnimations();
@@ -27,6 +27,11 @@ Enemy::~Enemy()
 const unsigned& Enemy::getGainExp() const
 {
 	return this->gainExp;
+}
+
+EnemySpawnerTile& Enemy::getEnemySpawnerTile()
+{
+	return this->enemySpawnerTile;
 }
 
 // Functions //

@@ -276,8 +276,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 			this->player->gainEXP(enemy->getGainExp());
 			this->tts->addTextTag(EXPRIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y, static_cast<int>(enemy->getGainExp()), "", "+EXP");
 
-			delete this->activeEnemies[index];
-			this->activeEnemies.erase(this->activeEnemies.begin() + index);
+			this->enemySystem->removeEnemy(index);
 			--index;
 		}
 
