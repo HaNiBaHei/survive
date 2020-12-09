@@ -106,6 +106,14 @@ void GameState::initKeyTime()
 	this->keyTimer.restart();
 }
 
+void GameState::initDebugText()
+{
+	this->debugText.setFont(this->font);
+	this->debugText.setFillColor(sf::Color::White);
+	this->debugText.setCharacterSize(16);
+	this->debugText.setPosition(15.f, this->view.getSize().y / 2.f);
+}
+
 void GameState::initPlayers()
 {
 	this->player = new Player(200, 200, this->textures["PLAYER_SHEET"]);
@@ -143,6 +151,7 @@ GameState::GameState(StateData* state_data)
 	this->initPauseMenu();
 	this->initShaders();
 	this->initKeyTime();
+	this->initDebugText();
 
 	this->initPlayers();
 	this->initPlayerGui();
@@ -321,7 +330,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
 	if (this->player->getInitAttack() 
 		&& enemy->getGlobalBounds().contains(this->mousePosView)
-		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()
+		&& enemy->getSpriteDistance(*this->player) < this->player->getWeapon()->getRange()
 		&& enemy->getDamageTimerDone())
 	{
 			int dmg = static_cast<int>(this->player->getDamage());
@@ -340,11 +349,23 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 	}
 }
 
+void GameState::updateDebugText(const float& dt)
+{
+	std::stringstream ss;
+
+	ss << "Mouse Pos View: " << this->mousePosView.x << " " << this->mousePosView.y << "\n"
+		<< "Active Enemy: " << this->activeEnemies.size() << "\n";
+
+	this->debugText.setString(ss.str());
+}
+
 void GameState::update(const float& dt)
 {
 	this->updateMousePositions(&this->view);
 	this->updateKeytime(dt);
 	this->updateInput(dt);
+
+	this->updateDebugText(dt);
 	
 	// Unpaused update //
 	if (!this->pause) 
@@ -393,10 +414,10 @@ void GameState::render(sf::RenderTarget* target)
 	// test //
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
 	}
 
-	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),false);
+	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),true);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
@@ -411,6 +432,9 @@ void GameState::render(sf::RenderTarget* target)
 		//this->renderTexture.setView(this->renderTexture.getDefaultView());
 			this->pmenu->render(this->renderTexture);
 		}
+
+	// Debug Text //
+	this->renderTexture.draw(this->debugText);
 
 	// Final render //
 	this->renderTexture.display();
