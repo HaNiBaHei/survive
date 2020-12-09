@@ -534,12 +534,9 @@ void TileMap::updateTiles(Entity* entity, const float& dt, EnemySystem& enemySys
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es)
 					{
-						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount())
+						if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount())
 						{
 							enemySystem.createEnemy(FIRE, x * this->gridSizeF, y * this->gridSizeF, *es);
-							es->setSpawned(true);
-							std::cout << "spawn!" << "\n";
-							
 						}
 					}
 				}
@@ -612,13 +609,15 @@ void TileMap::render(sf::RenderTarget& target,
 							this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
 							target.draw(this->collisionBox);
 						}
+
+						if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER)
+						{
+							this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
+							target.draw(this->collisionBox);
+						}
 					}
 
-					if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER)
-					{
-						this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
-						//target.draw(this->collisionBox);
-					}
+					
 				}
 			}
 		}

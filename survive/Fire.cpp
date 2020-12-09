@@ -87,8 +87,10 @@ void Fire::updateAnimation(const float& dt)
 		this->sprite.setColor(sf::Color::White);
 }
 
-void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view)
+void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
 {
+	Enemy::update(dt, mouse_pos_view, view);
+
 	this->movementComponent->update(dt);
 
 	// Update GUI Remove later //

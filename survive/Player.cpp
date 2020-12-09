@@ -63,13 +63,18 @@ Weapon* Player::getWeapon() const
 const std::string Player::toStringCharacterTab() const
 {
 	std::stringstream ss;
-	AttributeComponent* ac = this->attributeComponent;
+	const AttributeComponent* ac = this->attributeComponent;
+	const Weapon* w = this->weapon;
 
 	ss << "Level: " << ac->level << "\n"
+		<< "Hp: " << ac->hp << "\n"
 		<< "Exp: " << ac->exp << "\n"
 		<< "Next level: " << ac->expNext << "\n"
-		<< "DamageMin: " << ac->damageMin << "\n"
-		<< "DamageMax: " << ac->damageMax << "\n";
+		<< "Weapon Level: " << w->getLevel() << "\n"
+		<< "Weapon Type: " << w->getType() << "\n"
+		<< "Weapon Range: " << w->getRange() << "\n"
+		<< "Weapon Damage Min: " << w->getDamageMin() + this->attributeComponent->damageMin << "(" << this->attributeComponent->damageMin << ")" <<"\n"
+		<< "Weapon Damage Max: " << w->getDamageMax() + this->attributeComponent->damageMax << "(" << this->attributeComponent->damageMax << ")" <<"\n";
 
 	return ss.str();
 }
@@ -165,7 +170,7 @@ void Player::updateAnimation(const float& dt)
 	}
 }
 
-void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
+void Player::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
 {
 	// DEBUG EXP //
 	/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))

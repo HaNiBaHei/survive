@@ -25,8 +25,8 @@ void GameState::initView()
 {
 	this->view.setSize(
 		sf::Vector2f(
-			static_cast<float>(this->stateData->gfxSettings->resolution.width / 2),
-			static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)
+			static_cast<float>(this->stateData->gfxSettings->resolution.width / 1.5f),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height / 1.5f)
 		)
 	);
 
@@ -276,7 +276,7 @@ void GameState::updateTileMap(const float& dt)
 
 void GameState::updatePlayer(const float& dt)
 {
-	this->player->update(dt, this->mousePosView);
+	this->player->update(dt, this->mousePosView, this->view);
 
 }
 
@@ -288,7 +288,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 	unsigned index = 0;
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->update(dt, this->mousePosView);
+		enemy->update(dt, this->mousePosView, this->view);
 
 		this->tileMap->updateWorldBoundsCollision(enemy, dt);
 		this->tileMap->updateTileCollision(enemy, dt);
@@ -303,7 +303,12 @@ void GameState::updateCombatAndEnemies(const float& dt)
 			this->tts->addTextTag(EXPRIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y - 20.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 
 			this->enemySystem->removeEnemy(index);
-			--index;
+			continue;
+		}
+		else if(enemy->getDespawnTimerDone())
+		{
+			this->enemySystem->removeEnemy(index);
+			continue;
 		}
 
 		++index;
