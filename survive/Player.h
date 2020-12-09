@@ -11,6 +11,7 @@ class Player :
 {
 private:
     // Variables //
+    bool initAttack;
     bool attacking;
     Sword* sword;
     
@@ -29,6 +30,10 @@ public:
     Weapon* getWeapon() const;
 
     const std::string toStringCharacterTab() const;
+    const bool& getInitAttack() const;
+
+    // Modifiers //
+    void setInitAttack(const bool initAttack);
 
     // Functions //
     void loseHP(const int hp);

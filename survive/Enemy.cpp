@@ -3,7 +3,7 @@
 // Initializer //
 void Enemy::initvariables()
 {
-	this->gainExp = 10;
+	this->damageTimerMax = 1000;
 }
 
 void Enemy::initAnimations()
@@ -32,6 +32,16 @@ const unsigned& Enemy::getGainExp() const
 EnemySpawnerTile& Enemy::getEnemySpawnerTile()
 {
 	return this->enemySpawnerTile;
+}
+
+const bool Enemy::getDamageTimerDone() const
+{
+	return this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax;
+}
+
+void Enemy::resetDamageTimer()
+{
+	this->damageTimer.restart();
 }
 
 // Functions //

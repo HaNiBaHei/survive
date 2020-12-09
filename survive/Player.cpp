@@ -4,6 +4,7 @@
 // Initializer //
 void Player::initvariables()
 {
+	this->initAttack = false;
 	this->attacking = false;
 	this->sword = new Sword(1, 2, 5, 30, 20, "Resources/images/Weapon/sword 1.png");
 	this->sword->generate(1, 3);
@@ -68,6 +69,16 @@ const std::string Player::toStringCharacterTab() const
 		<< "DamageMax: " << ac->damageMax << "\n";
 
 	return ss.str();
+}
+
+const bool& Player::getInitAttack() const
+{
+	return this->initAttack;
+}
+
+void Player::setInitAttack(const bool initAttack)
+{
+	this->initAttack = initAttack;
 }
 
 // Functions //
