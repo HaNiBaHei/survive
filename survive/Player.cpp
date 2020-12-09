@@ -6,8 +6,11 @@ void Player::initvariables()
 {
 	this->initAttack = false;
 	this->attacking = false;
-	this->sword = new Sword(1, 2, 5, 30, 20, "Resources/images/Weapon/sword 1.png");
-	this->sword->generate(1, 3);
+	this->weapon = new Sword(1, 2, 5, 30, 20, "Resources/images/Weapon/sword 1.png");
+	this->weapon->generate(1, 3);
+
+	this->damageTimerMax = 700;
+	
 }
 
 void Player::initComponents()
@@ -31,7 +34,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 	this->initvariables();
 
 	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
-	this->createMovementComponent(2s00.f, 2500.f, 1100.f); // Velocity , Accelerate , Drag //
+	this->createMovementComponent(200.f, 2500.f, 1100.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
 	this->createSkillComponent();
@@ -42,7 +45,7 @@ Player::Player(float x, float y, sf::Texture& texture_sheet)
 
 Player::~Player()
 {
-	delete this->sword;
+	delete this->weapon;
 }
 
 // Accessors //
@@ -54,7 +57,7 @@ AttributeComponent* Player::getAttributeComponent()
 
 Weapon* Player::getWeapon() const
 {
-	return this->sword;
+	return this->weapon;
 }
 
 const std::string Player::toStringCharacterTab() const
@@ -74,6 +77,24 @@ const std::string Player::toStringCharacterTab() const
 const bool& Player::getInitAttack() const
 {
 	return this->initAttack;
+}
+
+const bool Player::getDamageTimer()
+{
+	if (this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax)
+	{
+		this->damageTimer.restart();
+		return true;
+	}
+	return false;
+}
+
+const unsigned Player::getDamage() const
+{
+	return rand() % (
+		(this->attributeComponent->damageMax + this->weapon->getDamageMax())
+		- (this->attributeComponent->damageMin + this->weapon->getDamageMax()) + 1)
+		+ (this->attributeComponent->damageMin + this->weapon->getDamageMin());
 }
 
 void Player::setInitAttack(const bool initAttack)
@@ -160,7 +181,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 
 	this->hitboxComponent->update();
 
-	this->sword->update(mouse_pos_view, this->getCenter());
+	this->weapon->update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
@@ -175,12 +196,12 @@ void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vect
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", light_position);
 
-		this->sword->render(target, shader);
+		this->weapon->render(target, shader);
 	}
 	else
 	{
 		target.draw(this->sprite);
-		this->sword->render(target);
+		this->weapon->render(target);
 	}
 
 	if (show_hitbox)
