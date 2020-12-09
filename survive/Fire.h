@@ -2,6 +2,7 @@
 #define FIRE_H
 
 #include "Enemy.h"
+#include "AIFollow.h"
 
 class Enemy;
 
@@ -16,8 +17,10 @@ private:
 
     sf::RectangleShape hpBar;
 
+    AIFollow* follow;
+
 public:
-    Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
+    Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player);
     virtual ~Fire();
 
     // Functions //

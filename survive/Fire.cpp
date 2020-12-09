@@ -29,7 +29,7 @@ void Fire::initGui()
 	this->hpBar.setPosition(this->sprite.getPosition());
 }
 
-Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile)
+Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
 	: Enemy(enemy_spawner_tile)
 {
 	this->initvariables();
@@ -44,11 +44,13 @@ Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy
 
 	this->setPosition(x, y);
 	this->initAnimations();
+
+	this->follow = new AIFollow(*this, player);
 }
 
 Fire::~Fire()
 {
-
+	delete this->follow;
 }
 
 
@@ -91,6 +93,8 @@ void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view)
 	this->updateAnimation(dt);
 
 	this->hitboxComponent->update();
+
+	this->follow->update(dt);
 
 }
 
