@@ -15,6 +15,9 @@ private:
 		float dirX;
 		float lifetime;
 		float speed;
+		float acceration;
+		sf::Vector2f velocity;
+		int fadeValue;
 
 	public:
 		TextTag(sf::Font& font, std::string text,
@@ -22,7 +25,7 @@ private:
 			float dir_x, float dir_y,
 			sf::Color color,
 			unsigned char_size,
-			float lifetime, float speed)
+			float lifetime, float speed, float acceration, int fade_value)
 		{
 			this->text.setFont(font);
 			this->text.setPosition(pos_x, pos_y);
@@ -34,6 +37,8 @@ private:
 			this->dirY = dir_y;
 			this->lifetime = lifetime;
 			this->speed = speed;
+			this->acceration = acceration;
+			this->fadeValue = fade_value;
 		}
 
 		TextTag(TextTag* tag, float pos_x, float pos_y, std::string str)
@@ -46,6 +51,8 @@ private:
 			this->dirY = tag->dirY;
 			this->lifetime = tag->lifetime;
 			this->speed = tag->speed;
+			this->acceration = tag->acceration;
+			this->fadeValue = tag->fadeValue;
 		}
 
 		~TextTag()
@@ -65,8 +72,39 @@ private:
 				// Update lifetime //
 				this->lifetime -= 100.f * dt;
 
-				// Move the tag //
-				this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
+				// Accration //
+				if (this->acceration > 0.f)
+				{
+					this->velocity.x += this->dirX * this->acceration * dt;
+					this->velocity.y += this->dirY * this->acceration * dt;
+
+					if (abs(this->velocity.x) > this->speed)
+						this->velocity.x = this->dirX * this->speed;
+
+					if (abs(this->velocity.y) > this->speed)
+						this->velocity.y = this->dirY * this->speed;
+
+					this->text.move(this->velocity * dt);
+				}
+				else
+				{
+					// Move the tag //
+					this->text.move(this->dirX * this->speed * dt, this->dirY * this->speed * dt);
+				}
+
+				if (this->fadeValue > 0.f && this->text.getFillColor().a > this->fadeValue)
+				{
+					this->text.setFillColor
+					(
+						sf::Color(
+							this->text.getFillColor().r,
+							this->text.getFillColor().g,
+							this->text.getFillColor().b,
+							this->text.getFillColor().a - this->fadeValue
+						)
+					);
+				}
+				
 			}
 
 

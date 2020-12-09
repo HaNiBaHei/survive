@@ -33,7 +33,7 @@ void Sword::update(const sf::Vector2f mouse_pos_view, const sf::Vector2f center)
 	float deg = atan2(dY, dX) * 180.f / PI;
 
 
-	if (this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax)
+	if (this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax / 3)
 	{
 		float len = std::sqrt(pow(dX, 2) + pow(dY, 2));
 		sf::Vector2f normVec(dX / len, dY / len);
