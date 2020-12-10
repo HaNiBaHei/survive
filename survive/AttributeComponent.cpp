@@ -92,12 +92,10 @@ const bool AttributeComponent::isDead() const
 void AttributeComponent::updateStats(const bool reset)
 {
 	
-	this->hpMax = this->vitality * 10 + this->vitality + this->strength / 2 + this->intelligence / 5;
-	this->damageMin = this->strength * 2 + this->strength / 4 + this->intelligence / 5;
-	this->damageMax =  this->strength * 2 + this->strength / 2 + this->intelligence / 5;
-	this->accuracy =  this->dexterity * 5 + this->dexterity / 2 + this->intelligence / 5;
-	this->def = this->agility * 2 + this->agility / 4 + this->intelligence / 5;
-	this->luck = this->intelligence * 2 + this->intelligence / 5;
+	this->hpMax = 47 + this->level * 3 + this->vitality + this->strength;
+	this->damageMin = this->strength + this->agility * 2;
+	this->damageMax = this->strength + this->agility * 2;
+	this->def = this->agility * 2 + this->agility / 4 + this->strength;
 
 	if (reset)
 	{
@@ -111,6 +109,9 @@ void AttributeComponent::updateLevel()
 	{
 		++this->level;
 		this->hpMax += 3;
+		this->strength += 2;
+		this->agility += 2;
+		this->vitality += 1;
 		this->hp = hpMax;
 		this->exp -= this->expNext;
 		this->expNext = (50 * pow(this->level, 3) - 150 * pow(this->level, 2) + (UINT64)400 * this->level) / 3;

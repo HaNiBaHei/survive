@@ -24,9 +24,23 @@ private:
 	sf::Text scoreText;
 
 	// EXP Bar //
+	std::string expBarString;
+	sf::Text expBarText;
+	float expBarMaxWidth;
+	sf::RectangleShape expBarBack;
+	sf::RectangleShape expBarInner;
+
 	gui::ProgressBar* expBar; // Exp remain //
 
 	// HP Bar //
+	std::string hpBarString;
+	sf::Text hpBarText;
+	float hpBarMaxWidth;
+	sf::RectangleShape hpBarBack;
+	sf::RectangleShape hpBarInner;
+
+
+
 	gui::ProgressBar* hpBar; // Hp remain //
 
 	// Player Gui Tabs //

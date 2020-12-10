@@ -9,7 +9,7 @@ void Weapon::initVariables()
 
 	//Timer
 	this->attackTimer.restart();
-	this->attackTimerMax = 200;
+	this->attackTimerMax = 400;
 }
 
 

@@ -9,12 +9,12 @@ void Fire::initvariables()
 
 void Fire::initAnimations()
 {
-	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 0, 0, 16, 16);
-	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 0, 0, 3, 16, 16);
-	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 2, 0, 2, 3, 16, 16);
-	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 3, 0, 3, 3, 16, 16);
-	this->animationComponent->addAnimation("WALK_UP", 7.f, 1, 0, 1, 3, 16, 16);
-	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 0, 3, 16, 16);
+	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 3, 0, 16, 16);
+	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 0, 3, 0, 16, 16);
+	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 0, 2, 3, 2, 16, 16);
+	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 0, 3, 3, 3, 16, 16);
+	this->animationComponent->addAnimation("WALK_UP", 7.f, 0, 1, 3, 1, 16, 16);
+	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 3, 0, 16, 16);
 }
 
 void Fire::initAI()
@@ -26,7 +26,7 @@ void Fire::initGui()
 {
 	this->hpBar.setFillColor(sf::Color::Red);
 	this->hpBar.setSize(sf::Vector2f(50.f, 10.f));
-	this->hpBar.setPosition(this->sprite.getPosition());
+	this->hpBar.setPosition(this->sprite.getPosition().x + 20.f, this->sprite.getPosition().x - 30.f);
 }
 
 Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
@@ -94,7 +94,7 @@ void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View&
 	this->movementComponent->update(dt);
 
 	// Update GUI Remove later //
-	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
+	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 5.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 
 	//this->updateAttack();

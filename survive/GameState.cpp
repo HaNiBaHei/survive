@@ -336,6 +336,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 			int dmg = static_cast<int>(this->player->getDamage());
 			enemy->loseHp(dmg);
 			enemy->resetDamageTimer();
+			this->player->gainScore(75);
 			this->tts->addTextTag(DEFAULT_TAG, enemy->getCenter().x, enemy->getCenter().y + 40.f, dmg, "", "");
 
 	}

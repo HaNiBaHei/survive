@@ -3,7 +3,7 @@
 // Initializer //
 void Enemy::initvariables()
 {
-	this->damageTimerMax = 1000;
+	this->damageTimerMax = 300;
 	this->despawnTimerMax = 1000;
 }
 

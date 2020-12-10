@@ -186,7 +186,7 @@ void Player::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::Vie
 
 	this->hitboxComponent->update();
 
-	this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y) + 5.f);
+	this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y));
 }
 
 void Player::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
