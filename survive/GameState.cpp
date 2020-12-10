@@ -80,7 +80,12 @@ void GameState::initTexture()
 	// Enemy //
 	if (!this->textures["FIRE_BALL"].loadFromFile("Resources/images/Sprite/Enemy/Fire.png"))
 	{
-		std::cout << "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE" << "\n";
+		std::cout << "ERROR::GAME_STATE::COULD_NOT_LOAD_FIRE_TEXTURE" << "\n";
+	}
+
+	if (!this->textures["RED_BAT"].loadFromFile("Resources/images/Sprite/Enemy/redBat24.png"))
+	{
+		std::cout << "ERROR::GAME_STATE::COULD_NOT_LOAD_REDBAT_TEXTURE" << "\n";
 	}
 }
 
@@ -310,7 +315,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		{
 			this->player->gainEXP(enemy->getGainExp());
 			this->tts->addTextTag(EXPRIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y - 20.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
-
+			this->player->gainScore(150);
 			this->enemySystem->removeEnemy(index);
 			continue;
 		}
@@ -342,6 +347,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 	}
 
 	// Check Enemy damage //
+	if(EnemyTyeps::RED_BAT)
 	if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
 	{
 		int dmg = enemy->getAttributeComp()->damageMax;

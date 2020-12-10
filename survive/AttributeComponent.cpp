@@ -3,6 +3,7 @@
 
 AttributeComponent::AttributeComponent(int level)
 {
+
 	this->score = 0;
 	this->level = level;
 	this->exp = 0;

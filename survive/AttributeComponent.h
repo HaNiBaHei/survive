@@ -5,6 +5,15 @@
 class AttributeComponent
 {
 public:
+	// Enemy //
+	int hpMaxFire;
+	int levelFire;
+	int damageFire;
+
+	int hpMaxRedBat;
+	int levelRedBat;
+	int damageRedBat;
+
 	// Level //
 	int level;
 	int exp;

@@ -21,6 +21,10 @@ void EnemySystem::createEnemy(const short type, const float xPos, const float yP
 		this->activeEnemies.push_back(new Fire(xPos, yPos, this->textures["FIRE_BALL"], enemy_spawner_tile, this->player));
 		enemy_spawner_tile.increaseEnemyCounter();
 		break;
+	case EnemyTyeps::RED_BAT:
+		this->activeEnemies.push_back(new Redbat(xPos, yPos, this->textures["RED_BAT"], enemy_spawner_tile, this->player));
+		enemy_spawner_tile.increaseEnemyCounter();
+		break;
 	default:
 		std::cout << "ERROR::ENEMYSYSTEM::CREATEENEMY::TYPE DOSE NOT EXIST" << "\n";
 		break;

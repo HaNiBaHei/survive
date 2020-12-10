@@ -1,48 +1,43 @@
 #include "stdafx.h"
-#include "Fire.h"
+#include "Redbat.h"
 
-void Fire::initvariables()
+void Redbat::initvariables()
 {
 
 }
 
-void Fire::initAnimations()
+void Redbat::initAnimations()
 {
-	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 3, 0, 16, 16);
-	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 0, 3, 0, 16, 16);
-	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 0, 2, 3, 2, 16, 16);
-	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 0, 3, 3, 3, 16, 16);
-	this->animationComponent->addAnimation("WALK_UP", 7.f, 0, 1, 3, 1, 16, 16);
-	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 3, 0, 16, 16);
-	/*
+	
+	
 	this->animationComponent->addAnimation("IDLE", 25.f, 0, 0, 4, 0, 24, 24);
 	this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 0, 4, 0, 24, 24);
 	this->animationComponent->addAnimation("WALK_LEFT", 11.f, 0, 2, 4, 2, 24, 24);
 	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 0, 1, 4, 1, 24, 24);
-	this->animationComponent->addAnimation("WALK_UP", 11.f, 0, 0, 4, 0, 24, 24);*/
+	this->animationComponent->addAnimation("WALK_UP", 11.f, 0, 0, 4, 0, 24, 24);
 	//this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 3, 0, 16, 16);
 }
 
-void Fire::initAI()
+void Redbat::initAI()
 {
 
 }
 
-void Fire::initGui()
+void Redbat::initGui()
 {
 	this->hpBar.setFillColor(sf::Color::Red);
 	this->hpBar.setSize(sf::Vector2f(50.f, 10.f));
 	this->hpBar.setPosition(this->sprite.getPosition().x + 20.f, this->sprite.getPosition().x - 30.f);
 }
 
-Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
+Redbat::Redbat(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
 	: Enemy(enemy_spawner_tile)
 {
 	this->initvariables();
 	this->initGui();
 
-	this->createHitboxComponent(this->sprite, 0.f, 0.f, 16.f, 16.f);
-	this->createMovementComponent(50.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
+	this->createHitboxComponent(this->sprite, 0.f, 0.f, 24.f, 24.f);
+	this->createMovementComponent(70.f, 350.f, 70.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createAttributeComponent(1);
 
@@ -54,13 +49,13 @@ Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy
 	this->follow = new AIFollow(*this, player);
 }
 
-Fire::~Fire()
+Redbat::~Redbat()
 {
 	delete this->follow;
 }
 
 // Functions //
-void Fire::updateAnimation(const float& dt)
+void Redbat::updateAnimation(const float& dt)
 {
 
 	if (this->movementComponent->getState(IDLE))
@@ -92,7 +87,7 @@ void Fire::updateAnimation(const float& dt)
 		this->sprite.setColor(sf::Color::White);
 }
 
-void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
+void Redbat::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
 {
 	Enemy::update(dt, mouse_pos_view, view);
 
@@ -112,7 +107,7 @@ void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View&
 
 }
 
-void Fire::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
+void Redbat::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
 {
 	if (shader)
 	{

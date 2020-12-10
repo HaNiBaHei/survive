@@ -1,10 +1,12 @@
 #ifndef ENEMYSYSTEM_H
 #define ENEMYSYSTEM_H
 
-#include "Fire.h"
-#include "EnemySpawnerTile.h"
 
-enum EnemyTyeps {FIRE = 0};
+#include "EnemySpawnerTile.h"
+#include "Fire.h"
+#include "Redbat.h"
+
+enum EnemyTyeps {FIRE = 0, RED_BAT};
 
 class EnemySystem
 {

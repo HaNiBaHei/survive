@@ -204,6 +204,9 @@
     <ClCompile Include="VectorMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Redbat.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="VectorMath.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Redbat.h">
+      <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
