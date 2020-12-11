@@ -39,9 +39,12 @@ public:
 	virtual void generateAttributes(const unsigned level);
 
 	virtual void loseHp(const int hp);
+	virtual void enemyloseHp(const int hp);
 	virtual const bool isDead() const;
+	virtual const bool enemyIsDead() const;
 
 	virtual const AttributeComponent* getAttributeComp() const;
+	virtual const FireAttributeComponent* getFireAttributeComp() const;
 
 	virtual void updateAnimation(const float& dt) = 0;
 

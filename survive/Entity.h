@@ -6,6 +6,7 @@
 #include "AnimationComponent.h"
 #include "AttributeComponent.h"
 #include "SkillComponent.h"
+#include "FireAttributeComponent.h"
 
 class HitboxComponent;
 class MovementComponent;
@@ -26,6 +27,7 @@ protected:
 	AnimationComponent* animationComponent;
 	AttributeComponent* attributeComponent;
 	SkillComponent* skillcomponent;
+	FireAttributeComponent* fireattributeComponent;
 
 public:
 	Entity();
@@ -39,6 +41,7 @@ public:
 	void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
 	void createAnimationComponent(sf::Texture& texture_sheet);
 	void createAttributeComponent(const unsigned level);
+	void createFireAttributeComponent(const unsigned level);
 	void createSkillComponent();
 	void createAIComponent();
 
@@ -47,6 +50,7 @@ public:
 	virtual AnimationComponent* getAnimationComponent();
 	virtual AttributeComponent* getattributeComponent();
 	virtual SkillComponent* getSkillComponent();
+	virtual FireAttributeComponent* getFireAttributeComponent();
 
 	virtual const sf::Vector2f& getPosition() const;
 	virtual const sf::Vector2f& getSpritePosition() const;

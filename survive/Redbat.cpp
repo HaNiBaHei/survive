@@ -37,11 +37,11 @@ Redbat::Redbat(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& e
 	this->initGui();
 
 	this->createHitboxComponent(this->sprite, 0.f, 0.f, 24.f, 24.f);
-	this->createMovementComponent(70.f, 350.f, 70.f); // Velocity , Accelerate , Drag //
+	this->createMovementComponent(120.f, 400.f, 7.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
-	this->createAttributeComponent(1);
+	this->createFireAttributeComponent(2);
 
-	this->generateAttributes(this->attributeComponent->level);
+	this->generateAttributes(this->fireattributeComponent->level);
 
 	this->setPosition(x, y);
 	this->initAnimations();
@@ -94,7 +94,7 @@ void Redbat::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::Vie
 	this->movementComponent->update(dt);
 
 	// Update GUI Remove later //
-	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 5.f));
+	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->fireattributeComponent->hp) / this->fireattributeComponent->hpMax), 5.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 
 	//this->updateAttack();

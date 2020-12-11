@@ -311,7 +311,7 @@ void GameState::updateCombatAndEnemies(const float& dt)
 		this->updateCombat(enemy, index, dt);
 
 		//Danger!!
-		if (enemy->isDead())
+		if (enemy->enemyIsDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
 			this->tts->addTextTag(EXPRIENCE_TAG, this->player->getCenter().x, this->player->getCenter().y - 20.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
@@ -339,7 +339,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 		&& enemy->getDamageTimerDone())
 	{
 			int dmg = static_cast<int>(this->player->getDamage());
-			enemy->loseHp(dmg);
+			enemy->enemyloseHp(dmg);
 			enemy->resetDamageTimer();
 			this->player->gainScore(75);
 			this->tts->addTextTag(DEFAULT_TAG, enemy->getCenter().x, enemy->getCenter().y + 40.f, dmg, "", "");
@@ -348,12 +348,15 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 
 	// Check Enemy damage //
 	if(EnemyTyeps::RED_BAT)
+	
 	if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
 	{
-		int dmg = enemy->getAttributeComp()->damageMax;
-		this->player->loseHP(dmg);
-		this->tts->addTextTag(NEGATIVE_TAG, this->player->getCenter().x, this->player->getCenter().y, dmg, "-", "HP");
+			int dmg = enemy->getFireAttributeComp()->damageMax;
+			this->player->loseHP(dmg);
+			this->tts->addTextTag(NEGATIVE_TAG, this->player->getCenter().x, this->player->getCenter().y, dmg, "-", "HP");
 	}
+
+	
 }
 
 void GameState::updateDebugText(const float& dt)

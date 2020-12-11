@@ -8,6 +8,7 @@ void Entity::initVariables()
 	this->animationComponent = NULL;
 	this->attributeComponent = NULL;
 	this->skillcomponent = NULL;
+	this->fireattributeComponent = NULL;
 }
 
 Entity::Entity()
@@ -22,6 +23,7 @@ Entity::~Entity()
 	delete this->animationComponent;
 	delete this->attributeComponent;
 	delete this->skillcomponent;
+	delete this->fireattributeComponent;
 }
 
 // Components //
@@ -52,6 +54,11 @@ void Entity::createAttributeComponent(const unsigned level)
 	this->attributeComponent = new AttributeComponent(level);
 }
 
+void Entity::createFireAttributeComponent(const unsigned level)
+{
+	this->fireattributeComponent = new FireAttributeComponent(level);
+}
+
 void Entity::createSkillComponent()
 {
 	this->skillcomponent = new SkillComponent();
@@ -80,6 +87,11 @@ AttributeComponent* Entity::getattributeComponent()
 SkillComponent* Entity::getSkillComponent()
 {
 	return this->skillcomponent;
+}
+
+FireAttributeComponent* Entity::getFireAttributeComponent()
+{
+	return this->fireattributeComponent;
 }
 
 const sf::Vector2f& Entity::getPosition() const

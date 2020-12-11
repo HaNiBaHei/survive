@@ -44,9 +44,9 @@ Fire::Fire(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy
 	this->createHitboxComponent(this->sprite, 0.f, 0.f, 16.f, 16.f);
 	this->createMovementComponent(50.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
-	this->createAttributeComponent(1);
+	this->createFireAttributeComponent(1);
 
-	this->generateAttributes(this->attributeComponent->level);
+	this->generateAttributes(this->fireattributeComponent->level);
 
 	this->setPosition(x, y);
 	this->initAnimations();
@@ -99,7 +99,7 @@ void Fire::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View&
 	this->movementComponent->update(dt);
 
 	// Update GUI Remove later //
-	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 5.f));
+	this->hpBar.setSize(sf::Vector2f(50.f * (static_cast<float>(this->fireattributeComponent->hp) / this->fireattributeComponent->hpMax), 5.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 
 	//this->updateAttack();
