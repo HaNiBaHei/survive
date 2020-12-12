@@ -3,7 +3,7 @@
 
 AttributeComponent::AttributeComponent(int level)
 {
-
+	this->damageSword = 1;
 	this->score = 0;
 	this->level = level;
 	this->exp = 0;
@@ -109,6 +109,8 @@ void AttributeComponent::updateLevel()
 	while (this->exp >= this->expNext)
 	{
 		++this->level;
+		this->damageSword += 1;
+		this->damageMax += 3;
 		this->hpMax += 10;
 		this->strength += 2;
 		this->agility += 2;

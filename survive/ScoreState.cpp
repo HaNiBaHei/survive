@@ -125,6 +125,7 @@ void ScoreState::updateGui(const float& dt)
 	// Quit the game //
 		if (this->buttons["BACK"]->isPressed())
 		{
+			this->states->push(new MainMenuState(this->stateData));
 			this->endState();
 		}
 }

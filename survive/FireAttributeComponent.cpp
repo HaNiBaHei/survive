@@ -74,7 +74,7 @@ void FireAttributeComponent::updateStatsLevel1(const bool reset)
 void FireAttributeComponent::updateStatsLevel2(const bool reset)
 {
 	this->hpMax = 28;
-	this->damageMax = 3;
+	this->damageMax = 5;
 
 	if (reset)
 	{
@@ -85,7 +85,7 @@ void FireAttributeComponent::updateStatsLevel2(const bool reset)
 void FireAttributeComponent::updateStatsLevel3(const bool reset)
 {
 	this->hpMax = 32;
-	this->damageMax = 5;
+	this->damageMax = 9;
 
 	if (reset)
 	{
@@ -96,7 +96,7 @@ void FireAttributeComponent::updateStatsLevel3(const bool reset)
 void FireAttributeComponent::updateStatsLevel4(const bool reset)
 {
 	this->hpMax = 48;
-	this->damageMax = 8;
+	this->damageMax = 15;
 
 	if (reset)
 	{
@@ -107,7 +107,7 @@ void FireAttributeComponent::updateStatsLevel4(const bool reset)
 void FireAttributeComponent::updateStatsLevel5(const bool reset)
 {
 	this->hpMax = 300;
-	this->damageMax = 22;
+	this->damageMax = 30;
 
 	if (reset)
 	{

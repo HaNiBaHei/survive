@@ -8,6 +8,7 @@
 #include "Sword.h"
 #include "Bow.h"
 #include "TextTagSystem.h"
+#include "GameOverState.h"
 
 class GameState :
     public State
@@ -17,6 +18,8 @@ private:
     sf::Vector2i viewGridPosition;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
+
+    sf::Music MainMenuMusic;
 
     sf::Font font;
     PauseMenu* pmenu;
@@ -37,6 +40,7 @@ private:
 
     TileMap* tileMap;
 
+
     // System //
     TextTagSystem* tts;
 
@@ -50,6 +54,7 @@ private:
     void initShaders();
     void initKeyTime();
     void initDebugText();
+    void initMusic();
 
     void initPlayers();
     void initPlayerGui();

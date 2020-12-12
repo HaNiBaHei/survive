@@ -8,7 +8,7 @@ class MeleeWeapon :
     public Weapon
 {
 private:
-
+    AttributeComponent* plsDamage;
 protected:
     
 

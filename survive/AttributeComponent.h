@@ -30,6 +30,7 @@ public:
 	// Stats //
 	int hp;
 	int hpMax;
+	int damageSword;
 	int damageMin;
 	int damageMax;
 	int accuracy;

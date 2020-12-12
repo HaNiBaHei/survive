@@ -210,6 +210,9 @@
     <ClCompile Include="FireAttributeComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -355,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="FireAttributeComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

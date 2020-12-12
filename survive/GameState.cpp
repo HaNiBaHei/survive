@@ -119,6 +119,14 @@ void GameState::initDebugText()
 	this->debugText.setPosition(15.f, this->view.getSize().y / 2.f);
 }
 
+void GameState::initMusic()
+{
+	if (!this->MainMenuMusic.openFromFile("Resources/Sounds/MainmenuTrack.wav"))
+	{
+		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
+	}
+}
+
 void GameState::initPlayers()
 {
 	this->player = new Player(200, 200, this->textures["PLAYER_SHEET"]);
@@ -148,6 +156,7 @@ void GameState::initSystems()
 GameState::GameState(StateData* state_data)
 	:State(state_data)
 {
+	this->initMusic();
 	this->initDeferredRender();
 	this->initView();
 	this->initKeybinds();
@@ -277,7 +286,11 @@ void GameState::updatePlayerGui(const float& dt)
 void GameState::updatePauseMenuButtons()
 {
 	if (this->pmenu->isButtonPressed("QUIT"))
+	{
+		
+		this->states->push(new MainMenuState(this->stateData));
 		this->endState();
+	}
 }
 
 void GameState::updateTileMap(const float& dt)
@@ -291,6 +304,12 @@ void GameState::updateTileMap(const float& dt)
 void GameState::updatePlayer(const float& dt)
 {
 	this->player->update(dt, this->mousePosView, this->view);
+
+	if (this->player->isDead())
+	{
+		this->states->push(new GameOverState(this->stateData));
+		this->endState();
+	}
 
 }
 

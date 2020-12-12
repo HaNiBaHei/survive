@@ -102,6 +102,16 @@ const unsigned Player::getDamage() const
 		+ (this->attributeComponent->damageMin + this->weapon->getDamageMin());
 }
 
+const bool Player::isDead() const
+{
+	if (this->attributeComponent)
+	{
+		return this->attributeComponent->isDead();
+	}
+
+	return false;
+}
+
 void Player::setInitAttack(const bool initAttack)
 {
 	this->initAttack = initAttack;

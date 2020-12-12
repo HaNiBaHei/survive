@@ -2,7 +2,7 @@
 #define WEAPON_H
 
 
-
+#include "AttributeComponent.h"
 #include "Item.h"
 class Weapon :
     public Item

@@ -7,6 +7,7 @@
 #include "TileMap.h"
 #include "EditorMode.h"
 #include "EditorModes.h"
+#include "MainMenuState.h"
 
 class State;
 class StateData;

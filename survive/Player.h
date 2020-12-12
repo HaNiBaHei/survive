@@ -38,6 +38,7 @@ public:
     const bool getDamageTimer();
 
     const unsigned getDamage() const;
+    const bool isDead() const;
 
     // Modifiers //
     void setInitAttack(const bool initAttack);

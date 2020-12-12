@@ -45,6 +45,10 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initGui()
 {
+	this->bgMusic.setVolume(1);
+	this->bgMusic.setLoop(true);
+	this->bgMusic.play();
+
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 	// Backgrouund //
 	this->background.setSize(
@@ -131,9 +135,7 @@ MainMenuState::MainMenuState(StateData* state_data)
 	this->initGui();
 	this->resetGui();
 
-	this->bgMusic.setVolume(1);
-	this->bgMusic.setLoop(true);
-	this->bgMusic.play();
+	
 	
 }
 
@@ -176,6 +178,7 @@ void MainMenuState::updateButtons()
 		this->bgMusic.stop();
 
 		this->states->push(new GameState(this->stateData));
+		this->endState();
 	}
 
 	// Setting //
@@ -184,6 +187,7 @@ void MainMenuState::updateButtons()
 		this->bgMusic.stop();
 
 		this->states->push(new ScoreState(this->stateData));
+		this->endState();
 	}
 
 	// Editors //
@@ -192,13 +196,14 @@ void MainMenuState::updateButtons()
 		this->bgMusic.stop();
 
 		this->states->push(new EditorState(this->stateData));
+		this->endState();
 	}
 
 	// Quit the game //
 	if (this->buttons["EXIT_STATE"]->isPressed())
 	{
 		this->bgMusic.stop();
-
+		
 		this->endState();
 	}
 }

@@ -205,7 +205,10 @@ void EditorState::updateGui(const float& dt)
 void EditorState::updatePauseMenuButtons()
 {
 	if (this->pmenu->isButtonPressed("QUIT"))
+	{
+		this->states->push(new MainMenuState(this->stateData));
 		this->endState();
+	}
 
 	if (this->pmenu->isButtonPressed("SAVE"))
 		this->tileMap->saveToFile("test.slmp");

@@ -1,15 +1,13 @@
-#ifndef SCORESTATE_H
-#define SCORESTATE_H
-
+#pragma once
 #include "State.h"
-#include "Gui.h"
+#include "GameState.h"
 #include "MainMenuState.h"
-#include "State.h"
-class ScoreState :
+#include "Gui.h"
+
+class GameOverState :
     public State
 {
 private:
-
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
@@ -27,14 +25,17 @@ private:
     void resetGui();
 
 public:
-    ScoreState(StateData* state_data);
-    virtual ~ScoreState();
+    GameOverState(StateData* state_data);
+    virtual ~GameOverState();
+
+    const bool SkipState();
 
     void updateInput(const float& dt);
     void updateGui(const float& dt);
+    void updateButtons();
     void update(const float& dt);
     void renderGui(sf::RenderTarget& target);
+    void renderButtons(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = NULL);
 };
 
-#endif // !SCORESTATE_H
