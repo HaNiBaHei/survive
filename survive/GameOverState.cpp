@@ -116,8 +116,6 @@ void GameOverState::updateButtons()
 	// New game //
 	if (this->buttons["RETRY"]->isPressed())
 	{
-
-		this->states->push(new GameState(this->stateData));
 		this->endState();
 	}
 

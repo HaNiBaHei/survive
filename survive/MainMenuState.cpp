@@ -12,6 +12,9 @@ void MainMenuState::initMusic()
 	{
 		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
 	}
+	this->bgMusic.setVolume(3);
+	this->bgMusic.setLoop(true);
+	this->bgMusic.play();
 
 	
 }
@@ -45,10 +48,7 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initGui()
 {
-	this->bgMusic.setVolume(1);
-	this->bgMusic.setLoop(true);
-	this->bgMusic.play();
-
+	
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 	// Backgrouund //
 	this->background.setSize(

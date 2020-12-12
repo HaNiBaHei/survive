@@ -94,6 +94,7 @@ const bool Player::getDamageTimer()
 	return false;
 }
 
+
 const unsigned Player::getDamage() const
 {
 	return rand() % (

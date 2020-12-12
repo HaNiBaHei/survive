@@ -19,7 +19,10 @@ private:
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
 
-    sf::Music MainMenuMusic;
+    sf::Music bsgMusic;
+    sf::Clock soundTimer;
+    sf::Int32 soundTimerMax;
+
 
     sf::Font font;
     PauseMenu* pmenu;
@@ -48,6 +51,7 @@ private:
     void initDeferredRender();
     void initView();
     void initKeybinds();
+    void initSoundTimer();
     void initFonts();
     void initTexture();
     void initPauseMenu();
@@ -67,12 +71,16 @@ public:
     virtual ~GameState();
     // Accessors //
     const bool getKeyTime();
+    const bool getSoundTime();
+
+
 
     // Function //
     void updateView(const float& dt);
     void updateInput(const float& dt);
     void updatePlayerInput(const float& dt);
     void updatePlayerGui(const float& dt);
+    void updatePlayerSound(const float& dt);
     void updatePauseMenuButtons();
     void updateTileMap(const float& dt);
     void updatePlayer(const float& dt);

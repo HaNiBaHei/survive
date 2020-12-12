@@ -9,6 +9,7 @@ Sword::Sword(unsigned level, unsigned damageMin, unsigned damageMax, unsigned ra
 		this->weapon_sprite.getGlobalBounds().width / 2.f,
 		this->weapon_sprite.getGlobalBounds().height
 	);
+
 }
 
 Sword::~Sword()

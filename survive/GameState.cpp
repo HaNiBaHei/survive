@@ -21,6 +21,17 @@ void GameState::initDeferredRender()
 
 }
 
+void GameState::initMusic()
+{
+	if (!this->bsgMusic.openFromFile("Resources/Sounds/dungeontheme.wav"))
+	{
+		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
+	}
+
+	
+
+}
+
 void GameState::initView()
 {
 	this->view.setSize(
@@ -53,6 +64,11 @@ void GameState::initKeybinds()
 	}
 
 	ifs.close();
+}
+
+void GameState::initSoundTimer()
+{
+	this->soundTimerMax = 350;
 }
 
 
@@ -91,6 +107,7 @@ void GameState::initTexture()
 
 void GameState::initPauseMenu()
 {
+
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
 
@@ -119,13 +136,6 @@ void GameState::initDebugText()
 	this->debugText.setPosition(15.f, this->view.getSize().y / 2.f);
 }
 
-void GameState::initMusic()
-{
-	if (!this->MainMenuMusic.openFromFile("Resources/Sounds/MainmenuTrack.wav"))
-	{
-		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
-	}
-}
 
 void GameState::initPlayers()
 {
@@ -165,6 +175,7 @@ GameState::GameState(StateData* state_data)
 	this->initPauseMenu();
 	this->initShaders();
 	this->initKeyTime();
+	this->initSoundTimer();
 	this->initDebugText();
 
 	this->initPlayers();
@@ -197,6 +208,16 @@ const bool GameState::getKeyTime()
 	if (this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax)
 	{
 		this->keyTimer.restart();
+		return true;
+	}
+	return false;
+}
+
+const bool GameState::getSoundTime()
+{
+	if (this->soundTimer.getElapsedTime().asSeconds() >= this->soundTimerMax)
+	{
+		this->soundTimer.restart();
 		return true;
 	}
 	return false;
@@ -257,20 +278,26 @@ void GameState::updatePlayerInput(const float& dt)
 {
 
 	// Update player Input //
+	if (!this->player->isDead())
+	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
+		{
+			
 			this->player->move(-1.f, 0.f, dt);
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
+		{
 			this->player->move(1.f, 0.f, dt);
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
 		{
 			this->player->move(0.f, -1.f, dt);
-
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 		{
 			this->player->move(0.f, 1.f, dt);
 		}
-	
+	}
 }
 
 void GameState::updatePlayerGui(const float& dt)
@@ -281,6 +308,10 @@ void GameState::updatePlayerGui(const float& dt)
 	{
 		this->playerGui->toggleCharacterTab();
 	}
+}
+
+void GameState::updatePlayerSound(const float& dt)
+{
 }
 
 void GameState::updatePauseMenuButtons()
@@ -308,15 +339,18 @@ void GameState::updatePlayer(const float& dt)
 	if (this->player->isDead())
 	{
 		this->states->push(new GameOverState(this->stateData));
-		this->endState();
+		//this->endState();
 	}
 
 }
 
 void GameState::updateCombatAndEnemies(const float& dt)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->getWeapon()->getAttackTimer())
-		this->player->setInitAttack(true);
+	if (this - player->isDead())
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->getWeapon()->getAttackTimer())
+			this->player->setInitAttack(true);
+	}
 
 	unsigned index = 0;
 	for (auto* enemy : this->activeEnemies)
@@ -409,6 +443,7 @@ void GameState::update(const float& dt)
 
 		this->updatePlayerGui(dt);
 
+		this->updatePlayerSound(dt);
 		// Update All Enemies //
 		this->updateCombatAndEnemies(dt);
 

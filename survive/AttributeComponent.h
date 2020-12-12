@@ -4,6 +4,10 @@
 
 class AttributeComponent
 {
+private:
+	sf::Music levelup;
+
+	void initMusic();
 public:
 	// Enemy //
 	int hpMaxFire;
@@ -53,6 +57,8 @@ public:
 
 	void loseScore(const int score);
 	void gainScore(const int score);
+
+	void resetHp();
 
 	const bool isDead() const;
 

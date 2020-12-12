@@ -8,6 +8,7 @@ class GameOverState :
     public State
 {
 private:
+
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;

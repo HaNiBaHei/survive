@@ -11,6 +11,7 @@ class Player :
 {
 private:
     // Variables //
+    
     bool initAttack;
     bool attacking;
     Sword* weapon;
@@ -36,6 +37,7 @@ public:
     const bool& getInitAttack() const;
 
     const bool getDamageTimer();
+
 
     const unsigned getDamage() const;
     const bool isDead() const;

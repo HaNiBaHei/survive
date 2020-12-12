@@ -10,7 +10,6 @@ class Sword :
 {
 private:
 
-
 public:
     Sword(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file);
     virtual ~Sword();
