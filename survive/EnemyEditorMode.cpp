@@ -95,9 +95,9 @@ void EnemyEditorMode::updateInput(const float& dt)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 		{
 			if (this->timeToSpawn > 0)
-				this->timeToSpawn--;
+				this->timeToSpawn += 5;
 		}
-		else if (this->timeToSpawn < 100)
+		else if (this->timeToSpawn < 120)
 			this->timeToSpawn++;
 		else
 			this->timeToSpawn = 0;
@@ -107,9 +107,9 @@ void EnemyEditorMode::updateInput(const float& dt)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 		{
 			if (this->maxDistance > 0)
-				this->maxDistance--;
+				this->maxDistance += 10;
 		}
-		else if (this->maxDistance < 100)
+		else if (this->maxDistance < 1000)
 			this->maxDistance++;
 		else
 			this->maxDistance = 0;

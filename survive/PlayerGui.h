@@ -65,6 +65,9 @@ public:
 	// Functions //
 	void updateLevelBar();
 	void updateScore();
+	
+	void updateScoreForGameOver(const float& dt);
+
 	void updateExpBar();
 	void updateHpBar();
 	void updatePlayerTabs();
@@ -79,6 +82,7 @@ public:
 	void renderPlayerTabs(sf::RenderTarget& target);
 
 	void render(sf::RenderTarget& target);
+	void renderForGameOver(sf::RenderTarget& target);
 
 	
 };

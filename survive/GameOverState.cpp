@@ -26,18 +26,29 @@ void GameOverState::initKeybinds()
 
 void GameOverState::initGui()
 {
+	if (!this->Death.openFromFile("Resources/Sounds/GameOver.wav"))
+	{
+		std::cout << "ERROR::GAMEOVERSTATE::COULD NOT LOAD SOUND" << "\n";
+	}
+	Death.setVolume(10);
+	Death.play();
+
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
-	// Buttons background //
-	this->btnBackground.setSize(
-		sf::Vector2f(
+	//  background //
+	this->bgsreen.setSize(
+		sf::Vector2f
+		(
 			static_cast<float>(vm.width),
-			static_cast<float>(vm.height / 5)
+			static_cast<float>(vm.height)
 		)
 	);
+	if (!this->bgtexture.loadFromFile("Resources/images/Backgrounds/GameOver.png"))
+	{
+		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
 
-	//this->btnBackground.setPosition(gui::p2pX(11.5f, vm), 0.f);
-	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 200));
+	this->bgsreen.setTexture(&this->bgtexture);
 
 	// Buttons //
 
@@ -48,6 +59,19 @@ void GameOverState::initGui()
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 }
+
+void GameOverState::initScore()
+{
+
+}
+
+void GameOverState::initSound()
+{
+	
+}
+
+
+
 
 void GameOverState::resetGui()
 {
@@ -67,16 +91,20 @@ void GameOverState::resetGui()
 }
 
 GameOverState::GameOverState(StateData* state_data)
-	:State(state_data)
+	:State(state_data), vm(vm)
 {
+	this->initScore();
 	this->initFont();
 	this->initKeybinds();
 	this->initGui();
+	
 	this->resetGui();
+
 }
 
 GameOverState::~GameOverState()
 {
+
 	auto it = this->buttons.begin();
 	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
 	{
@@ -84,19 +112,10 @@ GameOverState::~GameOverState()
 	}
 }
 
-const bool GameOverState::SkipState() 
-{
-	return true;
-}
 
-void GameOverState::updateInput(const float& dt)
-{
 
-}
 
-void GameOverState::updateGui(const float& dt)
-{
-}
+
 
 void GameOverState::updateButtons()
 {
@@ -110,9 +129,13 @@ void GameOverState::updateButtons()
 	// New game //
 	if (this->buttons["EXIT_TOMENU"]->isPressed())
 	{
-		this->states->empty();
-		this->endState();
+		this->states->pop();
+		this->states->push(new MainMenuState(this->stateData));
 	}
+}
+
+void GameOverState::updateInput(const float& dt)
+{
 }
 
 void GameOverState::update(const float& dt)
@@ -120,14 +143,9 @@ void GameOverState::update(const float& dt)
 	this->updateMousePositions();
 	this->updateInput(dt);
 
-
 	this->updateButtons();
 }
 
-void GameOverState::renderGui(sf::RenderTarget& target)
-{
-
-}
 
 void GameOverState::renderButtons(sf::RenderTarget& target)
 {
@@ -143,9 +161,8 @@ void GameOverState::render(sf::RenderTarget* target)
 		target = this->window;
 
 
-	target->draw(this->background);
+	target->draw(this->bgsreen);
 
-	target->draw(this->btnBackground);
 
 	this->renderButtons(*target);
 }

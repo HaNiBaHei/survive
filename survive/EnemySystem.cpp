@@ -25,6 +25,14 @@ void EnemySystem::createEnemy(const short type, const float xPos, const float yP
 		this->activeEnemies.push_back(new Redbat(xPos, yPos, this->textures["RED_BAT"], enemy_spawner_tile, this->player));
 		enemy_spawner_tile.increaseEnemyCounter();
 		break;
+	case EnemyTyeps::ORC:
+		this->activeEnemies.push_back(new Orc(xPos, yPos, this->textures["Orc"], enemy_spawner_tile, this->player));
+		enemy_spawner_tile.increaseEnemyCounter();
+		break;
+	case EnemyTyeps::BOSS:
+		this->activeEnemies.push_back(new Boss1(xPos, yPos, this->textures["BOSS"], enemy_spawner_tile, this->player));
+		enemy_spawner_tile.increaseEnemyCounter();
+		break;
 	default:
 		std::cout << "ERROR::ENEMYSYSTEM::CREATEENEMY::TYPE DOSE NOT EXIST" << "\n";
 		break;

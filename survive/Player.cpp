@@ -113,6 +113,11 @@ const bool Player::getSoundTimer()
 	
 }
 
+const unsigned Player::getHeal() const
+{
+	return rand() % 13;
+}
+
 
 const unsigned Player::getDamage() const
 {
@@ -148,7 +153,7 @@ void Player::loseHP(const int hp)
 
 void Player::gainHP(const int hp)
 {
-	this->attributeComponent->resetHp(hp);
+	this->attributeComponent->gainHP(hp);
 }
 
 void Player::loseScore(const int score)

@@ -26,6 +26,8 @@ private:
     sf::Music bg;
     sf::Music bg2;
 
+    int score;
+    int hightScore;
 
     sf::Font font;
     PauseMenu* pmenu;

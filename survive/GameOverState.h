@@ -4,26 +4,45 @@
 #include "MainMenuState.h"
 #include "Player.h"
 #include "Gui.h"
+#include "PlayerGui.h"
+#include "AttributeComponent.h"
 
 class GameOverState :
     public State
 {
 private:
+    AttributeComponent* attri;
+    sf::Texture texture;
+    /// <summary>
+    /// ///////////////////////
+    /// </summary>
+    /// 
+    std::string scoreString;
+    sf::Text scoreText;
+
     Player* player;
 
-    sf::Texture backgroundTexture;
-    sf::RectangleShape background;
+    PlayerGui* playerGui;
+    sf::RenderTexture renderTexture;
+
+    sf::Texture bgtexture;
+    sf::RectangleShape bgsreen;
     sf::Font font;
+
+    sf::VideoMode& vm;
 
     sf::RectangleShape btnBackground;
     std::map<std::string, gui::Button*> buttons;
 
     sf::Text optionsText;
 
+    sf::Music Death;
 
     void initFont();
     void initKeybinds();
     void initGui();
+    void initScore();
+    void initSound();
 
     void resetGui();
 
@@ -31,13 +50,10 @@ public:
     GameOverState(StateData* state_data);
     virtual ~GameOverState();
 
-    const bool SkipState();
 
-    void updateInput(const float& dt);
-    void updateGui(const float& dt);
     void updateButtons();
+    void updateInput(const float& dt);
     void update(const float& dt);
-    void renderGui(sf::RenderTarget& target);
     void renderButtons(sf::RenderTarget& target);
     void render(sf::RenderTarget* target = NULL);
 };

@@ -8,6 +8,7 @@ void MainMenuState::initVariables()
 
 void MainMenuState::initMusic()
 {
+	
 	if (!this->bgMusic.openFromFile("Resources/Sounds/MainmenuTrack.wav"))
 	{
 		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
@@ -15,8 +16,13 @@ void MainMenuState::initMusic()
 	this->bgMusic.setVolume(3);
 	this->bgMusic.setLoop(true);
 	this->bgMusic.play();
-
 	
+	/*if (!this->bgMusic.openFromFile("Resources/Sounds/GameOver.wav"))
+	{
+		std::cout << "ERROR::GAMEOVERSTATE::COULD NOT LOAD SOUND" << "\n";
+	}
+	bgMusic.setVolume(10);
+	bgMusic.play();*/
 }
 
 

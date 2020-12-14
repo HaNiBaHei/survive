@@ -149,6 +149,11 @@ void PlayerGui::updateScore()
 	this->scoreText.setString(this->scoreString);
 }
 
+void PlayerGui::updateScoreForGameOver(const float& dt)
+{
+	this->updateScore();
+}
+
 void PlayerGui::updateExpBar()
 {
 	float percent = static_cast<float>(this->player->getattributeComponent()->exp) / static_cast<float>(this->player->getattributeComponent()->expNext);
@@ -237,4 +242,9 @@ void PlayerGui::render(sf::RenderTarget& target)
 	this->renderHpBar(target);
 	this->renderPlayerTabs(target);
 	
+}
+
+void PlayerGui::renderForGameOver(sf::RenderTarget& target)
+{
+	this->renderScore(target);
 }

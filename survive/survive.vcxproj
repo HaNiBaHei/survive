@@ -159,6 +159,7 @@
     <ClCompile Include="AIOption.cpp" />
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="AttributeComponent.cpp" />
+    <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="Bow.cpp" />
     <ClCompile Include="CharacterTab.cpp" />
     <ClCompile Include="DefaultEditorMode.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MeleeWeapon.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="Orc.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerGui.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="AIOption.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AttributeComponent.h" />
+    <ClInclude Include="Boss1.h" />
     <ClInclude Include="Bow.h" />
     <ClInclude Include="CharacterTab.h" />
     <ClInclude Include="DefaultEditorMode.h" />
@@ -237,6 +240,7 @@
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MeleeWeapon.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="Orc.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerGui.h" />
@@ -266,6 +270,9 @@
     <None Include="fragment_shader.frag" />
     <None Include="test.slmp" />
     <None Include="vertex_shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="HightScore.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

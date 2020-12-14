@@ -106,7 +106,8 @@ void GameState::initFonts()
 void GameState::initTexture()
 {
 	// Buttons //
-
+	//this->score = this->player->getScore();
+	this->hightScore = 0;
 
 
 
@@ -125,6 +126,16 @@ void GameState::initTexture()
 	if (!this->textures["RED_BAT"].loadFromFile("Resources/images/Sprite/Enemy/redBat24.png"))
 	{
 		std::cout << "ERROR::GAME_STATE::COULD_NOT_LOAD_REDBAT_TEXTURE" << "\n";
+	}
+
+	if (!this->textures["ORC"].loadFromFile("Resources/images/Sprite/Enemy/Orc.png"))
+	{
+		std::cout << "ERROR::GAME_STATE::COULD_NOT_LOAD_ORC_TEXTURE" << "\n";
+	}
+
+	if (!this->textures["BOSS"].loadFromFile("Resources/images/Sprite/Enemy/bigboss.png"))
+	{
+		std::cout << "ERROR::GAME_STATE::COULD_NOT_LOAD_BOSS_TEXTURE" << "\n";
 	}
 }
 
@@ -340,7 +351,8 @@ void GameState::updatePauseMenuButtons()
 {
 	if (this->pmenu->isButtonPressed("QUIT"))
 	{
-		
+		bg.stop();
+		bg2.stop();
 		this->states->push(new MainMenuState(this->stateData));
 		this->endState();
 	}
@@ -360,8 +372,39 @@ void GameState::updatePlayer(const float& dt)
 
 	if (this->player->isDead())
 	{
+		bg.stop();
+		bg2.stop();
 
-		this->endState();
+		// Save Hight Score //
+		
+		std::ifstream readFile;
+		readFile.open("/HightScore.txt");
+
+		if (readFile.is_open())
+		{
+			while (!readFile.eof())
+			{
+				readFile >> hightScore;
+			}
+		}
+
+		readFile.close();
+
+		std::ofstream writeFile("/HightScore.txt");
+
+		if (writeFile.is_open())
+		{
+			if (score > hightScore)
+			{
+				hightScore = score;
+			}
+
+			writeFile << hightScore;
+		}
+
+		writeFile.close();
+		//////////////////////////////////////////////
+		this->states->pop();
 
 		this->states->push(new GameOverState(this->stateData));
 
@@ -421,11 +464,17 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 		&& enemy->getSpriteDistance(*this->player) < this->player->getWeapon()->getRange()
 		&& enemy->getDamageTimerDone())
 	{
+		int heal = static_cast<int>(this->player->getHeal());
 			int dmg = static_cast<int>(this->player->getDamage());
 			playerAttack.setLoop(true);
 			playerAttack.play();
 			enemy->enemyloseHp(dmg);
 			enemy->resetDamageTimer();
+			if (rand() % 7 == 0)
+			{
+				this->player->gainHP(rand() % 13);
+				this->tts->addTextTag(POSITIVE_TAG, this->player->getCenter().x - 10.f, this->player->getCenter().y + 30.f, heal, "", "");
+			}
 			this->player->gainScore(75);
 			this->tts->addTextTag(DEFAULT_TAG, enemy->getCenter().x, enemy->getCenter().y + 40.f, dmg, "", "");
 
@@ -435,7 +484,7 @@ void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 
 	// Check Enemy damage //
 
-		if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
+		if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer() && !this->player->isDead())
 		{
 			int dmg = enemy->getFireAttributeComp()->damageMax;
 			getAttack.setLoop(true);

@@ -103,6 +103,11 @@ const bool AttributeComponent::isDead() const
 	return this->hp <= 0;
 }
 
+const int AttributeComponent::getScore() const
+{
+	return this->score;
+}
+
 void AttributeComponent::updateStats(const bool reset)
 {
 	

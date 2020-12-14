@@ -43,6 +43,7 @@ public:
     const bool getDamageTimer();
     const bool getSoundTimer();
 
+    const unsigned getHeal() const;
 
     const unsigned getDamage() const;
     const bool isDead() const;

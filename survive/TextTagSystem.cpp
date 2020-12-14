@@ -20,6 +20,9 @@ void TextTagSystem::initTagTemplates()
 		sf::Color::Red, 20, 75.f, true, 200.f, 300.f, 2);
 	this->tagTemplates[EXPRIENCE_TAG] = new TextTag(this->font, "", 200.f, 200.f, 0.f, -1.f, 
 		sf::Color::Yellow, 20, 75.f, true, 200.f, 300.f, 2);
+	this->tagTemplates[POSITIVE_TAG] = new TextTag(this->font, "", 200.f, 200.f, 0.f, -1.f,
+		sf::Color::Green, 20, 75.f, true, 200.f, 300.f, 2);
+	
 }
 
 // Constructors //

@@ -213,6 +213,12 @@
     <ClCompile Include="GameOverState.cpp">
       <Filter>States</Filter>
     </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Orc.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -362,6 +368,12 @@
     <ClInclude Include="GameOverState.h">
       <Filter>States</Filter>
     </ClInclude>
+    <ClInclude Include="Boss1.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Orc.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.slmp">
@@ -388,5 +400,10 @@
     <None Include="Config\gamestate_keybinds.ini">
       <Filter>Config</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="HightScore.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

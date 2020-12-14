@@ -5,8 +5,10 @@
 #include "EnemySpawnerTile.h"
 #include "Fire.h"
 #include "Redbat.h"
+#include "Boss1.h"
+#include "Orc.h"
 
-enum EnemyTyeps {FIRE = 0, RED_BAT};
+enum EnemyTyeps {FIRE = 0, RED_BAT, BOSS, ORC};
 
 class EnemySystem
 {
