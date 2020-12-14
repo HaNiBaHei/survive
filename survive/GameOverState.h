@@ -2,12 +2,14 @@
 #include "State.h"
 #include "GameState.h"
 #include "MainMenuState.h"
+#include "Player.h"
 #include "Gui.h"
 
 class GameOverState :
     public State
 {
 private:
+    Player* player;
 
     sf::Texture backgroundTexture;
     sf::RectangleShape background;

@@ -10,28 +10,35 @@ void Player::initvariables()
 	this->weapon->generate(1, 3);
 
 	this->damageTimerMax = 700;
-	
+	this->soundTimerMax = 400;
 }
 
 void Player::initComponents()
 {
-	
+	if (!this->walksound.openFromFile("Resources/Sounds/footstep.wav"))
+	{
+		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
+	}
+
+	walksound.setVolume(10);
 }
 
 void Player::initAnimations()
 {
 	this->animationComponent->addAnimation("IDLE", 12.f, 0, 0, 8, 0, 64, 64);
-	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 1, 3, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 4, 1, 7, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 8, 1, 11, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_UP", 7.f, 12, 1, 15, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_DOWN", 6.f, 0, 1, 3, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_LEFT", 6.f, 4, 1, 7, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_RIGHT", 6.f, 8, 1, 11, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_UP", 6.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 6.f, 0, 2, 5, 2, 64, 64);
 }
 
 // Constructors //
 Player::Player(float x, float y, sf::Texture& texture_sheet)
 {
+
 	this->initvariables();
+	this->initComponents();
 
 	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
 	this->createMovementComponent(200.f, 2500.f, 1100.f); // Velocity , Accelerate , Drag //
@@ -94,6 +101,18 @@ const bool Player::getDamageTimer()
 	return false;
 }
 
+const bool Player::getSoundTimer()
+{
+	if (this->soundTimer.getElapsedTime().asMilliseconds() >= this->soundTimerMax)
+	{
+		this->soundTimer.restart();
+		return true;
+	}
+	return false;
+
+	
+}
+
 
 const unsigned Player::getDamage() const
 {
@@ -113,6 +132,8 @@ const bool Player::isDead() const
 	return false;
 }
 
+
+
 void Player::setInitAttack(const bool initAttack)
 {
 	this->initAttack = initAttack;
@@ -127,7 +148,7 @@ void Player::loseHP(const int hp)
 
 void Player::gainHP(const int hp)
 {
-	this->attributeComponent->gainHP(hp);
+	this->attributeComponent->resetHp(hp);
 }
 
 void Player::loseScore(const int score)
@@ -158,26 +179,70 @@ void Player::updateAnimation(const float& dt)
 	{
 
 	}
+	walksound.setLoop(true);
 
 	if (this->movementComponent->getState(IDLE))
 	{
 		this->animationComponent->play("IDLE", dt);
+		walksound.setLoop(false);
 	}
 	else if (this->movementComponent->getState(MOVING_RIGHT))
 	{
 		this->animationComponent->play("WALK_RIGHT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+		if (this->soundTimer.getElapsedTime().asMilliseconds() >= 200)
+		{
+			walksound.setLoop(true);
+			walksound.play();
+			
+			this->soundTimer.restart();
+		}
+		else
+			walksound.setLoop(false);
+
 	}
 	else if (this->movementComponent->getState(MOVING_LEFT))
 	{
 		this->animationComponent->play("WALK_LEFT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+		if (this->soundTimer.getElapsedTime().asMilliseconds() >= 200)
+		{
+			walksound.setLoop(true);
+			walksound.play();
+
+			this->soundTimer.restart();
+		}
+		else
+			walksound.setLoop(false);
+
 	}
 	else if (this->movementComponent->getState(MOVING_UP))
 	{
 		this->animationComponent->play("WALK_UP", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+		if (this->soundTimer.getElapsedTime().asMilliseconds() >= 200)
+		{
+			walksound.setLoop(true);
+			walksound.play();
+
+			this->soundTimer.restart();
+		}
+		else
+			walksound.setLoop(false);
+
+
 	}
 	else if (this->movementComponent->getState(MOVING_DOWN))
 	{
 		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+		if (this->soundTimer.getElapsedTime().asMilliseconds() >= 200)
+		{
+			walksound.setLoop(true);
+			walksound.play();
+
+			this->soundTimer.restart();
+		}
+		else
+			walksound.setLoop(false);
+
+
 	}
 }
 

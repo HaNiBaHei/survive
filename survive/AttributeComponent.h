@@ -58,7 +58,7 @@ public:
 	void loseScore(const int score);
 	void gainScore(const int score);
 
-	void resetHp();
+	void resetHp(const int hpmax);
 
 	const bool isDead() const;
 

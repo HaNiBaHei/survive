@@ -23,13 +23,36 @@ void GameState::initDeferredRender()
 
 void GameState::initMusic()
 {
-	if (!this->bsgMusic.openFromFile("Resources/Sounds/dungeontheme.wav"))
+	if (!this->playerAttack.openFromFile("Resources/Sounds/attack.wav"))
 	{
-		std::cout << "ERROR::MAINMENUSTATE::COULD NOT LOAD MUSIC" << "\n";
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD PLAYER ATTACK SOUND" << "\n";
 	}
 
-	
+	if (!this->getAttack.openFromFile("Resources/Sounds/hurt.wav"))
+	{
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD PLAYER GET ATTACK SOUND" << "\n";
+	}
 
+	getAttack.setVolume(10);
+	playerAttack.setVolume(10);
+
+	if (!this->bg.openFromFile("Resources/Sounds/GameStateTheme.wav"))
+	{
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD BACKGROUND 1 MUSIC" << "\n";
+	}
+
+	if (!this->bg2.openFromFile("Resources/Sounds/GameStateTheme2.wav"))
+	{
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD BACKGROUND 2 MUSIC" << "\n";
+	}
+
+	bg.setVolume(7);
+	bg.setLoop(true);
+	bg.play();
+
+	bg2.setVolume(2);
+	bg2.setLoop(true);
+	bg2.play();
 }
 
 void GameState::initView()
@@ -68,7 +91,7 @@ void GameState::initKeybinds()
 
 void GameState::initSoundTimer()
 {
-	this->soundTimerMax = 350;
+	//this->soundTimerMax = 350;
 }
 
 
@@ -215,11 +238,11 @@ const bool GameState::getKeyTime()
 
 const bool GameState::getSoundTime()
 {
-	if (this->soundTimer.getElapsedTime().asSeconds() >= this->soundTimerMax)
+	/*if (this->soundTimer.getElapsedTime().asSeconds() >= this->soundTimerMax)
 	{
 		this->soundTimer.restart();
 		return true;
-	}
+	}*/
 	return false;
 }
 
@@ -276,13 +299,11 @@ void GameState::updateInput(const float& dt)
 
 void GameState::updatePlayerInput(const float& dt)
 {
-
 	// Update player Input //
 	if (!this->player->isDead())
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
 		{
-			
 			this->player->move(-1.f, 0.f, dt);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
@@ -297,6 +318,7 @@ void GameState::updatePlayerInput(const float& dt)
 		{
 			this->player->move(0.f, 1.f, dt);
 		}
+
 	}
 }
 
@@ -338,8 +360,12 @@ void GameState::updatePlayer(const float& dt)
 
 	if (this->player->isDead())
 	{
+
+		this->endState();
+
 		this->states->push(new GameOverState(this->stateData));
-		//this->endState();
+
+		this->player->gainHP(100);
 	}
 
 }
@@ -386,29 +412,39 @@ void GameState::updateCombatAndEnemies(const float& dt)
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
+	
+	
+
+	playerAttack.setLoop(true);
 	if (this->player->getInitAttack() 
 		&& enemy->getGlobalBounds().contains(this->mousePosView)
 		&& enemy->getSpriteDistance(*this->player) < this->player->getWeapon()->getRange()
 		&& enemy->getDamageTimerDone())
 	{
 			int dmg = static_cast<int>(this->player->getDamage());
+			playerAttack.setLoop(true);
+			playerAttack.play();
 			enemy->enemyloseHp(dmg);
 			enemy->resetDamageTimer();
 			this->player->gainScore(75);
 			this->tts->addTextTag(DEFAULT_TAG, enemy->getCenter().x, enemy->getCenter().y + 40.f, dmg, "", "");
 
 	}
+	else
+		playerAttack.setLoop(false);
 
 	// Check Enemy damage //
-	if(EnemyTyeps::RED_BAT)
-	
-	if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
-	{
+
+		if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer())
+		{
 			int dmg = enemy->getFireAttributeComp()->damageMax;
+			getAttack.setLoop(true);
+			getAttack.play();
 			this->player->loseHP(dmg);
 			this->tts->addTextTag(NEGATIVE_TAG, this->player->getCenter().x, this->player->getCenter().y, dmg, "-", "HP");
-	}
-
+		}
+		else
+			getAttack.setLoop(false);
 	
 }
 
@@ -433,6 +469,7 @@ void GameState::update(const float& dt)
 	// Unpaused update //
 	if (!this->pause) 
 	{
+		
 		this->updateView(dt);
 
 		this->updatePlayerInput(dt);

@@ -9,10 +9,11 @@ class Sword :
     public MeleeWeapon
 {
 private:
-
 public:
     Sword(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file);
     virtual ~Sword();
+
+    
 
     virtual Sword* clone();
 

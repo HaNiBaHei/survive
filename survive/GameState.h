@@ -9,19 +9,22 @@
 #include "Bow.h"
 #include "TextTagSystem.h"
 #include "GameOverState.h"
+#include"AttributeComponent.h"
 
 class GameState :
     public State
 {
 private:
+    AttributeComponent* attri;
     sf::View view;
     sf::Vector2i viewGridPosition;
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
 
-    sf::Music bsgMusic;
-    sf::Clock soundTimer;
-    sf::Int32 soundTimerMax;
+    sf::Music playerAttack;
+    sf::Music getAttack;
+    sf::Music bg;
+    sf::Music bg2;
 
 
     sf::Font font;

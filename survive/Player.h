@@ -15,10 +15,14 @@ private:
     bool initAttack;
     bool attacking;
     Sword* weapon;
+    
+    sf::Music walksound;
 
     sf::Clock damageTimer;
     sf::Int32 damageTimerMax;
     
+    sf::Clock soundTimer;
+    sf::Int32 soundTimerMax;
 
     // Initializer //
     void initvariables();
@@ -37,10 +41,12 @@ public:
     const bool& getInitAttack() const;
 
     const bool getDamageTimer();
+    const bool getSoundTimer();
 
 
     const unsigned getDamage() const;
     const bool isDead() const;
+
 
     // Modifiers //
     void setInitAttack(const bool initAttack);
@@ -48,6 +54,7 @@ public:
     // Functions //
     void loseHP(const int hp);
     void gainHP(const int hp);
+
 
     void loseScore(const int score);
     void gainScore(const int score);

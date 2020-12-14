@@ -40,15 +40,9 @@ void GameOverState::initGui()
 	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 200));
 
 	// Buttons //
-	this->buttons["RETRY"] = new gui::Button(
-		gui::p2pX(15.f, vm), gui::p2pY(40.f, vm),
-		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
-		&this->font, "Retry", gui::clacCharSize(vm, 80), // font size
-		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50), // text color
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200)); // background color
 
 	this->buttons["EXIT_TOMENU"] = new gui::Button(
-		gui::p2pX(15.f, vm), gui::p2pY(70.f, vm),
+		gui::p2pX(45.f, vm), gui::p2pY(70.f, vm),
 		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
 		&this->font, "MainMenu", gui::clacCharSize(vm, 80),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
@@ -114,14 +108,9 @@ void GameOverState::updateButtons()
 	}
 
 	// New game //
-	if (this->buttons["RETRY"]->isPressed())
-	{
-		this->endState();
-	}
-
 	if (this->buttons["EXIT_TOMENU"]->isPressed())
 	{
-
+		this->states->empty();
 		this->endState();
 	}
 }

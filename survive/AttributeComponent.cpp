@@ -93,9 +93,9 @@ void AttributeComponent::gainScore(const int score)
 	this->score += score;
 }
 
-void AttributeComponent::resetHp()
+void AttributeComponent::resetHp(const int hpmax)
 {
-	this->hp = hpMax;
+	this->hp = hpmax;
 }
 
 const bool AttributeComponent::isDead() const
