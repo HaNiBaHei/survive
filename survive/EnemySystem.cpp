@@ -26,7 +26,7 @@ void EnemySystem::createEnemy(const short type, const float xPos, const float yP
 		enemy_spawner_tile.increaseEnemyCounter();
 		break;
 	case EnemyTyeps::ORC:
-		this->activeEnemies.push_back(new Orc(xPos, yPos, this->textures["Orc"], enemy_spawner_tile, this->player));
+		this->activeEnemies.push_back(new Orc(xPos, yPos, this->textures["ORC"], enemy_spawner_tile, this->player));
 		enemy_spawner_tile.increaseEnemyCounter();
 		break;
 	case EnemyTyeps::BOSS:

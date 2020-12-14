@@ -129,6 +129,7 @@ void GameOverState::updateButtons()
 	// New game //
 	if (this->buttons["EXIT_TOMENU"]->isPressed())
 	{
+		Death.stop();
 		this->states->pop();
 		this->states->push(new MainMenuState(this->stateData));
 	}

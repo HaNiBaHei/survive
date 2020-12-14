@@ -9,19 +9,14 @@ void Orc::initvariables()
 
 void Orc::initAnimations()
 {
-	this->animationComponent->addAnimation("IDLE", 6.f, 0, 0, 2, 0, 56, 56);
-	this->animationComponent->addAnimation("WALK_DOWN", 7.f, 0, 1, 5, 0, 56, 56);
-	this->animationComponent->addAnimation("WALK_LEFT", 7.f, 0, 2, 5, 0, 56, 56);
-	this->animationComponent->addAnimation("WALK_RIGHT", 7.f, 0, 1, 5, 0, 56, 56);
-	this->animationComponent->addAnimation("WALK_UP", 7.f, 0, 0, 2, 5, 56, 56);
-	//this->animationComponent->addAnimation("ATTACK", 7.f, 0, 0, 3, 0, 56, 56);
-	/*
-	this->animationComponent->addAnimation("IDLE", 25.f, 0, 0, 4, 0, 24, 24);
-	this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 0, 4, 0, 24, 24);
-	this->animationComponent->addAnimation("WALK_LEFT", 11.f, 0, 2, 4, 2, 24, 24);
-	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 0, 1, 4, 1, 24, 24);
-	this->animationComponent->addAnimation("WALK_UP", 11.f, 0, 0, 4, 0, 24, 24);*/
-	//this->animationComponent->addAnimation("ATTACK", 6.f, 0, 0, 3, 0, 16, 16);
+	/// <summary>
+	/// 
+	/// </summary>												 x  y  x  y
+	this->animationComponent->addAnimation("IDLE",			1.f, 0, 0, 0, 0, 56, 56);
+	this->animationComponent->addAnimation("WALK_DOWN",		5.f, 0, 1, 5, 1, 56, 56);
+	this->animationComponent->addAnimation("WALK_LEFT",		5.f, 0, 2, 5, 2, 56, 56);
+	this->animationComponent->addAnimation("WALK_RIGHT",	5.f, 0, 1, 5, 1, 56, 56);
+	this->animationComponent->addAnimation("WALK_UP",		5.f, 0, 2, 5, 2, 56, 56);
 }
 
 void Orc::initAI()
@@ -42,7 +37,7 @@ Orc::Orc(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_s
 	this->initvariables();
 	this->initGui();
 
-	this->createHitboxComponent(this->sprite, 0.f, 0.f, 56.f, 56.f);
+	this->createHitboxComponent(this->sprite, 5.f, 0.f, 51.f, 56.f);
 	this->createMovementComponent(130.f, 1400.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createFireAttributeComponent(3);
