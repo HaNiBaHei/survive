@@ -37,7 +37,7 @@ Orc::Orc(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_s
 	this->initvariables();
 	this->initGui();
 
-	this->createHitboxComponent(this->sprite, 5.f, 0.f, 51.f, 56.f);
+	this->createHitboxComponent(this->sprite, 10.f, 0.f, 30.f, 56.f);
 	this->createMovementComponent(130.f, 1400.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createFireAttributeComponent(3);

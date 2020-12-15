@@ -42,7 +42,7 @@ Boss1::Boss1(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& ene
 	this->initvariables();
 	this->initGui();
 
-	this->createHitboxComponent(this->sprite, 0.f, 0.f, 87.f, 110.f);
+	this->createHitboxComponent(this->sprite, 10.f, 5.f, 70.f, 90.f);
 	this->createMovementComponent(80.f, 2000.f, 900.f); // Velocity , Accelerate , Drag //
 	this->createAnimationComponent(texture_sheet);
 	this->createFireAttributeComponent(5);

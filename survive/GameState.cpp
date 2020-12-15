@@ -606,10 +606,10 @@ void GameState::render(sf::RenderTarget* target)
 	// test //
 	for (auto* enemy : this->activeEnemies)
 	{
-		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
+		enemy->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
 	}
 
-	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(),true);
+	this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
 
 	this->tileMap->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
 
@@ -626,7 +626,7 @@ void GameState::render(sf::RenderTarget* target)
 		}
 
 	// Debug Text //
-	this->renderTexture.draw(this->debugText);
+	//this->renderTexture.draw(this->debugText);
 
 	// Final render //
 	this->renderTexture.display();
