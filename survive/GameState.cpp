@@ -3,6 +3,12 @@
 
 
 
+void GameState::initVariables()
+{
+	//this->hightScore = 0;
+
+}
+
 // Initializer //
 void GameState::initDeferredRender()
 {
@@ -200,6 +206,7 @@ void GameState::initSystems()
 GameState::GameState(StateData* state_data)
 	:State(state_data)
 {
+	this->initVariables();
 	this->initMusic();
 	this->initDeferredRender();
 	this->initView();
@@ -255,6 +262,67 @@ const bool GameState::getSoundTime()
 		return true;
 	}*/
 	return false;
+}
+
+void GameState::saveToFile(const std::string file_name)
+{
+	// load ///////////////////////////////////////////////////////////////////////////
+	std::ifstream readScore;
+
+	readScore.open(file_name);
+	int read = 0;
+	int hightscore = 0;
+	unsigned score = this->player->getAttributeComponent()->getScore();
+	int newscore = 0;
+	if (readScore.is_open())
+	{
+
+		readScore >> read;
+		hightscore = read;
+	}
+	else
+	{
+		std::cout << "ERROE::GAMESTATE::COULD NOT LOAD FROM FILE" << file_name << "\n";
+	}
+	std::cout << hightscore << " " << newscore << " " << score <<"\n";
+
+	readScore.close();
+
+	// save ///////////////////////////////////////////////////////////////////////////////////
+	std::ofstream saveScore;
+
+	
+	if (hightscore < score)
+	{
+		saveScore.open(file_name);
+
+		if (saveScore.is_open())
+		{
+
+			saveScore << score;
+			newscore = score;
+		}
+		else
+		{
+			std::cout << "ERROE::GAMESTATE::COULD NOT SAVE TO FILE" << file_name << "\n";
+
+		}
+
+		saveScore.close();
+
+	}
+	else
+		std::cout << "Not Save Score" << "\n";
+
+
+	std::cout << hightscore << " " << newscore << "\n";
+
+	
+}
+
+void GameState::loadFromFile(const std::string file_name)
+{
+	
 }
 
 
@@ -375,35 +443,10 @@ void GameState::updatePlayer(const float& dt)
 		bg.stop();
 		bg2.stop();
 
-		// Save Hight Score //
+		this->saveToFile("Score.slmp");
+
 		
-		std::ifstream readFile;
-		readFile.open("/HightScore.txt");
-
-		if (readFile.is_open())
-		{
-			while (!readFile.eof())
-			{
-				readFile >> hightScore;
-			}
-		}
-
-		readFile.close();
-
-		std::ofstream writeFile("/HightScore.txt");
-
-		if (writeFile.is_open())
-		{
-			if (score > hightScore)
-			{
-				hightScore = score;
-			}
-
-			writeFile << hightScore;
-		}
-
-		writeFile.close();
-		//////////////////////////////////////////////
+		
 		this->states->pop();
 
 		this->states->push(new GameOverState(this->stateData));
@@ -455,7 +498,6 @@ void GameState::updateCombatAndEnemies(const float& dt)
 
 void GameState::updateCombat(Enemy* enemy, const int index, const float& dt)
 {
-	
 	
 
 	playerAttack.setLoop(true);

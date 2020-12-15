@@ -53,6 +53,7 @@ private:
     TextTagSystem* tts;
 
     // Functions //
+    void initVariables();
     void initDeferredRender();
     void initView();
     void initKeybinds();
@@ -78,6 +79,8 @@ public:
     const bool getKeyTime();
     const bool getSoundTime();
 
+    void saveToFile(const std::string file_name);
+    void loadFromFile(const std::string file_name);
 
 
     // Function //

@@ -6,6 +6,10 @@
 #include "Gui.h"
 #include "PlayerGui.h"
 #include "AttributeComponent.h"
+#include "PlayerGui.h"
+#include "Sword.h"
+#include "Bow.h"
+#include "TextTagSystem.h"
 
 class GameOverState :
     public State
@@ -31,6 +35,8 @@ private:
 
     sf::VideoMode& vm;
 
+    unsigned score;
+
     sf::RectangleShape btnBackground;
     std::map<std::string, gui::Button*> buttons;
 
@@ -38,6 +44,7 @@ private:
 
     sf::Music Death;
 
+    void initVariable();
     void initFont();
     void initKeybinds();
     void initGui();
@@ -50,6 +57,7 @@ public:
     GameOverState(StateData* state_data);
     virtual ~GameOverState();
 
+    void updateScoreText();
 
     void updateButtons();
     void updateInput(const float& dt);

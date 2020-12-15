@@ -15,7 +15,7 @@ AttributeComponent::AttributeComponent(int level)
 	this->score = 0;
 	this->level = level;
 	this->exp = 0;
-	this->expNext = (50 * pow(this->level, 3) - 120 * pow(this->level, 2) + (UINT64)400 * this->level) / 3;
+	this->expNext = (50 * pow(this->level, 3) - 120 * pow(this->level, 2) + (UINT64)400 * this->level) / 5;
 	this->attributePoints = 2;
 
 	this->vitality = 1;
@@ -93,6 +93,11 @@ void AttributeComponent::gainScore(const int score)
 	this->score += score;
 }
 
+const int AttributeComponent::getScore() const
+{
+	return this->score;
+}
+
 void AttributeComponent::resetHp(const int hpmax)
 {
 	this->hp = hpmax;
@@ -101,11 +106,6 @@ void AttributeComponent::resetHp(const int hpmax)
 const bool AttributeComponent::isDead() const
 {
 	return this->hp <= 0;
-}
-
-const int AttributeComponent::getScore() const
-{
-	return this->score;
 }
 
 void AttributeComponent::updateStats(const bool reset)
@@ -133,14 +133,15 @@ void AttributeComponent::updateLevel()
 		levelup.play();
 		++this->level;
 		this->damageSword += 5;
+		this->damageMin += 5;
 		this->damageMax += 5;
-		this->hpMax += 20;
+		this->hpMax += 30;
 		this->strength += 2;
 		this->agility += 2;
 		this->vitality += 2;
 		this->hp = hpMax;
 		this->exp -= this->expNext;
-		this->expNext = (50 * pow(this->level, 3) - 120 * pow(this->level, 2) + (UINT64)400 * this->level) / 3;
+		this->expNext = (50 * pow(this->level, 3) - 120 * pow(this->level, 2) + (UINT64)400 * this->level) / 5;
 		++this->attributePoints;
 		this->score = this->score + (this->level - 1) * 200;
 	}

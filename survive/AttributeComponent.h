@@ -48,7 +48,7 @@ public:
 
 	// Functions //
 	std::string debugPrint() const;
-
+	const int getScore() const;
 
 	void loseHP(const int hp);
 	void gainHP(const int hp);
@@ -62,7 +62,6 @@ public:
 	void resetHp(const int hpmax);
 
 	const bool isDead() const;
-	const int getScore() const;
 	void updateStats(const bool reset);
 	void updateLevel();
 

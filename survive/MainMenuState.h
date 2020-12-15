@@ -23,7 +23,12 @@ private:
     sf::Font font;
     std::vector<sf::VideoMode> modes;
 
+    sf::Text score;
+    sf::View view;
+
     sf::Music bgMusic;
+
+    unsigned highscore;
 
     sf::RectangleShape btnBackground;
     std::map<std::string, gui::Button*> buttons;
@@ -41,7 +46,9 @@ public:
     virtual ~MainMenuState();
 
     // Function //
+    void readScore(const std::string file_name);
 
+    void updateScoreText();
     void updateMusic();
     void updateInput(const float& dt);
     void updateButtons();

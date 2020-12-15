@@ -1,6 +1,14 @@
 #include "stdafx.h"
 #include "GameOverState.h"
 
+void GameOverState::initVariable()
+{
+	this->scoreText.setFont(this->font);
+	this->scoreText.setFillColor(sf::Color::White);
+	this->scoreText.setCharacterSize(25);
+	this->scoreText.setPosition(285.f, 270.f);
+}
+
 void GameOverState::initFont()
 {
 	if (!this->font.loadFromFile("Fonts/times.ttf"))
@@ -93,6 +101,7 @@ void GameOverState::resetGui()
 GameOverState::GameOverState(StateData* state_data)
 	:State(state_data), vm(vm)
 {
+	this->initVariable();
 	this->initScore();
 	this->initFont();
 	this->initKeybinds();
@@ -110,6 +119,17 @@ GameOverState::~GameOverState()
 	{
 		delete it->second;
 	}
+}
+
+void GameOverState::updateScoreText()
+{
+	//unsigned score = this->player->getAttributeComponent()->getScore();
+	std::stringstream ss;
+
+	ss << score;
+	
+
+	scoreText.setString(ss.str());
 }
 
 
@@ -145,6 +165,7 @@ void GameOverState::update(const float& dt)
 	this->updateInput(dt);
 
 	this->updateButtons();
+	//this->updateScoreText();
 }
 
 

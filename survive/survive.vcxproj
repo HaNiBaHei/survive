@@ -268,11 +268,9 @@
     <None Include="Config\mainmenustate_keybinds.ini" />
     <None Include="Config\supported_keys.ini" />
     <None Include="fragment_shader.frag" />
+    <None Include="Score.slmp" />
     <None Include="test.slmp" />
     <None Include="vertex_shader.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="HightScore.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

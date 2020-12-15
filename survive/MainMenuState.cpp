@@ -4,6 +4,11 @@
 // Initializer //
 void MainMenuState::initVariables()
 {
+	readScore("Score.slmp");
+	this->score.setFont(this->font);
+	this->score.setFillColor(sf::Color::White);
+	this->score.setCharacterSize(25);
+	this->score.setPosition(285.f, 270.f);
 }
 
 void MainMenuState::initMusic()
@@ -82,7 +87,32 @@ void MainMenuState::initGui()
 	this->btnBackground.setPosition(gui::p2pX(11.5f, vm), 0.f);
 	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 200));
 
+	
 	// Buttons //
+	this->buttons["NAME"] = new gui::Button(
+		gui::p2pX(14.f, vm), gui::p2pY(10.f, vm),
+		gui::p2pX(16.f, vm), gui::p2pY(13.5f, vm),
+		&this->font, "CHINNAPAT  SIRIYAJAI " , gui::clacCharSize(vm, 120), // font size
+		sf::Color(0, 0, 0, 250), sf::Color(0, 0, 0, 250), sf::Color(0, 0, 0, 250), // text color
+		sf::Color(70, 70, 70, 200), sf::Color(70, 70, 70, 200), sf::Color(70, 70, 70, 200)); // background color
+
+	this->buttons["NUM"] = new gui::Button(
+		gui::p2pX(14.f, vm), gui::p2pY(14.f, vm),
+		gui::p2pX(16.f, vm), gui::p2pY(13.5f, vm),
+		&this->font, " 63010231 ", gui::clacCharSize(vm, 120), // font size
+		sf::Color(0, 0, 0, 250), sf::Color(0, 0, 0, 250), sf::Color(0, 0, 0, 250), // text color
+		sf::Color(0, 0, 0, 0), sf::Color(0, 0, 0, 0), sf::Color(0, 0, 0, 0)); // background color
+
+	this->buttons["HIGH_SCORE"] = new gui::Button(
+		gui::p2pX(14.f, vm), gui::p2pY(24.f, vm),
+		gui::p2pX(16.f, vm), gui::p2pY(13.5f, vm),
+		&this->font, " HIGHT SCORE  ", gui::clacCharSize(vm, 100), // font size
+		sf::Color(250, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(250, 0, 0, 250), // text color
+		sf::Color(0, 0, 0, 0), sf::Color(0, 0, 0, 0), sf::Color(0, 0, 0, 0)); // background color
+
+	
+
+
 	this->buttons["GAME_STATE"] = new gui::Button(
 		gui::p2pX(15.f, vm), gui::p2pY(40.f, vm),
 		gui::p2pX(13.f, vm), gui:: p2pX(3.5f, vm),
@@ -157,6 +187,33 @@ MainMenuState::~MainMenuState()
 
 // Functions //
 
+
+void MainMenuState::readScore(const std::string file_name)
+{
+	std::ifstream readScore;
+	unsigned read = 0;
+	readScore.open(file_name);
+	if (readScore.is_open())
+	{
+
+		readScore >> read;
+		this->highscore = read;
+	}
+	else
+	{
+		std::cout << "ERROE::GAMESTATE::COULD NOT LOAD FROM FILE" << file_name << "\n";
+	}
+}
+
+void MainMenuState::updateScoreText()
+{
+	std::stringstream ss;
+
+	ss << this->highscore;
+
+	this->score.setString(ss.str());
+}
+
 void MainMenuState::updateMusic()
 {
 	
@@ -218,9 +275,10 @@ void MainMenuState::update(const float& dt)
 {
 	this->updateMousePositions();
 	this->updateInput(dt);
-
+	
 
 	this->updateButtons();
+	this->updateScoreText();
 	this->updateMusic();
 }
 
@@ -241,6 +299,8 @@ void MainMenuState::render(sf::RenderTarget* target)
 	target->draw(this->background);
 
 	target->draw(this->btnBackground);
+
+	target->draw(this->score);
 
 	this->renderButtons(*target);
 

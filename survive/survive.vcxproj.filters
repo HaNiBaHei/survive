@@ -400,10 +400,8 @@
     <None Include="Config\gamestate_keybinds.ini">
       <Filter>Config</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="HightScore.txt">
+    <None Include="Score.slmp">
       <Filter>Resource Files</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>
