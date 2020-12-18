@@ -173,7 +173,7 @@ void EditorState::updateEditorInput(const float& dt)
 		
 		else
 		{
-			std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE UP" << "\n";
+			//std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE UP" << "\n";
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MODE_DOWN"))))
@@ -184,7 +184,7 @@ void EditorState::updateEditorInput(const float& dt)
 		}
 		else
 		{
-			std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE DOWN" << "\n";
+			//std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE DOWN" << "\n";
 		}
 	}
 }
