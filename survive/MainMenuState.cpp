@@ -123,7 +123,7 @@ void MainMenuState::initGui()
 	this->buttons["SCORE_STATE"] = new gui::Button(
 		gui::p2pX(15.f, vm), gui::p2pY(50.f, vm),
 		gui::p2pX(13.f, vm), gui::p2pX(3.5f, vm),
-		&this->font, "Leaderboard", gui::clacCharSize(vm, 80),
+		&this->font, "How To Play", gui::clacCharSize(vm, 80),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 

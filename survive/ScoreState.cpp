@@ -38,44 +38,25 @@ void ScoreState::initGui()
 			static_cast<float>(vm.height)
 		)
 	);
-	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/background4.png"))
+	if (!this->backgroundTexture.loadFromFile("Resources/images/Backgrounds/background2.png"))
 	{
 		throw "ERROR::MAINMENUSTATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
 
 	this->background.setTexture(&this->backgroundTexture);
 
-	// Buttons background //
-	this->btnBackground.setSize(
-		sf::Vector2f(
-			static_cast<float>(vm.width / 3),
-			static_cast<float>(vm.height / 2)
-		)
-	);
-
-	this->btnBackground.setPosition(gui::p2pX(37.f, vm), gui::p2pY(19.5f, vm));
-	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 200));
+	
 
 	// Buttons //
 	this->buttons["BACK"] = new gui::Button(
-		gui::p2pX(50.f, vm), gui::p2pY(70.1f, vm),
-		gui::p2pX(7.81f, vm), gui::p2pY(3.f, vm),
-		&this->font, "Back", gui::clacCharSize(vm),
+		gui::p2pX(90.f, vm), gui::p2pY(90.1f, vm),
+		gui::p2pX(7.81f, vm), gui::p2pY(6.f, vm),
+		&this->font, "Back", gui::clacCharSize(vm, 80),
 		sf::Color(0, 0, 0, 250), sf::Color(250, 0, 0, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+		sf::Color(70, 70, 70, 150), sf::Color(150, 150, 150, 150), sf::Color(20, 20, 20, 150));
 
 	// Init Text //
-	this->optionsText.setFont(this->font);
-
-	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(44.f, vm), gui::p2pY(10.f, vm)));
-
-	this->optionsText.setCharacterSize(gui::clacCharSize(vm, 45));
-	this->optionsText.setFillColor(sf::Color(0, 0, 0, 255));
-
-
-	this->optionsText.setString(
-		"Leaderboard"
-	);
+	
 }
 
 void ScoreState::resetGui()
@@ -158,5 +139,4 @@ void ScoreState::render(sf::RenderTarget* target)
 
 	this->renderGui(*target);
 
-	target->draw(this->optionsText);
 }
